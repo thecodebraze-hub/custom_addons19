@@ -1,6 +1,6 @@
 {
     "name": "POS KOT Print",
-    "version": "19.0.1.0.5",
+    "version": "19.0.1.0.6",
     "category": "Sales/Point of Sale",
     "summary": "Print Kitchen Order Tickets from POS using the receipt printer",
     "author": "CodeBraze",
@@ -8,6 +8,12 @@
     "support": "sales@codebraze.com",
     "price": 20.0,
     "currency": "USD",
+    "images": [
+        "images/main_screenshot.png",
+        "static/description/cover_screenshot.png",
+        "static/description/kot_button_screenshot.png",
+        "static/description/kot_wizard_screenshot.png",
+    ],
     "depends": ["point_of_sale", "pos_restaurant", "pos_settle_due"],
     "data": [
         "views/res_config_settings_views.xml",
