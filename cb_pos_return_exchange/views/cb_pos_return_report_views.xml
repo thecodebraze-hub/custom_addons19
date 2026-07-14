@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cb_pos_return_report_list" model="ir.ui.view">
+        <field name="name">cb.pos.return.report.list</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0"
+                decoration-muted="state == 'cancelled'"
+                decoration-success="state == 'done'">
+                <field name="name" string="Return"/>
+                <field name="return_date"/>
+                <field name="partner_id" string="Customer"/>
+                <field name="cashier_id"/>
+                <field name="config_id" string="POS"/>
+                <field name="session_id" optional="hide"/>
+                <field name="original_order_ref" string="Original Receipt"/>
+                <field name="refund_method"/>
+                <field name="line_count" string="Lines"/>
+                <field name="amount_untaxed" sum="Subtotal"/>
+                <field name="amount_tax" sum="Tax"/>
+                <field name="amount_total" sum="Total"/>
+                <field name="state"/>
+                <field name="reason" optional="show"/>
+                <field name="days_since_sale" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_return_report_pivot" model="ir.ui.view">
+        <field name="name">cb.pos.return.report.pivot</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <pivot string="Return Report">
+                <field name="config_id" type="row"/>
+                <field name="cashier_id" type="row"/>
+                <field name="return_date" interval="month" type="col"/>
+                <field name="report_count" type="measure"/>
+                <field name="line_count" type="measure"/>
+                <field name="amount_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_return_report_graph" model="ir.ui.view">
+        <field name="name">cb.pos.return.report.graph</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <graph string="Returns" type="bar">
+                <field name="return_date" interval="day"/>
+                <field name="amount_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_return_report_graph_method" model="ir.ui.view">
+        <field name="name">cb.pos.return.report.graph.method</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">31</field>
+        <field name="arch" type="xml">
+            <graph string="Returns by Refund Method" type="pie">
+                <field name="refund_method"/>
+                <field name="amount_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_return_report_search" model="ir.ui.view">
+        <field name="name">cb.pos.return.report.search</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <search string="Return Report">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="cashier_id"/>
+                <field name="config_id"/>
+                <field name="session_id"/>
+                <field name="original_order_ref"/>
+                <field name="refund_method"/>
+                <field name="reason"/>
+                <separator/>
+                <filter name="filter_done" string="Done" domain="[('state','=','done')]"/>
+                <filter name="filter_confirmed" string="Confirmed" domain="[('state','=','confirmed')]"/>
+                <filter name="filter_cancelled" string="Cancelled" domain="[('state','=','cancelled')]"/>
+                <separator/>
+                <filter name="filter_today" string="Today"
+                    domain="[('return_date','=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_this_month" string="This Month"
+                    domain="[('return_date','&gt;=', (context_today() - relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter name="filter_date" string="Return Date" date="return_date"/>
+                <separator/>
+                <filter name="filter_voucher" string="Voucher Refund" domain="[('refund_method','=','voucher')]"/>
+                <filter name="filter_cash" string="Cash Refund" domain="[('refund_method','=','cash')]"/>
+                <filter name="filter_exchange" string="Exchange" domain="[('refund_method','=','exchange')]"/>
+                <group>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                    <filter name="group_pos" string="POS" context="{'group_by': 'config_id'}"/>
+                    <filter name="group_cashier" string="Cashier" context="{'group_by': 'cashier_id'}"/>
+                    <filter name="group_customer" string="Customer" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_refund_method" string="Refund Method" context="{'group_by': 'refund_method'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_day" string="Day" context="{'group_by': 'return_date:day'}"/>
+                    <filter name="group_week" string="Week" context="{'group_by': 'return_date:week'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'return_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cb_pos_return_report" model="ir.actions.act_window">
+        <field name="name">Return Report</field>
+        <field name="res_model">cb.pos.return</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_cb_pos_return_report_list')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_cb_pos_return_report_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_cb_pos_return_report_graph')})]"/>
+        <field name="search_view_id" ref="view_cb_pos_return_report_search"/>
+        <field name="context">{
+            'search_default_filter_done': 1,
+            'report_model': 'cb.pos.return',
+            'report_title': 'return_report',
+            'report_fields': ['name','return_date','partner_id','cashier_id','config_id','original_order_ref','refund_method','line_count','amount_untaxed','amount_tax','amount_total','state','reason']
+        }</field>
+    </record>
+
+    <!-- Customer Return Report -->
+    <record id="view_cb_pos_customer_return_pivot" model="ir.ui.view">
+        <field name="name">cb.pos.return.customer.pivot</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">35</field>
+        <field name="arch" type="xml">
+            <pivot string="Customer Returns">
+                <field name="partner_id" type="row"/>
+                <field name="return_date" interval="month" type="col"/>
+                <field name="report_count" type="measure"/>
+                <field name="amount_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_customer_return_graph" model="ir.ui.view">
+        <field name="name">cb.pos.return.customer.graph</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">35</field>
+        <field name="arch" type="xml">
+            <graph string="Returns by Customer" type="bar">
+                <field name="partner_id"/>
+                <field name="amount_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_cb_pos_customer_return_report" model="ir.actions.act_window">
+        <field name="name">Customer Return Report</field>
+        <field name="res_model">cb.pos.return</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_cb_pos_return_report_list')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_cb_pos_customer_return_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_cb_pos_customer_return_graph')})]"/>
+        <field name="search_view_id" ref="view_cb_pos_return_report_search"/>
+        <field name="context">{
+            'search_default_filter_done': 1,
+            'report_model': 'cb.pos.return',
+            'report_title': 'customer_return_report',
+            'report_fields': ['name','return_date','partner_id','cashier_id','config_id','original_order_ref','refund_method','amount_total','state','reason']
+        }</field>
+    </record>
+
+    <!-- Employee Return Report -->
+    <record id="view_cb_pos_employee_return_pivot" model="ir.ui.view">
+        <field name="name">cb.pos.return.employee.pivot</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">36</field>
+        <field name="arch" type="xml">
+            <pivot string="Employee Returns">
+                <field name="cashier_id" type="row"/>
+                <field name="config_id" type="row"/>
+                <field name="return_date" interval="month" type="col"/>
+                <field name="report_count" type="measure"/>
+                <field name="amount_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_employee_return_graph" model="ir.ui.view">
+        <field name="name">cb.pos.return.employee.graph</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">36</field>
+        <field name="arch" type="xml">
+            <graph string="Returns by Cashier" type="bar">
+                <field name="cashier_id"/>
+                <field name="amount_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_cb_pos_employee_return_report" model="ir.actions.act_window">
+        <field name="name">Employee Return Report</field>
+        <field name="res_model">cb.pos.return</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_cb_pos_return_report_list')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_cb_pos_employee_return_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_cb_pos_employee_return_graph')})]"/>
+        <field name="search_view_id" ref="view_cb_pos_return_report_search"/>
+        <field name="context">{
+            'search_default_filter_done': 1,
+            'report_model': 'cb.pos.return',
+            'report_title': 'employee_return_report',
+            'report_fields': ['name','return_date','cashier_id','config_id','partner_id','original_order_ref','refund_method','amount_total','state']
+        }</field>
+    </record>
+
+    <!-- Daily Return Report -->
+    <record id="view_cb_pos_daily_return_graph" model="ir.ui.view">
+        <field name="name">cb.pos.return.daily.graph</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">37</field>
+        <field name="arch" type="xml">
+            <graph string="Daily Returns" type="line">
+                <field name="return_date" interval="day"/>
+                <field name="report_count" type="measure"/>
+                <field name="amount_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_daily_return_pivot" model="ir.ui.view">
+        <field name="name">cb.pos.return.daily.pivot</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">37</field>
+        <field name="arch" type="xml">
+            <pivot string="Daily Returns">
+                <field name="return_date" interval="day" type="row"/>
+                <field name="config_id" type="col"/>
+                <field name="report_count" type="measure"/>
+                <field name="amount_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_cb_pos_daily_return_report" model="ir.actions.act_window">
+        <field name="name">Daily Return Report</field>
+        <field name="res_model">cb.pos.return</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_cb_pos_return_report_list')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_cb_pos_daily_return_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_cb_pos_daily_return_graph')})]"/>
+        <field name="search_view_id" ref="view_cb_pos_return_report_search"/>
+        <field name="context">{
+            'search_default_filter_done': 1,
+            'search_default_group_day': 1,
+            'report_model': 'cb.pos.return',
+            'report_title': 'daily_return_report',
+            'report_fields': ['name','return_date','config_id','cashier_id','partner_id','amount_total','state']
+        }</field>
+    </record>
+
+    <!-- Monthly Return Report -->
+    <record id="view_cb_pos_monthly_return_graph" model="ir.ui.view">
+        <field name="name">cb.pos.return.monthly.graph</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">38</field>
+        <field name="arch" type="xml">
+            <graph string="Monthly Returns" type="bar">
+                <field name="return_date" interval="month"/>
+                <field name="amount_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_monthly_return_pivot" model="ir.ui.view">
+        <field name="name">cb.pos.return.monthly.pivot</field>
+        <field name="model">cb.pos.return</field>
+        <field name="priority">38</field>
+        <field name="arch" type="xml">
+            <pivot string="Monthly Returns">
+                <field name="return_date" interval="month" type="row"/>
+                <field name="refund_method" type="col"/>
+                <field name="report_count" type="measure"/>
+                <field name="amount_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_cb_pos_monthly_return_report" model="ir.actions.act_window">
+        <field name="name">Monthly Return Report</field>
+        <field name="res_model">cb.pos.return</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_cb_pos_return_report_list')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_cb_pos_monthly_return_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_cb_pos_monthly_return_graph')})]"/>
+        <field name="search_view_id" ref="view_cb_pos_return_report_search"/>
+        <field name="context">{
+            'search_default_filter_done': 1,
+            'search_default_group_month': 1,
+            'report_model': 'cb.pos.return',
+            'report_title': 'monthly_return_report',
+            'report_fields': ['name','return_date','config_id','cashier_id','refund_method','amount_total','state']
+        }</field>
+    </record>
+
+</odoo>

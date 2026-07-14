@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.ExchangeScreen">
+        <div class="cb-exchange-screen d-flex flex-column h-100 bg-view">
+            <header class="d-flex align-items-center gap-2 p-2 border-bottom bg-white">
+                <BackButton onClick="() => this.back()"/>
+                <h3 class="mb-0 flex-grow-1">Exchange</h3>
+            </header>
+
+            <div class="flex-grow-1 overflow-auto p-3">
+                <div t-if="state.error" class="alert alert-danger" t-esc="state.error"/>
+                <div t-if="state.loading" class="text-muted">Processing...</div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <label class="form-label fw-semibold">Return document ID</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" t-model.number="state.returnId"/>
+                            <button type="button" class="btn btn-outline-primary" t-on-click="loadReturnAmount">
+                                Load
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-link px-0 mt-2" t-on-click="openReturnScreen">
+                            Select items to exchange
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-muted small">Return credit</div>
+                                <div class="fs-3 fw-semibold" t-esc="formatMoney(state.returnAmount)"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-muted small">Replacement order</div>
+                                <div class="fs-3 fw-semibold" t-esc="formatMoney(state.replacementTotal)"/>
+                                <button type="button" class="btn btn-sm btn-outline-secondary mt-2"
+                                    t-on-click="refreshTotals">Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-primary">
+                            <div class="card-body">
+                                <div class="text-muted small">Difference</div>
+                                <div class="fs-3 fw-semibold" t-esc="formatMoney(state.difference)"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Customer payment</label>
+                            <input type="number" class="form-control" min="0" step="0.01"
+                                t-model.number="state.customerPayment"/>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="voucherUsed"
+                                    t-model="state.voucherUsed"/>
+                                <label class="form-check-label" for="voucherUsed">Voucher used in settlement</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="autoComplete"
+                                    t-model="state.autoComplete"/>
+                                <label class="form-check-label" for="autoComplete">Complete immediately</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info mt-3 mb-0">
+                    Add replacement items on the product screen, then return here to link the exchange.
+                </div>
+            </div>
+
+            <footer class="p-3 border-top bg-white d-flex justify-content-end gap-2">
+                <button type="button" class="btn btn-outline-secondary btn-lg" t-on-click="back">Back</button>
+                <button type="button" class="btn btn-primary btn-lg" t-on-click="completeExchange">
+                    Complete Exchange
+                </button>
+            </footer>
+        </div>
+    </t>
+
+</templates>

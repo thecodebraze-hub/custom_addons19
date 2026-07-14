@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.PaymentScreen"
+       t-inherit="point_of_sale.PaymentScreen"
+       t-inherit-mode="extension">
+        <xpath expr="//t[@t-call='point_of_sale.PaymentScreenDue']" position="after">
+            <PaymentVouchersPanel
+                order="currentOrder"
+                vouchers="cbVoucherLines"
+                customerBalance="cbVoucherUi.customerBalance"
+                onRemove.bind="removeCbVoucher"
+                formatMoney.bind="formatCbMoney"/>
+        </xpath>
+    </t>
+
+    <t t-name="cb_pos_return_exchange.PaymentScreenButtons"
+       t-inherit="point_of_sale.PaymentScreenButtons"
+       t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('payment-buttons')]//button[contains(@class, 'partner-button')]" position="after">
+            <button t-if="showCbVoucherButton"
+                class="button btn btn-secondary btn-lg w-100 w-md-50 lh-lg"
+                t-on-click="() => this.clickCbScanVoucher()">
+                <i class="fa fa-barcode me-2" role="img" title="Scan Voucher"/>
+                Scan Voucher
+            </button>
+        </xpath>
+    </t>
+
+</templates>

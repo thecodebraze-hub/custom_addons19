@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_cb_pos_return_list_pdf" model="ir.actions.report">
+        <field name="name">Return Report PDF</field>
+        <field name="model">cb.pos.return</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_pos_return_list_document</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_pos_return_list_document</field>
+        <field name="print_report_name">'Return_Report_%s' % (time.strftime('%Y%m%d'))</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+    </record>
+
+    <record id="action_report_cb_pos_voucher_list_pdf" model="ir.actions.report">
+        <field name="name">Voucher Report PDF</field>
+        <field name="model">cb.pos.return.voucher</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_pos_voucher_list_document</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_pos_voucher_list_document</field>
+        <field name="print_report_name">'Voucher_Report_%s' % (time.strftime('%Y%m%d'))</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+    </record>
+
+    <record id="action_report_cb_pos_exchange_list_pdf" model="ir.actions.report">
+        <field name="name">Exchange Report PDF</field>
+        <field name="model">cb.pos.exchange</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_pos_exchange_list_document</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_pos_exchange_list_document</field>
+        <field name="print_report_name">'Exchange_Report_%s' % (time.strftime('%Y%m%d'))</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+    </record>
+
+    <record id="action_report_cb_pos_sales_return_analysis_pdf" model="ir.actions.report">
+        <field name="name">Sales vs Return Analysis PDF</field>
+        <field name="model">cb.pos.sales.return.analysis</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_pos_sales_return_analysis_document</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_pos_sales_return_analysis_document</field>
+        <field name="print_report_name">'Sales_vs_Return_%s' % (time.strftime('%Y%m%d'))</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+    </record>
+
+    <template id="report_cb_pos_return_list_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Return Report</h2>
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>Return</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Cashier</th>
+                                <th>POS</th>
+                                <th>Receipt</th>
+                                <th>Method</th>
+                                <th class="text-end">Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td t-esc="doc.name"/>
+                                <td t-esc="doc.return_date"/>
+                                <td t-esc="doc.partner_id.name"/>
+                                <td t-esc="doc.cashier_id.name"/>
+                                <td t-esc="doc.config_id.name"/>
+                                <td t-esc="doc.original_order_ref"/>
+                                <td t-esc="doc.refund_method"/>
+                                <td class="text-end">
+                                    <span t-field="doc.amount_total"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td t-esc="doc.state"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_cb_pos_voucher_list_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Voucher Report</h2>
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>Voucher</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>POS</th>
+                                <th class="text-end">Issued</th>
+                                <th class="text-end">Redeemed</th>
+                                <th class="text-end">Balance</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td t-esc="doc.name"/>
+                                <td t-esc="doc.voucher_date"/>
+                                <td t-esc="doc.partner_id.name"/>
+                                <td t-esc="doc.config_id.name"/>
+                                <td class="text-end">
+                                    <span t-field="doc.amount"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="doc.amount_redeemed"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="doc.amount_remaining"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td t-esc="doc.state"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_cb_pos_exchange_list_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Exchange Report</h2>
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>Exchange</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Cashier</th>
+                                <th>POS</th>
+                                <th class="text-end">Return</th>
+                                <th class="text-end">Replacement</th>
+                                <th class="text-end">Difference</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td t-esc="doc.name"/>
+                                <td t-esc="doc.exchange_date"/>
+                                <td t-esc="doc.partner_id.name"/>
+                                <td t-esc="doc.cashier_id.name"/>
+                                <td t-esc="doc.config_id.name"/>
+                                <td class="text-end">
+                                    <span t-field="doc.amount_return"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="doc.amount_replacement"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="doc.difference_amount"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td t-esc="doc.state"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_cb_pos_sales_return_analysis_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Sales vs Return Analysis</h2>
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>POS</th>
+                                <th class="text-end">Sales</th>
+                                <th class="text-end">Returns</th>
+                                <th class="text-end">Net Sales</th>
+                                <th class="text-end">Return %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td t-esc="doc.period_date"/>
+                                <td t-esc="doc.config_id.name"/>
+                                <td class="text-end">
+                                    <span t-field="doc.sales_amount"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="doc.return_amount"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="doc.net_sales"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                                <td class="text-end"><t t-esc="'%.2f' % doc.return_pct"/>%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

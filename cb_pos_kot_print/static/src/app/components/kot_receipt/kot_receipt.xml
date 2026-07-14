@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_kot_print.KotReceiptDisplay">
+        <div class="kot-receipt-print">
+            <t t-foreach="props.receiptsData" t-as="receiptData" t-key="receiptData_index">
+                <t t-set="data" t-value="receiptData"/>
+                <t t-call="cb_pos_kot_print.KotReceipt"/>
+            </t>
+        </div>
+    </t>
+
+</templates>

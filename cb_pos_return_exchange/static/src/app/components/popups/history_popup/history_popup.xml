@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.HistoryPopup">
+        <Dialog size="'lg'" contentClass="'cb-history-popup'" footer="false">
+            <t t-set-slot="header">
+                <div class="w-100 d-flex align-items-center justify-content-between">
+                    <h4 class="modal-title mb-0 fw-bold">Return History</h4>
+                    <button type="button" class="btn-close" t-on-click="close"/>
+                </div>
+            </t>
+
+            <div t-if="state.loading" class="text-center py-4 text-muted">Loading...</div>
+            <div t-elif="state.error" class="alert alert-danger" t-esc="state.error"/>
+
+            <div t-elif="props.partnerId" class="table-responsive">
+                <table class="table table-sm align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Date</th>
+                            <th>State</th>
+                            <th>Method</th>
+                            <th class="text-end">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="state.returns" t-as="row" t-key="row.id">
+                            <td t-esc="row.name"/>
+                            <td t-esc="formatDate(row.date)"/>
+                            <td><span class="badge text-bg-light" t-esc="row.state"/></td>
+                            <td t-esc="row.refund_method"/>
+                            <td class="text-end" t-esc="formatMoney(row.amount_total)"/>
+                        </tr>
+                        <tr t-if="!state.returns.length">
+                            <td colspan="5" class="text-center text-muted py-3">No returns found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div t-else="" class="table-responsive">
+                <table class="table table-sm align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Return</th>
+                            <th>Product</th>
+                            <th>Date</th>
+                            <th>Qty</th>
+                            <th class="text-end">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="state.history" t-as="row" t-key="row_index">
+                            <td t-esc="row.return_name"/>
+                            <td t-esc="row.product_name"/>
+                            <td t-esc="formatDate(row.date)"/>
+                            <td t-esc="row.qty"/>
+                            <td class="text-end" t-esc="formatMoney(row.amount)"/>
+                        </tr>
+                        <tr t-if="!state.history.length">
+                            <td colspan="5" class="text-center text-muted py-3">No prior returns.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-end pt-3">
+                <button type="button" class="btn btn-primary btn-lg" t-on-click="close">Close</button>
+            </div>
+        </Dialog>
+    </t>
+
+</templates>

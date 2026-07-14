@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="seq_cb_pos_return" model="ir.sequence">
+        <field name="name">POS Return</field>
+        <field name="code">cb.pos.return</field>
+        <field name="prefix">RET/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_cb_pos_return_voucher" model="ir.sequence">
+        <field name="name">POS Return Voucher</field>
+        <field name="code">cb.pos.return.voucher</field>
+        <field name="prefix">VCH/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_cb_pos_exchange" model="ir.sequence">
+        <field name="name">POS Exchange</field>
+        <field name="code">cb.pos.exchange</field>
+        <field name="prefix">EXC/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_cb_pos_return_voucher_redemption" model="ir.sequence">
+        <field name="name">POS Voucher Redemption</field>
+        <field name="code">cb.pos.return.voucher.redemption</field>
+        <field name="prefix">RED/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

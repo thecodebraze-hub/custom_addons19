@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Return receipts -->
+    <record id="action_report_cb_return_receipt_58" model="ir.actions.report">
+        <field name="name">Return Receipt (58mm)</field>
+        <field name="model">cb.pos.return</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_return_receipt_58</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_return_receipt_58</field>
+        <field name="paperformat_id" ref="paperformat_cb_pos_receipt_58"/>
+        <field name="print_report_name">'Return_%s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_cb_pos_return"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_cashier'))]"/>
+    </record>
+
+    <record id="action_report_cb_return_receipt_80" model="ir.actions.report">
+        <field name="name">Return Receipt (80mm)</field>
+        <field name="model">cb.pos.return</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_return_receipt_80</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_return_receipt_80</field>
+        <field name="paperformat_id" ref="paperformat_cb_pos_receipt_80"/>
+        <field name="print_report_name">'Return_%s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_cb_pos_return"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_cashier'))]"/>
+    </record>
+
+    <!-- Voucher receipts -->
+    <record id="action_report_cb_voucher_receipt_58" model="ir.actions.report">
+        <field name="name">Voucher Receipt (58mm)</field>
+        <field name="model">cb.pos.return.voucher</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_voucher_receipt_58</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_voucher_receipt_58</field>
+        <field name="paperformat_id" ref="paperformat_cb_pos_receipt_58"/>
+        <field name="print_report_name">'Voucher_%s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_cb_pos_return_voucher"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_print_voucher'))]"/>
+    </record>
+
+    <record id="action_report_cb_voucher_receipt_80" model="ir.actions.report">
+        <field name="name">Voucher Receipt (80mm)</field>
+        <field name="model">cb.pos.return.voucher</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_voucher_receipt_80</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_voucher_receipt_80</field>
+        <field name="paperformat_id" ref="paperformat_cb_pos_receipt_80"/>
+        <field name="print_report_name">'Voucher_%s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_cb_pos_return_voucher"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_print_voucher'))]"/>
+    </record>
+
+    <!-- Exchange receipts -->
+    <record id="action_report_cb_exchange_receipt_58" model="ir.actions.report">
+        <field name="name">Exchange Receipt (58mm)</field>
+        <field name="model">cb.pos.exchange</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_exchange_receipt_58</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_exchange_receipt_58</field>
+        <field name="paperformat_id" ref="paperformat_cb_pos_receipt_58"/>
+        <field name="print_report_name">'Exchange_%s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_cb_pos_exchange"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_cashier'))]"/>
+    </record>
+
+    <record id="action_report_cb_exchange_receipt_80" model="ir.actions.report">
+        <field name="name">Exchange Receipt (80mm)</field>
+        <field name="model">cb.pos.exchange</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cb_pos_return_exchange.report_cb_exchange_receipt_80</field>
+        <field name="report_file">cb_pos_return_exchange.report_cb_exchange_receipt_80</field>
+        <field name="paperformat_id" ref="paperformat_cb_pos_receipt_80"/>
+        <field name="print_report_name">'Exchange_%s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_cb_pos_exchange"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_cashier'))]"/>
+    </record>
+
+</odoo>

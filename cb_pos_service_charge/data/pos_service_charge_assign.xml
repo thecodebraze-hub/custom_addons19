@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <function model="pos.config" name="_assign_default_service_charge_configs"/>
+</odoo>

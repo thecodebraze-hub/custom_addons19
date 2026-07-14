@@ -1,0 +1,87 @@
+.cb-lr {
+    --cb-lr-primary: #714b67;
+
+    .cb-lr-balance {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.85rem 1rem;
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        background: #fff4d6;
+        border: 1px solid #f2d894;
+
+        .cb-lr-balance-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #8a6d1f;
+        }
+
+        .cb-lr-balance-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #5a3b52;
+        }
+    }
+
+    .cb-lr-label {
+        display: block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #9a8f96;
+        margin-bottom: 0.35rem;
+    }
+
+    .cb-lr-input-row {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+
+        .cb-lr-input {
+            flex: 1;
+            height: 3rem;
+            padding: 0 0.85rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            background: #f3edf1;
+            color: #5a3b52;
+
+            &:focus {
+                outline: none;
+                border-color: var(--cb-lr-primary);
+                box-shadow: 0 0 0 4px rgba(113, 75, 103, 0.12);
+            }
+        }
+    }
+
+    .cb-lr-amount {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 0.85rem;
+        border-radius: 10px;
+        background: #f7f4f6;
+        color: #4a3f45;
+        margin-bottom: 0.5rem;
+
+        strong {
+            color: #14603a;
+            font-size: 1.1rem;
+        }
+    }
+
+    .cb-lr-error {
+        margin-top: 0.75rem;
+        padding: 0.55rem 0.8rem;
+        border-radius: 10px;
+        background: #fdecea;
+        border: 1px solid #f5c6cb;
+        color: #a12622;
+        font-size: 0.9rem;
+    }
+}

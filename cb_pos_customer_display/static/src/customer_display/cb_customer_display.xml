@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_customer_display.CustomerDisplay"
+       t-inherit="point_of_sale.CustomerDisplay"
+       t-inherit-mode="extension">
+
+        <xpath expr="//div[hasclass('o_customer_display_logo')]" position="before">
+            <div class="cb-cd-welcome">Welcome</div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('o_customer_display_main')]//div[hasclass('rounded-3') and hasclass('small')]" position="replace">
+            <div class="bottom-0 mb-4 d-flex flex-column align-items-center text-center ps-3 pe-2 py-1 rounded-3 small cb-cd-partner">
+                <span class="cb-cd-partner-label">Software partner</span>
+                <span class="cb-cd-partner-name">CodeBraze</span>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('o_customer_display_sidebar')]" position="inside">
+            <div class="cb-cd w-100 px-2 mt-3">
+                <div class="cb-cd-card">
+                    <div class="cb-cd-header">
+                        <span class="cb-cd-avatar"><i class="fa fa-user"/></span>
+                        <span class="cb-cd-title">HI there</span>
+                    </div>
+
+                    <div class="cb-cd-body">
+                        <div t-if="cbPartnerSearch.selectedName" class="cb-cd-selected">
+                            <i class="fa fa-check-circle"/>
+                            <div class="cb-cd-selected-text">
+                                <span class="cb-cd-selected-name">👋 <t t-esc="cbPartnerSearch.selectedName"/>!</span>
+                                <span t-if="cbPartnerSearch.loyaltyPoints !== null" class="cb-cd-points">
+                                    <i class="fa fa-star"/>
+                                    <t t-esc="cbLoyaltyPointsText"/>
+                                    <t t-esc="cbPartnerSearch.loyaltyLabel"/>
+                                </span>
+                            </div>
+                        </div>
+                        <div t-if="cbPartnerSearch.error" class="cb-cd-alert" t-esc="cbPartnerSearch.error"/>
+                        <div t-if="cbPartnerSearch.loading" class="cb-cd-loading">
+                            <i class="fa fa-spinner fa-spin me-1"/> Searching...
+                        </div>
+
+                        <t t-if="!cbPartnerSearch.selectedName">
+                            <label class="cb-cd-label">Mobile / phone number</label>
+                            <input type="tel" class="cb-cd-input"
+                                t-model="cbPartnerSearch.query"
+                                t-on-keydown="cbOnSearchKeydown"
+                                placeholder="Enter your number"
+                                autocomplete="off"
+                                inputmode="numeric"/>
+                            <div class="cb-cd-numpad">
+                                <button t-foreach="[1,2,3,4,5,6,7,8,9]" t-as="digit" t-key="digit"
+                                    type="button" class="cb-cd-key"
+                                    t-on-click="() => this.cbNumpadPress(digit)">
+                                    <t t-esc="digit"/>
+                                </button>
+                                <button type="button" class="cb-cd-key cb-cd-key--clear"
+                                    t-on-click="cbNumpadClear">C</button>
+                                <button type="button" class="cb-cd-key"
+                                    t-on-click="() => this.cbNumpadPress(0)">0</button>
+                                <button type="button" class="cb-cd-key cb-cd-key--back"
+                                    t-on-click="cbNumpadBackspace">
+                                    <i class="fa fa-long-arrow-left"/>
+                                </button>
+                            </div>
+                            <button type="button" class="cb-cd-search"
+                                t-att-disabled="cbPartnerSearch.loading"
+                                t-on-click="cbSearchPartner">
+                                <i class="fa fa-search me-2"/> Search
+                            </button>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+    </t>
+
+</templates>

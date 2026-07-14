@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.BarcodeActionPopup">
+        <Dialog size="'md'" contentClass="'cb-barcode-action-popup'" footer="false">
+            <t t-set-slot="header">
+                <div class="w-100 text-center">
+                    <h4 class="modal-title mb-0 fw-bold">Barcode Detected</h4>
+                </div>
+            </t>
+
+            <div class="text-center mb-3">
+                <div class="cb-barcode-type-icon rounded-circle d-inline-flex align-items-center justify-content-center mb-2">
+                    <i t-attf-class="fa {{typeIcon}} fa-2x" role="img"/>
+                </div>
+                <div class="fw-semibold" t-esc="typeLabel"/>
+                <div class="text-muted small">
+                    <t t-esc="formatLabel"/> · <t t-esc="props.classification.barcode"/>
+                </div>
+                <div class="fs-5 mt-2" t-esc="props.classification.label"/>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-lg btn-primary"
+                    t-foreach="props.classification.actions" t-as="action" t-key="action.id"
+                    t-on-click="() => this.selectAction(action.id)">
+                    <t t-esc="action.label"/>
+                </button>
+            </div>
+
+            <div class="d-flex justify-content-center pt-3">
+                <button type="button" class="btn btn-secondary btn-lg" t-on-click="cancel">Cancel</button>
+            </div>
+        </Dialog>
+    </t>
+
+</templates>

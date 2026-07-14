@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="group_cb_pos_cancel_approver" model="res.groups">
+        <field name="name">POS Cancel Approver</field>
+        <field name="comment">Users in this group can approve POS order cancellations and line removals with their PIN.</field>
+    </record>
+
+    <!-- POS managers can approve by default -->
+    <record id="point_of_sale.group_pos_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_cb_pos_cancel_approver'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_service_charge.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('receipt-total')]" position="before">
+            <div t-if="hasServiceCharge" class="pos-receipt-amount d-flex">
+                <span t-esc="serviceChargeLabel"/>
+                <span t-out="currencyServiceChargeAmount" class="ms-auto font-monospace"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('pos-config-name')]/ancestor::div[hasclass('gap-2')]" position="after">
+            <div class="pos-receipt-order-data text-center pt-3 pos-receipt-partner-footer">
+                <div>Software Partner</div>
+                <div class="pos-receipt-partner-name fw-bold">Codebraze PVT LTD</div>
+                <div>070 2 78 78 73</div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

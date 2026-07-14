@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cb_pos_sales_return_analysis_list" model="ir.ui.view">
+        <field name="name">cb.pos.sales.return.analysis.list</field>
+        <field name="model">cb.pos.sales.return.analysis</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0">
+                <field name="period_date"/>
+                <field name="config_id" string="POS"/>
+                <field name="sales_count" sum="Sales Count"/>
+                <field name="sales_amount" sum="Sales"/>
+                <field name="return_count" sum="Return Count"/>
+                <field name="return_amount" sum="Returns"/>
+                <field name="net_sales" sum="Net Sales"/>
+                <field name="return_pct" avg="Return %"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_sales_return_analysis_pivot" model="ir.ui.view">
+        <field name="name">cb.pos.sales.return.analysis.pivot</field>
+        <field name="model">cb.pos.sales.return.analysis</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales vs Return Analysis">
+                <field name="config_id" type="row"/>
+                <field name="period_date" interval="month" type="col"/>
+                <field name="sales_amount" type="measure"/>
+                <field name="return_amount" type="measure"/>
+                <field name="net_sales" type="measure"/>
+                <field name="return_pct" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_sales_return_analysis_graph" model="ir.ui.view">
+        <field name="name">cb.pos.sales.return.analysis.graph</field>
+        <field name="model">cb.pos.sales.return.analysis</field>
+        <field name="arch" type="xml">
+            <graph string="Sales vs Returns" type="line">
+                <field name="period_date" interval="week"/>
+                <field name="sales_amount" type="measure"/>
+                <field name="return_amount" type="measure"/>
+                <field name="net_sales" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_sales_return_analysis_graph_bar" model="ir.ui.view">
+        <field name="name">cb.pos.sales.return.analysis.graph.bar</field>
+        <field name="model">cb.pos.sales.return.analysis</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <graph string="Sales vs Returns by POS" type="bar">
+                <field name="config_id"/>
+                <field name="sales_amount" type="measure"/>
+                <field name="return_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_sales_return_analysis_search" model="ir.ui.view">
+        <field name="name">cb.pos.sales.return.analysis.search</field>
+        <field name="model">cb.pos.sales.return.analysis</field>
+        <field name="arch" type="xml">
+            <search string="Sales vs Return Analysis">
+                <field name="config_id"/>
+                <separator/>
+                <filter name="filter_this_month" string="This Month"
+                    domain="[('period_date','&gt;=', (context_today() - relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_date" string="Period" date="period_date"/>
+                <group>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                    <filter name="group_pos" string="POS" context="{'group_by': 'config_id'}"/>
+                    <filter name="group_day" string="Day" context="{'group_by': 'period_date:day'}"/>
+                    <filter name="group_week" string="Week" context="{'group_by': 'period_date:week'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'period_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cb_pos_sales_return_analysis" model="ir.actions.act_window">
+        <field name="name">Sales vs Return Analysis</field>
+        <field name="res_model">cb.pos.sales.return.analysis</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="search_view_id" ref="view_cb_pos_sales_return_analysis_search"/>
+        <field name="context">{
+            'search_default_filter_this_month': 1,
+            'report_model': 'cb.pos.sales.return.analysis',
+            'report_title': 'sales_vs_return_analysis',
+            'report_fields': ['period_date','config_id','sales_count','sales_amount','return_count','return_amount','net_sales','return_pct']
+        }</field>
+    </record>
+
+</odoo>

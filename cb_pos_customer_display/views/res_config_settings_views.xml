@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_cb_customer_display" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.cb_pos_customer_display</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <setting id="customer_display" position="after">
+                <setting id="cb_show_loyalty_points"
+                    string="Customer Display: Loyalty Points"
+                    help="Show the selected customer's loyalty points on the customer-facing display">
+                    <field name="pos_cb_show_loyalty_points"/>
+                </setting>
+            </setting>
+        </field>
+    </record>
+</odoo>

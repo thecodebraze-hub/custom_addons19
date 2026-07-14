@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_kot_print.KotWizardPopup">
+        <Dialog size="'md'" contentClass="'kot-wizard-popup'" bodyClass="'kot-wizard-body p-0'" withBodyPadding="false">
+            <t t-set-slot="header">
+                <div class="kot-wizard-header w-100 text-center position-relative py-1">
+                    <h4 class="modal-title mb-0 w-100 text-white">Kitchen Order Ticket</h4>
+                    <button
+                        type="button"
+                        class="btn-close btn-close-white position-absolute end-0 top-50 translate-middle-y me-1"
+                        aria-label="Close"
+                        t-on-click="props.close"/>
+                </div>
+            </t>
+            <div class="kot-wizard-preview" t-ref="kotReceipt">
+                <div t-if="state.loading" class="kot-wizard-loading text-center">
+                    <i class="fa fa-spin fa-circle-o-notch fa-2x text-white"/>
+                </div>
+                <KotReceiptDisplay t-else="" receiptsData="state.receiptsData"/>
+            </div>
+            <t t-set-slot="footer">
+                <div class="kot-wizard-footer d-flex gap-3 w-100">
+                    <button
+                        class="btn kot-wizard-back btn-lg flex-fill py-3"
+                        t-on-click="() => this.backToOrder()">
+                        <i class="fa fa-arrow-left me-2"/>Back to Order
+                    </button>
+                    <button
+                        class="btn kot-wizard-print btn-lg flex-fill py-3"
+                        t-att-disabled="!state.receiptsData.length or doPrintKot.status === 'loading'"
+                        t-on-click="() => doPrintKot.call()">
+                        <i t-attf-class="fa {{doPrintKot.status === 'loading' ? 'fa-fw fa-spin fa-circle-o-notch' : 'fa-print'}} me-2"/>
+                        Print KOT
+                    </button>
+                </div>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>

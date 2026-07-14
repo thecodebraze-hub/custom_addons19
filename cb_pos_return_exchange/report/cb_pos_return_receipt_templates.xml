@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Shared receipt layout -->
+    <template id="cb_pos_receipt_layout">
+        <t t-set="company" t-value="doc.company_id"/>
+        <t t-set="settings" t-value="doc._cb_receipt_settings(company, doc.config_id)"/>
+        <t t-set="barcode_value" t-value="doc._cb_receipt_barcode_value()"/>
+        <t t-set="barcode_type" t-value="doc._cb_receipt_barcode_type(barcode_value, settings)"/>
+        <t t-set="barcode_width" t-value="paper_width == 58 and 220 or 300"/>
+        <t t-set="font_size" t-value="paper_width == 58 and '9px' or '11px'"/>
+        <t t-set="title_size" t-value="paper_width == 58 and '13px' or '16px'"/>
+
+        <div class="cb-pos-receipt" t-attf-style="font-family: monospace, 'Courier New', Courier; font-size: {{font_size}}; width: 100%; color: #000;">
+            <!-- Logo -->
+            <div style="text-align: center; margin-bottom: 6px;">
+                <img t-if="company.logo"
+                    t-att-src="image_data_uri(company.logo)"
+                    t-attf-style="max-width: {{paper_width == 58 and '45mm' or '60mm'}}; max-height: 18mm;"/>
+            </div>
+
+            <!-- Company details -->
+            <div style="text-align: center; line-height: 1.35; margin-bottom: 8px;">
+                <div t-attf-style="font-weight: bold; font-size: {{title_size}};" t-esc="company.name"/>
+                <div t-if="settings.get('header_message')" t-esc="settings['header_message']"/>
+                <div t-if="company.street" t-esc="company.street"/>
+                <div t-if="company.street2" t-esc="company.street2"/>
+                <div>
+                    <t t-if="company.city" t-esc="company.city"/>
+                    <t t-if="company.state_id" t-esc="', ' + company.state_id.code"/>
+                    <t t-if="company.zip" t-esc="' ' + company.zip"/>
+                </div>
+                <div t-if="company.country_id" t-esc="company.country_id.name"/>
+                <div t-if="company.phone">Tel: <t t-esc="company.phone"/></div>
+                <div t-if="company.email" t-esc="company.email"/>
+                <div t-if="company.website" t-esc="company.website"/>
+                <div t-if="company.vat">VAT: <t t-esc="company.vat"/></div>
+            </div>
+
+            <div style="border-top: 1px dashed #000; margin: 6px 0;"/>
+
+            <!-- Title -->
+            <div t-attf-style="text-align: center; font-weight: bold; font-size: {{title_size}}; margin-bottom: 6px;">
+                <t t-esc="receipt_title"/>
+            </div>
+
+            <!-- Body slot -->
+            <t t-out="0"/>
+
+            <div style="border-top: 1px dashed #000; margin: 8px 0;"/>
+
+            <!-- Barcode -->
+            <div t-if="barcode_value" style="text-align: center; margin: 8px 0;">
+                <img t-if="settings.get('voucher_use_qr_code') and receipt_title == 'VOUCHER RECEIPT'"
+                    t-attf-src="/report/barcode/QR/{{barcode_value}}?width={{paper_width == 58 and 120 or 150}}&amp;height={{paper_width == 58 and 120 or 150}}"
+                    t-attf-style="max-width: {{paper_width == 58 and '32mm' or '40mm'}}; margin-bottom: 6px;" alt="QR Code"/>
+                <img t-attf-src="/report/barcode/{{barcode_type}}/{{barcode_value}}?width={{barcode_width}}&amp;height=70&amp;humanreadable=1"
+                    t-attf-style="max-width: 100%; height: 70px;" alt="Barcode"/>
+                <div style="margin-top: 4px; font-weight: bold;" t-esc="barcode_value"/>
+            </div>
+
+            <!-- Footer meta -->
+            <div style="margin-top: 8px; line-height: 1.4;">
+                <div t-if="cashier_name">
+                    <span>Cashier: </span><t t-esc="cashier_name"/>
+                </div>
+                <div t-if="receipt_date">
+                    <span>Date: </span><t t-esc="receipt_date"/>
+                </div>
+            </div>
+
+            <div style="border-top: 1px dashed #000; margin: 8px 0;"/>
+
+            <!-- Thank you -->
+            <div style="text-align: center; font-weight: bold; margin-top: 10px; white-space: pre-line;"
+                t-esc="settings.get('thank_you_message')"/>
+        </div>
+    </template>
+
+    <!-- Return receipt body -->
+    <template id="cb_pos_receipt_return_body">
+        <t t-call="cb_pos_return_exchange.cb_pos_receipt_layout">
+            <t t-set="receipt_title">RETURN RECEIPT</t>
+            <t t-set="cashier_name" t-value="doc.cashier_id.name"/>
+            <t t-set="receipt_date" t-value="doc._cb_format_receipt_datetime(doc.create_date)"/>
+
+            <div style="margin-bottom: 6px;">
+                <div><strong>Return:</strong> <t t-esc="doc.name"/></div>
+                <div t-if="doc.partner_id"><strong>Customer:</strong> <t t-esc="doc.partner_id.name"/></div>
+                <div t-if="doc.original_order_id"><strong>Original Order:</strong> <t t-esc="doc.original_order_id.pos_reference or doc.original_order_id.name"/></div>
+                <div><strong>Refund Method:</strong> <span t-field="doc.refund_method"/></div>
+                <div t-if="doc.reason"><strong>Reason:</strong> <t t-esc="doc.reason"/></div>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 6px 0;">
+                <thead>
+                    <tr style="border-bottom: 1px solid #000;">
+                        <th style="text-align: left;">Product</th>
+                        <th style="text-align: right;">Qty</th>
+                        <th style="text-align: right;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="doc.line_ids" t-as="line">
+                        <td t-esc="line.product_id.display_name"/>
+                        <td style="text-align: right;" t-esc="line.qty"/>
+                        <td style="text-align: right;">
+                            <span t-field="line.price_total"
+                                t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 8px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Subtotal</span>
+                    <span t-field="doc.amount_untaxed"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Tax</span>
+                    <span t-field="doc.amount_tax"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 110%; margin-top: 4px;">
+                    <span>Total Refund</span>
+                    <span t-field="doc.amount_total"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+            </div>
+
+            <div t-if="doc.voucher_id" style="margin-top: 8px;">
+                <div><strong>Voucher Issued:</strong> <t t-esc="doc.voucher_id.name"/></div>
+                <div><strong>Voucher Balance:</strong>
+                    <span t-field="doc.voucher_id.amount_remaining"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.voucher_id.currency_id}"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Voucher receipt body -->
+    <template id="cb_pos_receipt_voucher_body">
+        <t t-call="cb_pos_return_exchange.cb_pos_receipt_layout">
+            <t t-set="receipt_title">VOUCHER RECEIPT</t>
+            <t t-set="cashier_name" t-value="doc.printed_by.name or doc.create_uid.name"/>
+            <t t-set="receipt_date" t-value="doc._cb_format_receipt_datetime(doc.issue_date or doc.create_date)"/>
+
+            <div style="text-align: center; margin: 10px 0;">
+                <div style="font-weight: bold; font-size: 120%;" t-esc="doc.name"/>
+                <div t-if="doc.partner_id" style="margin-top: 4px;">
+                    <strong>Customer:</strong> <t t-esc="doc.partner_id.name"/>
+                </div>
+            </div>
+
+            <div style="margin: 8px 0; line-height: 1.5;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Voucher Amount</span>
+                    <span style="font-weight: bold;" t-field="doc.amount"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Redeemed</span>
+                    <span t-field="doc.amount_redeemed"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
+                    <span>Remaining Balance</span>
+                    <span t-field="doc.amount_remaining"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+                <div t-if="doc.partner_id" style="display: flex; justify-content: space-between; margin-top: 6px; border-top: 1px dotted #000; padding-top: 4px;">
+                    <span>Customer Balance</span>
+                    <span t-esc="doc._cb_format_receipt_amount(doc._cb_receipt_customer_balance())"/>
+                </div>
+            </div>
+
+            <div style="margin-top: 6px;">
+                <div><strong>Status:</strong> <span t-field="doc.state"/></div>
+                <div t-if="doc.expiry_date"><strong>Expires:</strong> <t t-esc="doc._cb_format_receipt_datetime(doc.expiry_date)"/></div>
+                <div t-if="doc.return_id"><strong>Return:</strong> <t t-esc="doc.return_id.name"/></div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Exchange receipt body -->
+    <template id="cb_pos_receipt_exchange_body">
+        <t t-call="cb_pos_return_exchange.cb_pos_receipt_layout">
+            <t t-set="receipt_title">EXCHANGE RECEIPT</t>
+            <t t-set="cashier_name" t-value="doc.cashier_id.name"/>
+            <t t-set="receipt_date" t-value="doc._cb_format_receipt_datetime(doc.create_date)"/>
+
+            <div style="margin-bottom: 6px;">
+                <div><strong>Exchange:</strong> <t t-esc="doc.name"/></div>
+                <div t-if="doc.partner_id"><strong>Customer:</strong> <t t-esc="doc.partner_id.name"/></div>
+                <div t-if="doc.return_id"><strong>Return:</strong> <t t-esc="doc.return_id.name"/></div>
+                <div t-if="doc.replacement_order_id"><strong>Replacement Order:</strong> <t t-esc="doc.replacement_order_id.pos_reference or doc.replacement_order_id.name"/></div>
+            </div>
+
+            <div style="margin: 8px 0; line-height: 1.5;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Return Value</span>
+                    <span t-field="doc.amount_return"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Replacement Value</span>
+                    <span t-field="doc.amount_replacement"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
+                    <span>Difference</span>
+                    <span t-field="doc.difference_amount"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+                <div t-if="doc.customer_payment" style="display: flex; justify-content: space-between; margin-top: 4px;">
+                    <span>Customer Paid</span>
+                    <span t-field="doc.customer_payment"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                </div>
+            </div>
+
+            <div style="margin-top: 6px;">
+                <div><strong>Settlement:</strong> <span t-field="doc.settlement_mode"/></div>
+                <div t-if="doc.voucher_id">
+                    <strong>Voucher:</strong> <t t-esc="doc.voucher_id.name"/>
+                    — <span t-field="doc.voucher_id.amount_remaining"
+                        t-options="{'widget': 'monetary', 'display_currency': doc.voucher_id.currency_id}"/> balance
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Wrapper reports: 58mm -->
+    <template id="report_cb_return_receipt_58">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="paper_width" t-value="58"/>
+                <t t-call="cb_pos_return_exchange.cb_pos_receipt_return_body"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_cb_voucher_receipt_58">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="paper_width" t-value="58"/>
+                <t t-call="cb_pos_return_exchange.cb_pos_receipt_voucher_body"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_cb_exchange_receipt_58">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="paper_width" t-value="58"/>
+                <t t-call="cb_pos_return_exchange.cb_pos_receipt_exchange_body"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Wrapper reports: 80mm -->
+    <template id="report_cb_return_receipt_80">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="paper_width" t-value="80"/>
+                <t t-call="cb_pos_return_exchange.cb_pos_receipt_return_body"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_cb_voucher_receipt_80">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="paper_width" t-value="80"/>
+                <t t-call="cb_pos_return_exchange.cb_pos_receipt_voucher_body"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_cb_exchange_receipt_80">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="paper_width" t-value="80"/>
+                <t t-call="cb_pos_return_exchange.cb_pos_receipt_exchange_body"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

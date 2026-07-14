@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="product_category_liquor" model="product.category">
+            <field name="name">Liquor</field>
+        </record>
+
+        <record id="pos_category_liquor" model="pos.category">
+            <field name="name">Liquor</field>
+        </record>
+
+        <record id="product_gal_arrack_full_bottle" model="product.product">
+            <field name="name">Gal Arrack Full Bottle 750ml</field>
+            <field name="default_code">GAL-FULL-750</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="True"/>
+            <field name="available_in_pos" eval="True"/>
+            <field name="pos_categ_ids" eval="[Command.set([ref('cb_bar_liquor_inventory.pos_category_liquor')])]"/>
+            <field name="categ_id" ref="cb_bar_liquor_inventory.product_category_liquor"/>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="standard_price">2500.0</field>
+            <field name="list_price">3500.0</field>
+            <field name="liquor_is_liquor" eval="True"/>
+            <field name="liquor_bottle_size_ml">750.0</field>
+        </record>
+
+        <record id="product_gal_arrack_half_bottle" model="product.product">
+            <field name="name">Gal Arrack Half Bottle</field>
+            <field name="default_code">GAL-HALF</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="True"/>
+            <field name="available_in_pos" eval="True"/>
+            <field name="pos_categ_ids" eval="[Command.set([ref('cb_bar_liquor_inventory.pos_category_liquor')])]"/>
+            <field name="categ_id" ref="cb_bar_liquor_inventory.product_category_liquor"/>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="standard_price">1300.0</field>
+            <field name="list_price">1800.0</field>
+            <field name="liquor_is_liquor" eval="True"/>
+            <field name="liquor_bottle_size_ml">375.0</field>
+        </record>
+
+        <record id="product_gal_arrack_quarter_bottle" model="product.product">
+            <field name="name">Gal Arrack Quarter Bottle</field>
+            <field name="default_code">GAL-QUARTER</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="True"/>
+            <field name="available_in_pos" eval="True"/>
+            <field name="pos_categ_ids" eval="[Command.set([ref('cb_bar_liquor_inventory.pos_category_liquor')])]"/>
+            <field name="categ_id" ref="cb_bar_liquor_inventory.product_category_liquor"/>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="standard_price">700.0</field>
+            <field name="list_price">1000.0</field>
+            <field name="liquor_is_liquor" eval="True"/>
+            <field name="liquor_bottle_size_ml">180.0</field>
+        </record>
+
+        <record id="product_gal_arrack_100ml_shot" model="product.product">
+            <field name="name">Gal Arrack 100ml Shot</field>
+            <field name="default_code">GAL-SHOT-100</field>
+            <field name="type">service</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="available_in_pos" eval="True"/>
+            <field name="pos_categ_ids" eval="[Command.set([ref('cb_bar_liquor_inventory.pos_category_liquor')])]"/>
+            <field name="categ_id" ref="cb_bar_liquor_inventory.product_category_liquor"/>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="list_price">600.0</field>
+            <field name="liquor_is_liquor" eval="True"/>
+            <field name="liquor_is_shot_product" eval="True"/>
+            <field name="liquor_parent_bottle_product_id" ref="cb_bar_liquor_inventory.product_gal_arrack_full_bottle"/>
+            <field name="liquor_consumption_ml">100.0</field>
+        </record>
+
+        <record id="product_gal_arrack_200ml_shot" model="product.product">
+            <field name="name">Gal Arrack 200ml Shot</field>
+            <field name="default_code">GAL-SHOT-200</field>
+            <field name="type">service</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="available_in_pos" eval="True"/>
+            <field name="pos_categ_ids" eval="[Command.set([ref('cb_bar_liquor_inventory.pos_category_liquor')])]"/>
+            <field name="categ_id" ref="cb_bar_liquor_inventory.product_category_liquor"/>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="list_price">1100.0</field>
+            <field name="liquor_is_liquor" eval="True"/>
+            <field name="liquor_is_shot_product" eval="True"/>
+            <field name="liquor_parent_bottle_product_id" ref="cb_bar_liquor_inventory.product_gal_arrack_full_bottle"/>
+            <field name="liquor_consumption_ml">200.0</field>
+        </record>
+    </data>
+</odoo>

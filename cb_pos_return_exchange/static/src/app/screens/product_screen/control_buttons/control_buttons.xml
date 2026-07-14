@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.ControlButtons"
+       t-inherit="point_of_sale.ControlButtons"
+       t-inherit-mode="extension">
+        <!-- Hide the core Refund button when our module is active. -->
+        <xpath expr="//div[hasclass('control-buttons-modal')]//button[contains(@t-on-click, 'clickRefund')]" position="attributes">
+            <attribute name="t-if">this.pos.cashier._role != 'minimal' and !showCbReturnButtons</attribute>
+        </xpath>
+        <!-- Return/Exchange lives only in the Actions (More) modal. -->
+        <xpath expr="//div[hasclass('control-buttons-modal')]//button[contains(@t-on-click, 'clickRefund')]" position="before">
+            <button t-if="showCbReturnButtons" t-att-class="buttonClass"
+                t-on-click="() => this.clickCbExchange()">
+                <i class="fa fa-exchange me-1" role="img" aria-label="Return/Exchange" title="Return/Exchange"/>
+                Return/Exchange
+            </button>
+            <button t-if="showCbReturnButtons" t-att-class="buttonClass"
+                t-on-click="() => this.clickCbReturnHistory()">
+                <i class="fa fa-history me-1" role="img" aria-label="Return/Exchange History" title="Return/Exchange History"/>
+                History
+            </button>
+        </xpath>
+    </t>
+
+</templates>

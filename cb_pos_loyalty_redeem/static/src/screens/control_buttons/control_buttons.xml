@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_loyalty_redeem.ControlButtons"
+       t-inherit="point_of_sale.ControlButtons"
+       t-inherit-mode="extension">
+
+        <xpath expr="//button[hasclass('o_pricelist_button')]" position="before">
+            <button t-if="cbShowLoyaltyRedeem and props.showRemainingButtons"
+                t-att-class="buttonClass"
+                t-on-click="onRedeemLoyaltyPoints">
+                <i class="fa fa-star me-1" role="img"/>
+                Redeem Points
+                <span t-if="cbPartnerLoyaltyText" class="ms-1 text-muted">
+                    (<t t-esc="cbPartnerLoyaltyText"/>)
+                </span>
+            </button>
+        </xpath>
+
+    </t>
+
+</templates>

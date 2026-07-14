@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('footer-powered-by')]" position="before">
+            <div t-if="cbReturnBarcodeUrl" class="pos-receipt-center-align pt-3">
+                <img t-att-src="cbReturnBarcodeUrl"
+                    style="max-width: 100%; height: 60px;" alt="Order Barcode"/>
+                <div style="font-size: 70%;">Scan this for return / exchange</div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

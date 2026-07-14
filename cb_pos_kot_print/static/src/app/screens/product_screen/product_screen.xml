@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_kot_print.ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('control-buttons')]" position="before">
+            <button
+                t-if="showKotBar and pos.numpadMode != 'table'"
+                class="kot-bar-button btn btn-lg btn-primary w-100 d-flex align-items-center justify-content-between gap-2 py-3 mb-2"
+                t-on-click="() => doSubmitKot.call()"
+                t-att-disabled="doSubmitKot.status === 'loading'"
+            >
+                <span class="fw-bold fs-4">KOT</span>
+                <div class="d-flex flex-wrap justify-content-end gap-2">
+                    <t t-foreach="displayKotCount" t-as="kotCountLine" t-key="kotCountLine_index">
+                        <span class="badge rounded-pill text-bg-dark px-2 py-1">
+                            <t t-esc="this.env.utils.formatProductQty(kotCountLine.count, false)"/>
+                            <t t-esc="kotCountLine.name"/>
+                        </span>
+                    </t>
+                    <span t-if="isKotCountOverflow" class="badge rounded-pill text-bg-dark px-2 py-1">...</span>
+                </div>
+            </button>
+        </xpath>
+    </t>
+
+</templates>

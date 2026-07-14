@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_product_info.ProductCard"
+       t-inherit="point_of_sale.ProductCard"
+       t-inherit-mode="extension">
+
+        <xpath expr="//article" position="inside">
+            <t t-if="cbHasInfo">
+                <button type="button"
+                    class="cb-pi-btn position-absolute top-0 end-0 m-1"
+                    title="Product info"
+                    t-on-click.stop="cbToggleInfo">
+                    <i class="fa fa-info-circle"/>
+                </button>
+
+                <div t-if="cbInfo.open"
+                    class="cb-pi-pop position-absolute end-0 m-1"
+                    t-on-click.stop="() => {}">
+                    <div class="cb-pi-head">
+                        <span>Product info</span>
+                        <i class="fa fa-times cb-pi-close" t-on-click.stop="cbCloseInfo"/>
+                    </div>
+
+                    <!-- Single variant: compact rows -->
+                    <t t-if="!cbIsMultiVariant">
+                        <t t-set="line" t-value="cbInfoLines[0]"/>
+                        <div t-if="cbShowCost" class="cb-pi-row">
+                            <span class="cb-pi-label">Cost</span>
+                            <span class="cb-pi-value" t-esc="line.cost"/>
+                        </div>
+                        <div t-if="cbShowOnhand" class="cb-pi-row">
+                            <span class="cb-pi-label">On hand</span>
+                            <span class="cb-pi-value" t-esc="line.onhand"/>
+                        </div>
+                    </t>
+
+                    <!-- Multiple variants: one block per variant -->
+                    <t t-else="">
+                        <div class="cb-pi-variants">
+                            <div t-foreach="cbInfoLines" t-as="line" t-key="line.id" class="cb-pi-variant">
+                                <div class="cb-pi-variant-name" t-esc="line.label"/>
+                                <div t-if="cbShowCost" class="cb-pi-row">
+                                    <span class="cb-pi-label">Cost</span>
+                                    <span class="cb-pi-value" t-esc="line.cost"/>
+                                </div>
+                                <div t-if="cbShowOnhand" class="cb-pi-row">
+                                    <span class="cb-pi-label">On hand</span>
+                                    <span class="cb-pi-value" t-esc="line.onhand"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+
+    </t>
+
+</templates>

@@ -1,0 +1,27 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cb_pos_return_cashier,cb.pos.return cashier,model_cb_pos_return,group_cb_pos_cashier,1,1,1,0
+access_cb_pos_return_manager,cb.pos.return manager,model_cb_pos_return,group_cb_pos_manager,1,1,1,1
+access_cb_pos_return_administrator,cb.pos.return administrator,model_cb_pos_return,group_cb_pos_administrator,1,1,1,1
+access_cb_pos_return_line_cashier,cb.pos.return.line cashier,model_cb_pos_return_line,group_cb_pos_cashier,1,1,1,0
+access_cb_pos_return_line_manager,cb.pos.return.line manager,model_cb_pos_return_line,group_cb_pos_manager,1,1,1,1
+access_cb_pos_return_line_administrator,cb.pos.return.line administrator,model_cb_pos_return_line,group_cb_pos_administrator,1,1,1,1
+access_cb_pos_return_voucher_cashier,cb.pos.return.voucher cashier,model_cb_pos_return_voucher,group_cb_pos_cashier,1,1,1,0
+access_cb_pos_return_voucher_manager,cb.pos.return.voucher manager,model_cb_pos_return_voucher,group_cb_pos_manager,1,1,1,1
+access_cb_pos_return_voucher_administrator,cb.pos.return.voucher administrator,model_cb_pos_return_voucher,group_cb_pos_administrator,1,1,1,1
+access_cb_pos_exchange_cashier,cb.pos.exchange cashier,model_cb_pos_exchange,group_cb_pos_cashier,1,1,1,0
+access_cb_pos_exchange_manager,cb.pos.exchange manager,model_cb_pos_exchange,group_cb_pos_manager,1,1,1,1
+access_cb_pos_exchange_administrator,cb.pos.exchange administrator,model_cb_pos_exchange,group_cb_pos_administrator,1,1,1,1
+access_cb_pos_return_config_cashier,cb.pos.return.config cashier,model_cb_pos_return_config,group_cb_pos_cashier,1,0,0,0
+access_cb_pos_return_config_manager,cb.pos.return.config manager,model_cb_pos_return_config,group_cb_pos_manager,1,1,1,1
+access_cb_pos_return_config_administrator,cb.pos.return.config administrator,model_cb_pos_return_config,group_cb_pos_administrator,1,1,1,1
+access_cb_pos_return_audit_cashier,cb.pos.return.audit cashier,model_cb_pos_return_audit,group_cb_pos_cashier,1,0,0,0
+access_cb_pos_return_audit_manager,cb.pos.return.audit manager,model_cb_pos_return_audit,group_cb_pos_manager,1,0,0,0
+access_cb_pos_return_audit_administrator,cb.pos.return.audit administrator,model_cb_pos_return_audit,group_cb_pos_administrator,1,0,0,0
+access_cb_pos_return_voucher_redemption_cashier,cb.pos.return.voucher.redemption cashier,model_cb_pos_return_voucher_redemption,group_cb_pos_cashier,1,0,1,0
+access_cb_pos_return_voucher_redemption_manager,cb.pos.return.voucher.redemption manager,model_cb_pos_return_voucher_redemption,group_cb_pos_manager,1,0,0,0
+access_cb_pos_return_voucher_redemption_administrator,cb.pos.return.voucher.redemption administrator,model_cb_pos_return_voucher_redemption,group_cb_pos_administrator,1,0,0,0
+access_cb_pos_sales_return_analysis_manager,cb.pos.sales.return.analysis manager,model_cb_pos_sales_return_analysis,group_cb_pos_manager,1,0,0,0
+access_cb_pos_sales_return_analysis_admin,cb.pos.sales.return.analysis administrator,model_cb_pos_sales_return_analysis,group_cb_pos_administrator,1,0,0,0
+access_cb_pos_return_dashboard_manager,cb.pos.return.dashboard manager,model_cb_pos_return_dashboard,group_cb_pos_manager,1,1,1,1
+access_cb_pos_return_dashboard_line_manager,cb.pos.return.dashboard.line manager,model_cb_pos_return_dashboard_line,group_cb_pos_manager,1,1,1,1
+access_cb_pos_report_export_wizard_manager,cb.pos.report.export.wizard manager,model_cb_pos_report_export_wizard,group_cb_pos_manager,1,1,1,1

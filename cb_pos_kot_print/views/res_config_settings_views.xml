@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.cb_pos_kot_print</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="pos_restaurant.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <setting id="iface_printbill" position="after">
+                <setting
+                    string="KOT Printing"
+                    help="Print Kitchen Order Tickets on the POS receipt printer (80mm Epson, IoT Box, or browser print)."
+                    id="iface_kot_print"
+                    invisible="not pos_module_pos_restaurant or is_kiosk_mode">
+                    <field name="pos_iface_kot_print"/>
+                </setting>
+            </setting>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cb_pos_return_config_form" model="ir.ui.view">
+        <field name="name">cb.pos.return.config.form</field>
+        <field name="model">cb.pos.return.config</field>
+        <field name="arch" type="xml">
+            <form string="Return &amp; Exchange Settings">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Settings name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="config_id" readonly="1" invisible="not config_id"/>
+                            <field name="active"/>
+                            <field name="module_enabled"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Returns" name="returns">
+                            <group>
+                                <group string="Return Policy">
+                                    <field name="max_refund_days"/>
+                                    <field name="require_receipt"/>
+                                    <field name="allow_cash_refund"/>
+                                    <field name="require_original_invoice"/>
+                                </group>
+                                <group string="Vouchers">
+                                    <field name="voucher_validity_days"/>
+                                    <field name="allow_partial_voucher_redemption"/>
+                                    <field name="allow_multiple_voucher_usage"/>
+                                    <field name="auto_print_voucher"/>
+                                    <field name="issue_remainder_voucher"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Barcode &amp; Printing" name="barcode">
+                            <group>
+                                <group string="Barcode">
+                                    <field name="voucher_barcode_type"/>
+                                    <field name="voucher_use_qr_code"/>
+                                    <field name="voucher_barcode_prefix"/>
+                                    <field name="return_barcode_prefix"/>
+                                    <field name="auto_barcode_detect"/>
+                                </group>
+                                <group string="Receipts">
+                                    <field name="receipt_paper_width"/>
+                                    <field name="receipt_header_message"/>
+                                    <field name="receipt_thank_you_message"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Advanced" name="advanced" groups="cb_pos_return_exchange.group_cb_pos_administrator">
+                            <group>
+                                <group>
+                                    <field name="enable_audit_log"/>
+                                    <field name="auto_create_credit_note"/>
+                                    <field name="auto_post_credit_note"/>
+                                    <field name="validate_lot_from_sale"/>
+                                    <field name="auto_validate_return_picking"/>
+                                </group>
+                                <group>
+                                    <field name="quarantine_location_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_return_config_list" model="ir.ui.view">
+        <field name="name">cb.pos.return.config.list</field>
+        <field name="model">cb.pos.return.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="config_id"/>
+                <field name="module_enabled"/>
+                <field name="voucher_validity_days"/>
+                <field name="allow_cash_refund"/>
+                <field name="auto_print_voucher"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_return_config_search" model="ir.ui.view">
+        <field name="name">cb.pos.return.config.search</field>
+        <field name="model">cb.pos.return.config</field>
+        <field name="arch" type="xml">
+            <search string="Return Settings">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="config_id"/>
+                <filter name="filter_company_defaults" string="Company Defaults"
+                    domain="[('config_id', '=', False)]"/>
+                <filter name="filter_pos_specific" string="POS Specific"
+                    domain="[('config_id', '!=', False)]"/>
+                <filter name="filter_enabled" string="Enabled"
+                    domain="[('module_enabled', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cb_pos_return_config_company" model="ir.actions.act_window">
+        <field name="name">Return &amp; Exchange Settings</field>
+        <field name="res_model">cb.pos.return.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('config_id', '=', False)]</field>
+        <field name="context">{'default_config_id': False}</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_modify_settings'))]"/>
+    </record>
+
+</odoo>

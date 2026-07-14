@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cb_pos_exchange_report_list" model="ir.ui.view">
+        <field name="name">cb.pos.exchange.report.list</field>
+        <field name="model">cb.pos.exchange</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0"
+                decoration-muted="state == 'cancelled'"
+                decoration-success="state == 'done'">
+                <field name="name" string="Exchange"/>
+                <field name="exchange_date"/>
+                <field name="partner_id" string="Customer"/>
+                <field name="cashier_id"/>
+                <field name="config_id" string="POS"/>
+                <field name="return_id"/>
+                <field name="replacement_order_id" string="Replacement Order"/>
+                <field name="amount_return" sum="Return Value"/>
+                <field name="amount_replacement" sum="Replacement Value"/>
+                <field name="difference_amount" sum="Difference"/>
+                <field name="customer_payment" sum="Customer Paid"/>
+                <field name="settlement_mode"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_exchange_report_pivot" model="ir.ui.view">
+        <field name="name">cb.pos.exchange.report.pivot</field>
+        <field name="model">cb.pos.exchange</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <pivot string="Exchange Report">
+                <field name="config_id" type="row"/>
+                <field name="cashier_id" type="row"/>
+                <field name="exchange_date" interval="month" type="col"/>
+                <field name="report_count" type="measure"/>
+                <field name="amount_return" type="measure"/>
+                <field name="amount_replacement" type="measure"/>
+                <field name="difference_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_exchange_report_graph" model="ir.ui.view">
+        <field name="name">cb.pos.exchange.report.graph</field>
+        <field name="model">cb.pos.exchange</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <graph string="Exchanges" type="bar">
+                <field name="exchange_date" interval="month"/>
+                <field name="difference_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_exchange_report_search" model="ir.ui.view">
+        <field name="name">cb.pos.exchange.report.search</field>
+        <field name="model">cb.pos.exchange</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <search string="Exchange Report">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="cashier_id"/>
+                <field name="config_id"/>
+                <field name="return_id"/>
+                <separator/>
+                <filter name="filter_done" string="Done" domain="[('state','=','done')]"/>
+                <filter name="filter_cancelled" string="Cancelled" domain="[('state','=','cancelled')]"/>
+                <separator/>
+                <filter name="filter_date" string="Exchange Date" date="exchange_date"/>
+                <group>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                    <filter name="group_pos" string="POS" context="{'group_by': 'config_id'}"/>
+                    <filter name="group_cashier" string="Cashier" context="{'group_by': 'cashier_id'}"/>
+                    <filter name="group_customer" string="Customer" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_settlement" string="Settlement" context="{'group_by': 'settlement_mode'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_day" string="Day" context="{'group_by': 'exchange_date:day'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'exchange_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cb_pos_exchange_report" model="ir.actions.act_window">
+        <field name="name">Exchange Report</field>
+        <field name="res_model">cb.pos.exchange</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_cb_pos_exchange_report_list')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_cb_pos_exchange_report_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_cb_pos_exchange_report_graph')})]"/>
+        <field name="search_view_id" ref="view_cb_pos_exchange_report_search"/>
+        <field name="context">{
+            'search_default_filter_done': 1,
+            'report_model': 'cb.pos.exchange',
+            'report_title': 'exchange_report',
+            'report_fields': ['name','exchange_date','partner_id','cashier_id','config_id','return_id','amount_return','amount_replacement','difference_amount','customer_payment','settlement_mode','state']
+        }</field>
+    </record>
+
+</odoo>

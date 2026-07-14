@@ -1,0 +1,188 @@
+.service-charge-wizard {
+    border: none !important;
+    border-radius: 16px !important;
+    overflow: hidden;
+    max-width: 720px;
+
+    .modal-header {
+        border-bottom: 1px solid #ececec;
+        padding: 1.25rem 1.5rem 1rem;
+    }
+
+    .service-charge-wizard-header .modal-title {
+        font-size: 1.35rem;
+        color: #1f2937;
+    }
+
+    .service-charge-wizard-body {
+        background: #fff;
+    }
+
+    .service-charge-wizard-content {
+        gap: 0;
+        min-height: 380px;
+    }
+
+    .service-charge-wizard-left {
+        padding: 1.25rem 1rem 1.25rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        border-right: 1px solid #f0f0f0;
+    }
+
+    .service-charge-wizard-right {
+        width: 280px;
+        flex-shrink: 0;
+        padding: 1rem 1.25rem 1.25rem 0.75rem;
+        display: flex;
+        align-items: stretch;
+    }
+
+    .svc-card {
+        border: 1px solid #e8e8e8;
+        border-radius: 12px;
+        padding: 1rem 1.15rem;
+        background: #fff;
+    }
+
+    .svc-card-label {
+        color: #6b7280;
+        font-size: 0.95rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .svc-card-value {
+        font-size: 1.65rem;
+        font-weight: 700;
+        color: #111827;
+        line-height: 1.2;
+    }
+
+    .svc-card-commission {
+        padding-top: 0.9rem;
+        padding-bottom: 0.9rem;
+    }
+
+    .svc-commission-rate {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #111827;
+        line-height: 1;
+    }
+
+    .svc-commission-hint {
+        color: #9ca3af;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+    }
+
+    .svc-edit-icon {
+        color: #9ca3af;
+        font-size: 1rem;
+        margin-top: 0.35rem;
+    }
+
+    .svc-card-highlight {
+        background: #f3f0ff;
+        border-color: #e4deff;
+    }
+
+    .svc-highlight-value {
+        color: #6d5ce7;
+        font-size: 1.75rem;
+    }
+
+    .service-charge-numpad {
+        width: 100%;
+        border: 1px solid #e8e8e8;
+        border-radius: 12px;
+        overflow: hidden;
+
+        .numpad-button {
+            background: #fff !important;
+            color: #374151 !important;
+            font-size: 1.35rem !important;
+            font-weight: 500;
+            min-height: 58px;
+            border: 1px solid #f0f0f0 !important;
+
+            &:hover,
+            &:focus {
+                background: #f9fafb !important;
+            }
+        }
+
+        .o_colorlist_item_numpad_color_1 {
+            color: #6b7280 !important;
+            font-size: 1.5rem !important;
+        }
+
+        .svc-numpad-percent,
+        .o_colorlist_item_numpad_color_6 {
+            background: #f3f0ff !important;
+            color: #6d5ce7 !important;
+            font-weight: 600;
+        }
+    }
+
+    .service-charge-wizard-footer {
+        padding: 0.75rem 1.5rem 1.35rem;
+        border-top: 1px solid #f0f0f0;
+        background: #fff;
+    }
+
+    .svc-btn-remove {
+        background: #fff;
+        border: 1px solid #d1d5db;
+        color: #374151;
+        font-weight: 600;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        border-radius: 10px;
+
+        &:hover,
+        &:focus {
+            background: #f9fafb;
+            color: #111827;
+        }
+    }
+
+    .svc-btn-ok {
+        background: #7c6fe8;
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        border-radius: 10px;
+
+        &:hover,
+        &:focus {
+            background: #6d5ce7;
+            color: #fff;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .service-charge-wizard {
+        .service-charge-wizard-content {
+            flex-direction: column;
+        }
+
+        .service-charge-wizard-left {
+            border-right: none;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .service-charge-wizard-right {
+            width: 100%;
+            padding: 0 1.25rem 1rem;
+        }
+    }
+}

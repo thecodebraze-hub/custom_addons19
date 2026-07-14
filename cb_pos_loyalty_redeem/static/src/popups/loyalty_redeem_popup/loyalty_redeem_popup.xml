@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_loyalty_redeem.LoyaltyRedeemPopup">
+        <Dialog title="'Redeem Loyalty Points'" size="'md'">
+            <div class="cb-lr">
+                <div class="cb-lr-balance">
+                    <span class="cb-lr-balance-label">Available</span>
+                    <span class="cb-lr-balance-value">
+                        <t t-esc="availablePoints"/>
+                        <t t-esc="pointLabel"/>
+                    </span>
+                </div>
+
+                <label class="cb-lr-label">Points to redeem</label>
+                <div class="cb-lr-input-row">
+                    <input type="number"
+                        class="cb-lr-input"
+                        t-model="state.points"
+                        t-on-input="onPointsInput"
+                        min="0"
+                        step="any"
+                        inputmode="decimal"
+                        placeholder="0"/>
+                    <button type="button" class="btn btn-secondary" t-on-click="setMaxPoints">Max</button>
+                </div>
+
+                <div class="cb-lr-amount">
+                    <span>Discount amount</span>
+                    <strong t-esc="pos.env.utils.formatCurrency(redeemAmount)"/>
+                </div>
+
+                <div t-if="state.error" class="cb-lr-error">
+                    <i class="fa fa-exclamation-circle me-1"/>
+                    <t t-esc="state.error"/>
+                </div>
+            </div>
+
+            <t t-set-slot="footer">
+                <button class="btn btn-secondary" t-on-click="cancel">Cancel</button>
+                <button class="btn btn-primary" t-on-click="confirm">
+                    <i class="fa fa-star me-1"/> Redeem
+                </button>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>

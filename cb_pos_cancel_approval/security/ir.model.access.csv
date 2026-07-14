@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cb_pos_cancel_approval_log_manager,cb.pos.cancel.approval.log manager,model_cb_pos_cancel_approval_log,point_of_sale.group_pos_manager,1,0,0,0
+access_cb_pos_cancel_approval_log_user,cb.pos.cancel.approval.log user,model_cb_pos_cancel_approval_log,point_of_sale.group_pos_user,1,0,0,0

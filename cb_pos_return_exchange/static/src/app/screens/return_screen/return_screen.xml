@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.ReturnScreen">
+        <div class="cb-return-screen d-flex flex-column h-100">
+            <header class="cb-return-screen__header">
+                <BackButton onClick="() => this.back()"/>
+                <span class="cb-return-screen__badge"><i class="fa fa-exchange"/></span>
+                <h3 class="cb-return-screen__title mb-0 flex-grow-1" t-esc="screenTitle"/>
+                <button type="button" class="btn cb-return-screen__ghost" t-on-click="showHistory"
+                    t-att-disabled="!state.order">
+                    <i class="fa fa-history me-1"/>History
+                </button>
+            </header>
+
+            <div class="cb-return-screen__search">
+                <div class="cb-return-screen__search-wrap">
+                    <i class="fa fa-search"/>
+                    <input type="text" t-ref="searchInput" t-model="state.search"
+                        placeholder="Receipt, order ref, or invoice number" t-on-keydown="onSearchKeydown"/>
+                    <button type="button" class="btn cb-return-screen__find" t-on-click="() => this.findOrder()">
+                        Find
+                    </button>
+                </div>
+                <div t-if="state.loading" class="cb-return-screen__note">
+                    <i class="fa fa-spinner fa-spin me-1"/>Loading...
+                </div>
+                <div t-if="state.error" class="cb-return-screen__alert cb-return-screen__alert--error">
+                    <i class="fa fa-exclamation-circle me-2"/><span t-esc="state.error"/>
+                </div>
+            </div>
+
+            <div t-if="state.order" class="cb-return-screen__body">
+                <div class="cb-return-screen__order-card">
+                    <div class="cb-return-screen__order-info">
+                        <span class="cb-return-screen__order-ref"
+                            t-esc="state.order.pos_reference or state.order.name"/>
+                        <span t-if="state.order.partner_name" class="cb-return-screen__order-partner">
+                            <i class="fa fa-user-o me-1"/><t t-esc="state.order.partner_name"/>
+                        </span>
+                    </div>
+                    <div class="cb-return-screen__order-meta">
+                        <span class="cb-return-screen__order-date" t-esc="formatDate(state.order.date_order)"/>
+                        <span class="cb-return-screen__order-total" t-esc="formatMoney(state.order.amount_total)"/>
+                    </div>
+                </div>
+
+                <div t-if="state.approvalRequired" class="cb-return-screen__alert cb-return-screen__alert--warn">
+                    <div class="fw-semibold"><i class="fa fa-lock me-1"/>Manager approval required</div>
+                    <ul class="mb-0 ps-4 mt-1">
+                        <li t-foreach="state.approvalReasons" t-as="reason" t-key="reason_index" t-esc="reason"/>
+                    </ul>
+                </div>
+
+                <div t-if="!hasReturnableLines" class="cb-return-screen__alert cb-return-screen__alert--info">
+                    <i class="fa fa-info-circle me-2"/>All items in this order have already been returned — nothing left to return or exchange.
+                </div>
+
+                <div class="cb-return-screen__table-wrap">
+                    <table class="cb-return-screen__table">
+                        <thead>
+                            <tr>
+                                <th class="cb-col-check"/>
+                                <th>Product</th>
+                                <th class="text-center">Returnable</th>
+                                <th class="text-center">Qty</th>
+                                <th t-if="hasTrackedLines">Lot / Serial</th>
+                                <th>Disposition</th>
+                                <th class="text-end">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="state.lines" t-as="line" t-key="line.order_line_id"
+                                t-att-class="{
+                                    'cb-return-screen__row--done': line.qty_returnable &lt;= 0,
+                                    'cb-return-screen__row--active': line.selected,
+                                }">
+                                <td class="cb-col-check">
+                                    <input type="checkbox" t-att-checked="line.selected"
+                                        t-att-disabled="line.qty_returnable &lt;= 0"
+                                        t-on-change="() => this.toggleLine(line)"/>
+                                </td>
+                                <td>
+                                    <span class="cb-return-screen__product" t-esc="line.product_name"/>
+                                    <span t-if="line.qty_returnable &lt;= 0"
+                                        class="cb-return-screen__pill">Already returned</span>
+                                </td>
+                                <td class="text-center" t-esc="line.qty_returnable"/>
+                                <td class="text-center">
+                                    <input type="number" class="cb-return-screen__qty"
+                                        t-att-value="line.qty" t-att-max="line.qty_returnable" min="0" step="1"
+                                        t-att-disabled="line.qty_returnable &lt;= 0"
+                                        t-on-change="(ev) => this.onQtyChange(line, ev)"/>
+                                </td>
+                                <td t-if="hasTrackedLines">
+                                    <t t-if="line.tracking !== 'none'">
+                                        <select t-if="line.lot_names.length" class="cb-return-screen__select"
+                                            t-model="line.lot_name" t-on-change="recalculate">
+                                            <option value="">—</option>
+                                            <option t-foreach="line.lot_names" t-as="lotName" t-key="lotName"
+                                                t-att-value="lotName" t-esc="lotName"/>
+                                        </select>
+                                        <input t-else="" type="text" class="cb-return-screen__select"
+                                            t-model="line.lot_name" placeholder="Lot / serial" t-on-change="recalculate"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <select class="cb-return-screen__select" t-model="line.disposition"
+                                        t-att-disabled="line.qty_returnable &lt;= 0" t-on-change="recalculate">
+                                        <option value="restock">Restock</option>
+                                        <option value="scrap">Scrap</option>
+                                        <option value="quarantine">Quarantine</option>
+                                    </select>
+                                </td>
+                                <td class="text-end fw-semibold" t-esc="formatMoney(line.amount_total)"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="cb-return-screen__fields">
+                    <div class="cb-return-screen__field">
+                        <label>Settlement method</label>
+                        <select class="cb-return-screen__select" t-model="state.refundMethod" t-on-change="recalculate">
+                            <option value="exchange">Exchange (swap products)</option>
+                            <option value="voucher">Voucher</option>
+                            <option value="store_credit">Store Credit</option>
+                        </select>
+                    </div>
+                    <div class="cb-return-screen__field">
+                        <label>Reason</label>
+                        <input type="text" class="cb-return-screen__select" t-model="state.reason"/>
+                    </div>
+                    <div class="cb-return-screen__field cb-return-screen__field--check">
+                        <label class="cb-return-screen__check">
+                            <input type="checkbox" t-model="state.hasReceipt"/>
+                            <span>Customer has receipt</span>
+                        </label>
+                    </div>
+                    <div class="cb-return-screen__field cb-return-screen__field--full">
+                        <label>Notes</label>
+                        <textarea class="cb-return-screen__select" rows="2" t-model="state.note"/>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="cb-return-screen__footer">
+                <div class="cb-return-screen__total">
+                    <span class="cb-return-screen__total-label">Total</span>
+                    <span class="cb-return-screen__total-value" t-esc="formatMoney(state.amountTotal)"/>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn cb-return-screen__cancel" t-on-click="back">Cancel</button>
+                    <button type="button" class="btn cb-return-screen__confirm" t-att-disabled="!canConfirm"
+                        t-on-click="confirmReturn">
+                        <i class="fa fa-check me-1"/><span t-esc="confirmLabel"/>
+                    </button>
+                </div>
+            </footer>
+        </div>
+    </t>
+
+</templates>

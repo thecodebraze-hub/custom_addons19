@@ -1,0 +1,286 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12 text-center">
+            <img src="icon.png" alt="POS Return Exchange" style="max-width: 120px; margin-bottom: 16px;"/>
+        </div>
+        <h2 class="oe_slogan">POS Return Exchange</h2>
+        <h3 class="oe_slogan">Complete returns, exchanges, and store-credit vouchers from Odoo Point of Sale</h3>
+        <div class="oe_span12 text-center">
+            <p class="oe_mt32" style="font-size: 16px; line-height: 1.7; max-width: 900px; margin: 0 auto;">
+                Give your retail team a professional return workflow without leaving the POS.
+                Look up the original sale, return all or part of an order, issue vouchers,
+                process exchanges, scan barcodes, print thermal receipts, update stock,
+                post credit notes, and analyse return trends — fully integrated with
+                Odoo 19 Point of Sale, Inventory, and Accounting.
+            </p>
+        </div>
+        <div class="oe_span12 text-center oe_mt32">
+            <img src="screenshot_pos_return.png" class="oe_picture oe_screenshot"
+                alt="POS Return screen — order lookup and line selection"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Why retailers choose this module</h2>
+        <div class="oe_span4 text-center">
+            <h4><i class="fa fa-undo"/> Returns</h4>
+            <p>Partial returns, refund methods, lot/serial tracking, and restock / quarantine / scrap disposition.</p>
+        </div>
+        <div class="oe_span4 text-center">
+            <h4><i class="fa fa-ticket"/> Vouchers</h4>
+            <p>Issue store credit, print barcodes, redeem at payment — partial and multi-voucher supported.</p>
+        </div>
+        <div class="oe_span4 text-center">
+            <h4><i class="fa fa-exchange"/> Exchanges</h4>
+            <p>Return items and sell replacements in one balanced settlement flow.</p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6">
+            <h3 class="oe_slogan">POS Return Screen</h3>
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                Cashiers open the dedicated <strong>Return</strong> screen from the product screen.
+                Search by receipt number, order reference, invoice, customer, or product barcode.
+                Select lines, adjust quantities, choose refund method (voucher, cash, original payment),
+                and confirm — with manager approval when outside your refund policy window.
+            </p>
+            <ul style="font-size: 15px; line-height: 1.8;">
+                <li>Partial returns on any order line</li>
+                <li>Lot / serial selection for tracked products</li>
+                <li>Return history per order and customer</li>
+                <li>Idempotent offline-safe client UUID</li>
+            </ul>
+        </div>
+        <div class="oe_span6 text-center">
+            <img src="screenshot_pos_return.png" class="oe_picture oe_screenshot"
+                alt="Return screen with order lines and refund options"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6 text-center">
+            <img src="screenshot_voucher_payment.png" class="oe_picture oe_screenshot"
+                alt="Payment screen with voucher panel and scan button"/>
+        </div>
+        <div class="oe_span6">
+            <h3 class="oe_slogan">Voucher Payment at Checkout</h3>
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                Extend the POS payment screen with a <strong>Voucher</strong> panel.
+                Scan or enter voucher barcodes, apply full or partial value, use multiple
+                vouchers on one order (when enabled), and block duplicate redemption automatically.
+            </p>
+            <ul style="font-size: 15px; line-height: 1.8;">
+                <li>USB / wireless barcode scanner support</li>
+                <li>Customer voucher balance lookup</li>
+                <li>Configurable voucher expiry (cron)</li>
+                <li>Auto-print voucher receipt on issue</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6">
+            <h3 class="oe_slogan">Product Exchanges</h3>
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                The <strong>Exchange</strong> screen links a return document to a replacement
+                POS order. The system calculates the price difference and settles by customer
+                payment, voucher issuance, or balanced exchange — with exchange receipts ready to print.
+            </p>
+        </div>
+        <div class="oe_span6 text-center">
+            <img src="screenshot_exchange.png" class="oe_picture oe_screenshot"
+                alt="Exchange screen with return and replacement totals"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6 text-center">
+            <img src="screenshot_barcode.png" class="oe_picture oe_screenshot"
+                alt="Barcode scan classifying product, voucher, or return"/>
+        </div>
+        <div class="oe_span6">
+            <h3 class="oe_slogan">Smart Barcode Detection</h3>
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                Scanners work as keyboard wedges — no extra drivers. The module classifies
+                scans as <strong>product</strong>, <strong>voucher</strong>, <strong>return document</strong>,
+                or <strong>order reference</strong> using configurable prefixes and EAN normalization.
+            </p>
+            <ul style="font-size: 15px; line-height: 1.8;">
+                <li>Code128, EAN-13, EAN-8 voucher formats</li>
+                <li>Optional QR code on voucher receipts</li>
+                <li>Configurable <code>VCH/</code> and <code>RET/</code> prefixes</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Backend integration</h2>
+        <div class="oe_span6">
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                <strong><i class="fa fa-cubes"/> Inventory</strong><br/>
+                Return pickings are created automatically with restock, quarantine, or scrap routing.
+                Lot and serial numbers are validated against the original delivery.
+            </p>
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                <strong><i class="fa fa-calculator"/> Accounting</strong><br/>
+                When the original POS order is invoiced, credit notes can be created and posted
+                automatically according to your settings.
+            </p>
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                <strong><i class="fa fa-print"/> Thermal receipts</strong><br/>
+                Print return, voucher, and exchange receipts in <strong>58 mm</strong> or
+                <strong>80 mm</strong> PDF format — ready for thermal printers.
+            </p>
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                <strong><i class="fa fa-shield"/> Audit trail</strong><br/>
+                Every validation, redemption, print, and cancellation is logged for compliance
+                and store manager review.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6 text-center">
+            <img src="screenshot_dashboard.png" class="oe_picture oe_screenshot"
+                alt="Returns and exchanges analytics dashboard"/>
+        </div>
+        <div class="oe_span6">
+            <h3 class="oe_slogan">Reporting &amp; Analytics</h3>
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                Managers get a full reporting suite under
+                <strong>Point of Sale → Reporting → Returns &amp; Exchanges</strong>:
+            </p>
+            <ul style="font-size: 15px; line-height: 1.8;">
+                <li>Dashboard with KPI summary</li>
+                <li>Return, voucher, and exchange pivot / graph / list views</li>
+                <li>Customer, employee, daily, and monthly breakdowns</li>
+                <li>Sales vs return analysis SQL view</li>
+                <li>Excel and PDF export from list views</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6">
+            <h3 class="oe_slogan">Flexible configuration</h3>
+            <p class="oe_mt16" style="font-size: 15px; line-height: 1.7;">
+                Set company-wide defaults or override per POS register:
+            </p>
+            <ul style="font-size: 15px; line-height: 1.8;">
+                <li>Enable / disable module per shop</li>
+                <li>Maximum refund days and receipt requirements</li>
+                <li>Cash refund, partial voucher, multi-voucher rules</li>
+                <li>Voucher expiry days and auto-print</li>
+                <li>Quarantine location and auto-validate pickings</li>
+                <li>Credit note auto-create and auto-post</li>
+            </ul>
+        </div>
+        <div class="oe_span6 text-center">
+            <img src="screenshot_config.png" class="oe_picture oe_screenshot"
+                alt="POS Configuration Returns and Exchanges settings tab"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Security &amp; access control</h2>
+        <div class="oe_span12 text-center">
+            <p style="font-size: 15px; line-height: 1.7; max-width: 800px; margin: 0 auto;">
+                Role-based permissions under <strong>POS Return &amp; Exchange</strong>:
+                <strong>Cashier</strong> (create returns, redeem/print vouchers),
+                <strong>Manager</strong> (+ cash refunds, cancel vouchers, reports, settings),
+                <strong>Administrator</strong> (full access).
+                Multi-company record rules protect data across companies.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">How to get started</h2>
+        <div class="oe_span12">
+            <ol style="font-size: 16px; line-height: 1.9; max-width: 750px; margin: 0 auto;">
+                <li>Install <strong>POS Return Exchange</strong> from Apps.</li>
+                <li>Assign users to <strong>POS Return &amp; Exchange → Cashier</strong> or <strong>Manager</strong>.</li>
+                <li>Open <strong>Point of Sale → Configuration → Return &amp; Exchange Settings</strong>.</li>
+                <li>Review the <strong>Returns &amp; Exchanges</strong> tab on each POS configuration.</li>
+                <li>Open a POS session — use <strong>Return</strong> and <strong>Exchange</strong> on the product screen.</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Screenshots gallery</h2>
+        <div class="oe_span4 text-center oe_mt16">
+            <img src="screenshot_receipt.png" class="oe_picture oe_screenshot"
+                alt="80mm thermal return receipt PDF"/>
+            <p><strong>Return receipt</strong> (58 / 80 mm)</p>
+        </div>
+        <div class="oe_span4 text-center oe_mt16">
+            <img src="screenshot_voucher_popup.png" class="oe_picture oe_screenshot"
+                alt="Voucher issued popup with barcode"/>
+            <p><strong>Voucher issued</strong></p>
+        </div>
+        <div class="oe_span4 text-center oe_mt16">
+            <img src="screenshot_product_screen.png" class="oe_picture oe_screenshot"
+                alt="POS product screen Return and Exchange buttons"/>
+            <p><strong>POS control buttons</strong></p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Technical requirements</h2>
+        <div class="oe_span12 text-center">
+            <table style="margin: 0 auto; font-size: 15px; line-height: 1.8; text-align: left;">
+                <tr><td><strong>Odoo version</strong></td><td>19.0</td></tr>
+                <tr><td><strong>Depends on</strong></td><td>Point of Sale, Inventory, Accounting, Product, Mail, Web</td></tr>
+                <tr><td><strong>License</strong></td><td>LGPL-3</td></tr>
+                <tr><td><strong>Excel export</strong></td><td>Python package <code>xlsxwriter</code> (optional)</td></tr>
+                <tr><td><strong>Documentation</strong></td><td>README.md and docs/ folder included in the module</td></tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Support</h2>
+        <div class="oe_span12 text-center">
+            <p class="oe_mt16" style="font-size: 16px; line-height: 1.7;">
+                For support requests:
+                <a href="mailto:sales@codebraze.com">sales@codebraze.com</a><br/>
+                <strong>Module technical name:</strong> <code>cb_pos_return_exchange</code>
+            </p>
+            <p class="oe_mt16 text-muted" style="font-size: 14px;">
+                Full installation, configuration, user manual, API reference, and upgrade guides
+                are shipped inside the module under <code>docs/</code>.
+                Built for Odoo 19 · License LGPL-3
+            </p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,100 @@
+.product {
+    // Info icon (top-right corner of the card)
+    .cb-pi-btn {
+        z-index: 6;
+        width: 1.6rem;
+        height: 1.6rem;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+        color: #714b67;
+        font-size: 0.9rem;
+        line-height: 1;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+
+        &:hover {
+            background: #fff;
+            color: #5a3b52;
+        }
+    }
+
+    // Popover shown below the icon
+    .cb-pi-pop {
+        top: 2rem;
+        z-index: 20;
+        min-width: 9rem;
+        max-width: 90%;
+        padding: 0.5rem 0.6rem;
+        background: #fff;
+        color: #2f2a2d;
+        border-radius: 10px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+        text-align: left;
+        cursor: default;
+
+        .cb-pi-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #9a8f96;
+            margin-bottom: 0.35rem;
+
+            .cb-pi-close {
+                cursor: pointer;
+                color: #b3a7ad;
+                padding: 0.1rem 0.2rem;
+
+                &:hover {
+                    color: #714b67;
+                }
+            }
+        }
+
+        .cb-pi-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+            padding: 0.15rem 0;
+
+            .cb-pi-label {
+                color: #7a6f76;
+            }
+
+            .cb-pi-value {
+                font-weight: 700;
+                color: #14603a;
+            }
+        }
+
+        // Per-variant breakdown
+        .cb-pi-variants {
+            max-height: 14rem;
+            overflow-y: auto;
+
+            .cb-pi-variant {
+                padding: 0.35rem 0;
+
+                & + .cb-pi-variant {
+                    border-top: 1px solid #efe8ed;
+                }
+
+                .cb-pi-variant-name {
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    color: #714b67;
+                    margin-bottom: 0.15rem;
+                }
+            }
+        }
+    }
+}

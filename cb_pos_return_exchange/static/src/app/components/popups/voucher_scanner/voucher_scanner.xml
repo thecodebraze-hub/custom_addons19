@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.VoucherScanner">
+        <Dialog size="'md'" contentClass="'cb-voucher-scanner'" footer="false">
+            <t t-set-slot="header">
+                <div class="w-100 d-flex align-items-center justify-content-between">
+                    <h4 class="modal-title mb-0 fw-bold">Scan Voucher</h4>
+                    <button type="button" class="btn-close" t-on-click="cancel"/>
+                </div>
+            </t>
+
+            <div class="d-flex flex-column gap-3">
+                <div t-if="state.loading" class="alert alert-info mb-0 py-2">Validating...</div>
+                <div t-if="state.error" class="alert alert-danger mb-0 py-2" t-esc="state.error"/>
+
+                <input type="text" class="form-control form-control-lg" t-ref="barcodeInput"
+                    t-model="state.barcode" t-on-keydown="onKeydown"
+                    placeholder="Voucher barcode" autocomplete="off"/>
+
+                <div t-if="state.voucher" class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="fw-bold" t-esc="state.voucher.name"/>
+                                <div class="text-muted small" t-esc="state.voucher.barcode"/>
+                            </div>
+                            <span class="badge text-bg-secondary" t-esc="state.voucher.state"/>
+                        </div>
+                        <div class="row g-2 mt-2 small">
+                            <div class="col-4">
+                                <div class="text-muted">Voucher Amount</div>
+                                <div class="fw-semibold" t-esc="formatMoney(state.voucher.amount)"/>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-muted">Available</div>
+                                <div class="fw-semibold" t-esc="formatMoney(state.voucher.amount_remaining)"/>
+                            </div>
+                            <div class="col-4" t-if="state.customerBalance">
+                                <div class="text-muted">Customer Balance</div>
+                                <div class="fw-semibold" t-esc="formatMoney(state.customerBalance)"/>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="text-muted small">To apply</div>
+                            <div class="fs-4 fw-semibold" t-esc="formatMoney(state.amount)"/>
+                        </div>
+                        <div class="form-check mt-2" t-if="state.voucher.amount_remaining > state.amount">
+                            <input class="form-check-input" type="checkbox" id="issueRemainder"
+                                t-model="state.issueRemainder"/>
+                            <label class="form-check-label" for="issueRemainder">
+                                Issue remainder voucher after partial redemption
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 pt-3">
+                <button type="button" class="btn btn-secondary btn-lg" t-on-click="cancel">Cancel</button>
+                <button type="button" class="btn btn-success btn-lg"
+                    t-att-disabled="state.loading"
+                    t-on-click="validate">Add Voucher</button>
+            </div>
+        </Dialog>
+    </t>
+
+</templates>

@@ -1,0 +1,258 @@
+// Let the sidebar scroll instead of clipping the card on short screens.
+.o_customer_display_sidebar {
+    overflow-y: auto;
+}
+
+.cb-cd {
+    --cb-primary: #714b67;
+    --cb-primary-dark: #5a3b52;
+    --cb-primary-light: #f3edf1;
+    --cb-radius: 18px;
+    --cb-key-radius: 14px;
+
+    width: 100%;
+    max-width: clamp(260px, 88%, 440px);
+    margin-inline: auto;
+    font-family: inherit;
+
+    .cb-cd-card {
+        background: #fff;
+        border-radius: var(--cb-radius);
+        box-shadow: 0 18px 45px rgba(52, 30, 46, 0.18);
+        overflow: hidden;
+    }
+
+    // ---- Header ------------------------------------------------------------
+    .cb-cd-header {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: clamp(0.7rem, 2vh, 1rem) 1.25rem;
+        background: linear-gradient(135deg, var(--cb-primary), var(--cb-primary-dark));
+        color: #fff;
+
+        .cb-cd-avatar {
+            display: grid;
+            place-items: center;
+            width: clamp(1.8rem, 4.5vh, 2.25rem);
+            height: clamp(1.8rem, 4.5vh, 2.25rem);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            font-size: clamp(0.9rem, 2.4vh, 1.05rem);
+        }
+
+        .cb-cd-title {
+            font-size: clamp(1rem, 2.6vh, 1.15rem);
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+    }
+
+    .cb-cd-body {
+        padding: clamp(0.8rem, 2.4vh, 1.1rem) 1.25rem clamp(1rem, 2.8vh, 1.35rem);
+    }
+
+    // ---- Status blocks -----------------------------------------------------
+    .cb-cd-selected {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.85rem 1rem;
+        border-radius: var(--cb-key-radius);
+        background: #e7f6ec;
+        border: 1px solid #b6e3c6;
+        margin-bottom: 1rem;
+
+        > .fa {
+            color: #1e9e57;
+            font-size: 1.6rem;
+        }
+
+        .cb-cd-selected-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+        }
+
+        .cb-cd-selected-name {
+            font-size: clamp(1.1rem, 3.2vh, 1.4rem);
+            font-weight: 700;
+            color: #14603a;
+        }
+
+        .cb-cd-points {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            align-self: flex-start;
+            margin-top: 0.4rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            background: #fff4d6;
+            border: 1px solid #f2d894;
+            color: #8a6d1f;
+            font-size: clamp(0.8rem, 2.2vh, 0.95rem);
+            font-weight: 700;
+
+            > .fa {
+                color: #e0a800;
+            }
+        }
+    }
+
+    .cb-cd-alert {
+        padding: 0.6rem 0.85rem;
+        border-radius: 10px;
+        background: #fdf0e3;
+        border: 1px solid #f6d5a8;
+        color: #8a5220;
+        font-size: 0.9rem;
+        margin-bottom: 0.85rem;
+    }
+
+    .cb-cd-loading {
+        text-align: center;
+        color: var(--cb-primary);
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+    }
+
+    // ---- Input -------------------------------------------------------------
+    .cb-cd-label {
+        display: block;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #9a8f96;
+        margin-bottom: 0.4rem;
+    }
+
+    .cb-cd-input {
+        width: 100%;
+        height: clamp(2.6rem, 6.5vh, 3.5rem);
+        text-align: center;
+        font-size: clamp(1.35rem, 4vh, 1.9rem);
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: var(--cb-primary-dark);
+        background: var(--cb-primary-light);
+        border: 2px solid transparent;
+        border-radius: var(--cb-key-radius);
+        margin-bottom: 1rem;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+        &::placeholder {
+            color: #c3b3bd;
+            font-weight: 500;
+            letter-spacing: normal;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: var(--cb-primary);
+            box-shadow: 0 0 0 4px rgba(113, 75, 103, 0.12);
+        }
+    }
+
+    // ---- Numpad ------------------------------------------------------------
+    .cb-cd-numpad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(0.35rem, 1.2vh, 0.6rem);
+        margin-bottom: clamp(0.65rem, 2vh, 1rem);
+
+        .cb-cd-key {
+            height: clamp(2.6rem, 6.5vh, 3.6rem);
+            display: grid;
+            place-items: center;
+            font-size: clamp(1.15rem, 3.2vh, 1.55rem);
+            font-weight: 700;
+            color: #3a2f36;
+            background: #f7f4f6;
+            border: 1px solid #ece5ea;
+            border-radius: var(--cb-key-radius);
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.08s ease, background 0.15s ease, box-shadow 0.15s ease;
+
+            &:hover {
+                background: var(--cb-primary-light);
+            }
+
+            &:active {
+                transform: scale(0.94);
+                background: #e7dce3;
+                box-shadow: inset 0 2px 6px rgba(52, 30, 46, 0.15);
+            }
+
+            &.cb-cd-key--clear {
+                color: #c0392b;
+            }
+
+            &.cb-cd-key--back {
+                color: var(--cb-primary);
+                font-size: 1.3rem;
+            }
+        }
+    }
+
+    // ---- Search button -----------------------------------------------------
+    .cb-cd-search {
+        width: 100%;
+        height: clamp(2.6rem, 6vh, 3.4rem);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(1rem, 2.8vh, 1.15rem);
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(135deg, var(--cb-primary), var(--cb-primary-dark));
+        border: none;
+        border-radius: var(--cb-key-radius);
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(113, 75, 103, 0.35);
+        transition: transform 0.08s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+
+        &:hover {
+            box-shadow: 0 10px 26px rgba(113, 75, 103, 0.45);
+        }
+
+        &:active {
+            transform: translateY(1px) scale(0.99);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+    }
+
+}
+
+// ---- Welcome heading (above logo) ------------------------------------------
+// ---- "Software partner" footer (main / right side) -------------------------
+.cb-cd-partner {
+    color: #714b67;
+    line-height: 1.2;
+
+    .cb-cd-partner-label {
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+
+    .cb-cd-partner-name {
+        font-weight: 800;
+        font-size: 1.05em;
+        letter-spacing: 0.02em;
+    }
+}
+
+.cb-cd-welcome {
+    font-size: clamp(1.4rem, 4.5vh, 2.4rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #714b67;
+    text-align: center;
+    margin-bottom: clamp(0.4rem, 1.5vh, 0.75rem);
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Multi-company isolation (Odoo standard pattern) -->
+
+    <record id="rule_cb_pos_return_company" model="ir.rule">
+        <field name="name">POS Return: multi-company</field>
+        <field name="model_id" ref="model_cb_pos_return"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_cb_pos_return_line_company" model="ir.rule">
+        <field name="name">POS Return Line: multi-company</field>
+        <field name="model_id" ref="model_cb_pos_return_line"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_cb_pos_return_voucher_company" model="ir.rule">
+        <field name="name">POS Return Voucher: multi-company</field>
+        <field name="model_id" ref="model_cb_pos_return_voucher"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_cb_pos_exchange_company" model="ir.rule">
+        <field name="name">POS Exchange: multi-company</field>
+        <field name="model_id" ref="model_cb_pos_exchange"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_cb_pos_return_config_company" model="ir.rule">
+        <field name="name">POS Return Config: multi-company</field>
+        <field name="model_id" ref="model_cb_pos_return_config"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_cb_pos_return_audit_company" model="ir.rule">
+        <field name="name">POS Return Audit: multi-company</field>
+        <field name="model_id" ref="model_cb_pos_return_audit"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_cb_pos_return_voucher_redemption_company" model="ir.rule">
+        <field name="name">POS Voucher Redemption: multi-company</field>
+        <field name="model_id" ref="model_cb_pos_return_voucher_redemption"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <!-- Cashiers may only access non-cancelled vouchers -->
+
+    <record id="rule_cb_pos_return_voucher_cashier_active" model="ir.rule">
+        <field name="name">POS Return Voucher: cashier non-cancelled only</field>
+        <field name="model_id" ref="model_cb_pos_return_voucher"/>
+        <field name="groups" eval="[(4, ref('group_cb_pos_cashier'))]"/>
+        <field name="domain_force">[('state', '!=', 'cancelled')]</field>
+    </record>
+
+    <!-- Managers and administrators bypass the cashier voucher filter -->
+
+    <record id="rule_cb_pos_return_voucher_manager_all" model="ir.rule">
+        <field name="name">POS Return Voucher: manager full access</field>
+        <field name="model_id" ref="model_cb_pos_return_voucher"/>
+        <field name="groups" eval="[(4, ref('group_cb_pos_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record id="rule_cb_pos_sales_return_analysis_company" model="ir.rule">
+        <field name="name">Sales vs Return Analysis: multi-company</field>
+        <field name="model_id" ref="model_cb_pos_sales_return_analysis"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

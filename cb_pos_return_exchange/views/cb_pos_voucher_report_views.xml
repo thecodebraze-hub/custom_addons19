@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cb_pos_voucher_report_list" model="ir.ui.view">
+        <field name="name">cb.pos.return.voucher.report.list</field>
+        <field name="model">cb.pos.return.voucher</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0"
+                decoration-muted="state in ('cancelled', 'expired')"
+                decoration-success="state == 'issued'">
+                <field name="name" string="Voucher"/>
+                <field name="barcode"/>
+                <field name="voucher_date"/>
+                <field name="partner_id" string="Customer"/>
+                <field name="config_id" string="POS"/>
+                <field name="amount" sum="Issued"/>
+                <field name="amount_redeemed" sum="Redeemed"/>
+                <field name="amount_remaining" sum="Outstanding"/>
+                <field name="state"/>
+                <field name="expiry_date" optional="show"/>
+                <field name="return_id" optional="hide"/>
+                <field name="print_count" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_voucher_report_pivot" model="ir.ui.view">
+        <field name="name">cb.pos.return.voucher.report.pivot</field>
+        <field name="model">cb.pos.return.voucher</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <pivot string="Voucher Report">
+                <field name="config_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="voucher_date" interval="month" type="col"/>
+                <field name="report_count" type="measure"/>
+                <field name="amount" type="measure"/>
+                <field name="amount_redeemed" type="measure"/>
+                <field name="amount_remaining" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_voucher_report_graph" model="ir.ui.view">
+        <field name="name">cb.pos.return.voucher.report.graph</field>
+        <field name="model">cb.pos.return.voucher</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <graph string="Vouchers" type="bar" stacked="True">
+                <field name="voucher_date" interval="month"/>
+                <field name="state"/>
+                <field name="amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_cb_pos_voucher_report_search" model="ir.ui.view">
+        <field name="name">cb.pos.return.voucher.report.search</field>
+        <field name="model">cb.pos.return.voucher</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <search string="Voucher Report">
+                <field name="name"/>
+                <field name="barcode"/>
+                <field name="partner_id"/>
+                <field name="config_id"/>
+                <field name="return_id"/>
+                <separator/>
+                <filter name="filter_issued" string="Issued" domain="[('state','=','issued')]"/>
+                <filter name="filter_partial" string="Partially Redeemed" domain="[('state','=','partial')]"/>
+                <filter name="filter_redeemed" string="Fully Redeemed" domain="[('state','=','redeemed')]"/>
+                <filter name="filter_outstanding" string="Outstanding" domain="[('state','in',('issued','partial')),('amount_remaining','&gt;',0)]"/>
+                <filter name="filter_expired" string="Expired" domain="[('state','=','expired')]"/>
+                <separator/>
+                <filter name="filter_date" string="Voucher Date" date="voucher_date"/>
+                <group>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                    <filter name="group_pos" string="POS" context="{'group_by': 'config_id'}"/>
+                    <filter name="group_customer" string="Customer" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_day" string="Day" context="{'group_by': 'voucher_date:day'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'voucher_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cb_pos_voucher_report" model="ir.actions.act_window">
+        <field name="name">Voucher Report</field>
+        <field name="res_model">cb.pos.return.voucher</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_cb_pos_voucher_report_list')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_cb_pos_voucher_report_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_cb_pos_voucher_report_graph')})]"/>
+        <field name="search_view_id" ref="view_cb_pos_voucher_report_search"/>
+        <field name="context">{
+            'search_default_filter_outstanding': 0,
+            'report_model': 'cb.pos.return.voucher',
+            'report_title': 'voucher_report',
+            'report_fields': ['name','barcode','voucher_date','partner_id','config_id','amount','amount_redeemed','amount_remaining','state','expiry_date','return_id']
+        }</field>
+    </record>
+
+</odoo>

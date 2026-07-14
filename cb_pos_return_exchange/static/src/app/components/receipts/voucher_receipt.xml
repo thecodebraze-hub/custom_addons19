@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.VoucherReceipt">
+        <div class="pos-receipt">
+            <div class="pos-receipt-center-align fw-bold fs-3" t-esc="props.receipt.title"/>
+
+            <div class="text-center pt-2" style="font-size: 75%;">
+                <div t-if="props.receipt.company_name" t-esc="props.receipt.company_name"/>
+                <div t-if="props.receipt.header_message" t-esc="props.receipt.header_message"/>
+                <div t-if="props.receipt.company_phone">
+                    Tel: <t t-esc="props.receipt.company_phone"/>
+                </div>
+                <div t-if="props.receipt.company_vat">
+                    VAT: <t t-esc="props.receipt.company_vat"/>
+                </div>
+            </div>
+
+            <div class="pos-receipt-order-data pt-3">
+                <div><strong>Voucher:</strong> <t t-esc="props.receipt.name"/></div>
+                <div t-if="props.receipt.partner_name">
+                    <strong>Customer:</strong> <t t-esc="props.receipt.partner_name"/>
+                </div>
+                <div t-if="props.receipt.expiry_date">
+                    <strong>Valid Until:</strong> <t t-esc="props.receipt.expiry_date"/>
+                </div>
+            </div>
+
+            <div class="pt-3">
+                <div class="d-flex justify-content-between fw-bold fs-5">
+                    <span>Voucher Value</span>
+                    <span t-esc="props.receipt.amount"/>
+                </div>
+                <div t-if="props.receipt.amount_remaining and props.receipt.amount_remaining !== props.receipt.amount"
+                    class="d-flex justify-content-between pt-1">
+                    <span>Balance</span>
+                    <span t-esc="props.receipt.amount_remaining"/>
+                </div>
+            </div>
+
+            <div t-if="props.receipt.barcode_value" class="pos-receipt-center-align pt-3">
+                <img t-if="props.receipt.qr_url"
+                    t-att-src="props.receipt.qr_url"
+                    style="max-width: 40mm; margin-bottom: 6px;"
+                    alt="QR Code"/>
+                <img t-att-src="props.receipt.barcode_url"
+                    style="max-width: 100%; height: 70px;"
+                    alt="Barcode"/>
+                <div class="fw-bold pt-1" t-esc="props.receipt.barcode_value"/>
+            </div>
+
+            <div t-if="props.receipt.note" class="pos-receipt-order-data pt-2" style="font-size: 80%;">
+                <t t-esc="props.receipt.note"/>
+            </div>
+
+            <div class="pos-receipt-order-data pt-2" style="font-size: 75%;">
+                <div t-if="props.receipt.date">
+                    Issued: <t t-esc="props.receipt.date"/>
+                </div>
+            </div>
+
+            <div t-if="props.receipt.thank_you_message"
+                class="pos-receipt-center-align fw-bold pt-3"
+                t-esc="props.receipt.thank_you_message"/>
+
+            <div class="pos-receipt-center-align pt-3" style="font-size: 70%;">
+                <div>Software Partner</div>
+                <div class="fw-bold">Codebraze PVT LTD</div>
+                <div>0702 78 78 73</div>
+            </div>
+        </div>
+    </t>
+
+</templates>

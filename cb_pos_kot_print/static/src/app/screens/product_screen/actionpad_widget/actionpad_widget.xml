@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_kot_print.ActionpadWidget" t-inherit="pos_restaurant.ActionpadWidget" t-inherit-mode="extension">
+        <xpath expr="//button[.//i[hasclass('fa-cutlery')]]" position="attributes">
+            <attribute name="t-elif">(this.pos.unwatched.printers.length or this.pos.config.iface_kot_print) and this.currentOrder.uiState.lastPrints.length</attribute>
+        </xpath>
+    </t>
+
+</templates>

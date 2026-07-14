@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="product_product_service_charge" model="product.product">
+        <field name="name">Service Charge</field>
+        <field name="categ_id" ref="product.product_category_services"/>
+        <field name="default_code">SVC_CHARGE</field>
+        <field name="weight">0.01</field>
+        <field name="available_in_pos">False</field>
+        <field name="taxes_id" eval="[(5,)]"/>
+        <field name="list_price">0.0</field>
+        <field name="type">service</field>
+    </record>
+
+    <record id="default_pos_service_charge" model="pos.service.charge">
+        <field name="name">Service Charge</field>
+        <field name="rate">10.0</field>
+        <field name="product_id" ref="product_product_service_charge"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

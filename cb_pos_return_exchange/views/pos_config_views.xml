@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_pos_config_form_return_exchange" model="ir.ui.view">
+        <field name="name">pos.config.form.return.exchange</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='configuration']" position="after">
+                <page string="Returns &amp; Exchanges" name="cb_return_exchange"
+                    groups="cb_pos_return_exchange.group_cb_pos_modify_settings">
+                    <field name="cb_return_settings_id" invisible="1"/>
+                    <div class="row mt16 o_settings_container">
+                        <setting string="Enable Module"
+                            help="Enable return, exchange, and voucher workflows on this Point of Sale.">
+                            <field name="cb_module_enabled"/>
+                        </setting>
+                        <setting string="Voucher Expiry Days"
+                            help="Number of days before issued vouchers expire.">
+                            <field name="cb_voucher_expiry_days"/>
+                        </setting>
+                        <setting string="Allow Cash Refund"
+                            help="Allow cash as a refund settlement method.">
+                            <field name="cb_allow_cash_refund"/>
+                        </setting>
+                        <setting string="Require Original Receipt"
+                            help="Require the customer to present the original sale receipt.">
+                            <field name="cb_require_receipt"/>
+                        </setting>
+                        <setting string="Allow Partial Voucher"
+                            help="Allow redeeming only part of a voucher balance.">
+                            <field name="cb_allow_partial_voucher"/>
+                        </setting>
+                        <setting string="Allow Multiple Voucher Usage"
+                            help="Allow more than one voucher on the same order.">
+                            <field name="cb_allow_multiple_voucher_usage"/>
+                        </setting>
+                        <setting string="Automatic Voucher Printing"
+                            help="Print the voucher receipt automatically when a voucher is issued.">
+                            <field name="cb_auto_print_voucher"/>
+                        </setting>
+                        <setting string="Barcode Type"
+                            help="Linear barcode format printed on voucher receipts.">
+                            <field name="cb_voucher_barcode_type"/>
+                        </setting>
+                        <setting string="QR Code"
+                            help="Print a QR code on voucher receipts.">
+                            <field name="cb_voucher_use_qr_code"/>
+                        </setting>
+                    </div>
+                    <div class="text-muted mt-3" groups="base.group_no_one">
+                        <span>Settings record: </span>
+                        <field name="cb_return_settings_id" readonly="1" class="oe_inline"/>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

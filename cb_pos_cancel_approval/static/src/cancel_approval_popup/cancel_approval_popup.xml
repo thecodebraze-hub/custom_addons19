@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_cancel_approval.CancelApprovalPopup">
+        <Dialog title="dialogTitle" size="'md'">
+            <div class="cb-ca" t-on-keydown="onKeydown">
+                <p class="cb-ca-text">
+                    <i class="fa fa-lock me-2"/>
+                    <t t-esc="dialogMessage"/>
+                </p>
+
+                <label class="cb-ca-label">Reason</label>
+                <textarea class="cb-ca-reason"
+                    rows="2"
+                    t-model="state.reason"
+                    placeholder="Why is this being cancelled?"/>
+
+                <label class="cb-ca-label">Manager PIN</label>
+                <input type="password"
+                    class="cb-ca-pin"
+                    t-model="state.pin"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    placeholder="••••"/>
+
+                <div class="cb-ca-numpad">
+                    <button t-foreach="[1,2,3,4,5,6,7,8,9]" t-as="digit" t-key="digit"
+                        type="button" class="cb-ca-key"
+                        t-on-click="() => this.addDigit(digit)">
+                        <t t-esc="digit"/>
+                    </button>
+                    <button type="button" class="cb-ca-key cb-ca-key--clear" t-on-click="clearPin">C</button>
+                    <button type="button" class="cb-ca-key" t-on-click="() => this.addDigit(0)">0</button>
+                    <button type="button" class="cb-ca-key cb-ca-key--back" t-on-click="backspace">
+                        <i class="fa fa-long-arrow-left"/>
+                    </button>
+                </div>
+
+                <div t-if="state.error" class="cb-ca-error">
+                    <i class="fa fa-exclamation-circle me-1"/>
+                    <t t-esc="state.error"/>
+                </div>
+            </div>
+
+            <t t-set-slot="footer">
+                <button class="btn btn-secondary" t-on-click="cancel">Cancel</button>
+                <button class="btn btn-primary"
+                    t-att-disabled="state.loading"
+                    t-on-click="confirm">
+                    <i class="fa fa-check me-1"/>
+                    <t t-esc="confirmLabel"/>
+                </button>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_service_charge.ServiceChargePopup">
+        <Dialog
+            size="'lg'"
+            contentClass="'service-charge-wizard'"
+            bodyClass="'service-charge-wizard-body p-0'"
+            withBodyPadding="false"
+            footer="false">
+            <t t-set-slot="header">
+                <div class="service-charge-wizard-header w-100 d-flex align-items-center justify-content-between">
+                    <h4 class="modal-title mb-0 fw-bold">Service Charge</h4>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        aria-label="Close"
+                        t-on-click="props.close"/>
+                </div>
+            </t>
+
+            <div class="service-charge-wizard-content d-flex">
+                <div class="service-charge-wizard-left flex-fill">
+                    <div class="svc-card">
+                        <div class="svc-card-label">Order Total</div>
+                        <div class="svc-card-value" t-esc="formattedOrderTotal"/>
+                    </div>
+
+                    <div class="svc-card svc-card-commission">
+                        <div class="svc-card-label">Commission</div>
+                        <div class="d-flex align-items-start justify-content-between">
+                            <div>
+                                <div class="svc-commission-rate">
+                                    <t t-esc="displayRate"/>%
+                                </div>
+                                <div class="svc-commission-hint">(Service Charge %)</div>
+                            </div>
+                            <i class="fa fa-pencil svc-edit-icon" role="img" aria-label="Edit rate"/>
+                        </div>
+                    </div>
+
+                    <div class="svc-card svc-card-highlight">
+                        <div class="svc-card-label">Service Charge</div>
+                        <div class="svc-card-value svc-highlight-value" t-esc="formattedPreviewAmount"/>
+                    </div>
+
+                    <div class="svc-card">
+                        <div class="svc-card-label">Final Total</div>
+                        <div class="svc-card-value" t-esc="formattedFinalTotal"/>
+                    </div>
+                </div>
+
+                <div class="service-charge-wizard-right">
+                    <Numpad
+                        buttons="buttons"
+                        onClick.bind="onNumpadClick"
+                        class="'service-charge-numpad'"/>
+                </div>
+            </div>
+
+            <div class="service-charge-wizard-footer d-flex justify-content-end gap-2">
+                <button class="btn svc-btn-remove btn-lg" t-on-click="clearServiceCharge">
+                    <i class="fa fa-trash-o me-2"/>
+                    Remove
+                </button>
+                <button
+                    class="btn svc-btn-ok btn-lg"
+                    t-att-disabled="!isValid"
+                    t-on-click="confirm">
+                    <i class="fa fa-check me-2"/>
+                    OK
+                </button>
+            </div>
+        </Dialog>
+    </t>
+
+</templates>

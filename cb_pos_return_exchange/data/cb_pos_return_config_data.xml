@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="cb_pos_return_config_default" model="cb.pos.return.config">
+        <field name="name">Default Return &amp; Exchange Settings</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="max_refund_days">30</field>
+        <field name="voucher_validity_days">365</field>
+        <field name="require_receipt" eval="False"/>
+        <field name="allow_cash_refund" eval="True"/>
+        <field name="allow_partial_voucher_redemption" eval="True"/>
+        <field name="allow_multiple_voucher_usage" eval="True"/>
+        <field name="auto_print_voucher" eval="False"/>
+        <field name="module_enabled" eval="True"/>
+        <field name="voucher_barcode_type">code128</field>
+        <field name="voucher_use_qr_code" eval="False"/>
+        <field name="issue_remainder_voucher" eval="False"/>
+        <field name="require_original_invoice" eval="False"/>
+        <field name="enable_audit_log" eval="True"/>
+        <field name="auto_create_credit_note" eval="True"/>
+        <field name="auto_post_credit_note" eval="True"/>
+        <field name="voucher_barcode_prefix">VCH/</field>
+        <field name="return_barcode_prefix">RET/</field>
+        <field name="auto_barcode_detect" eval="True"/>
+        <field name="receipt_paper_width">80</field>
+        <field name="receipt_thank_you_message">Thank you for shopping with us!</field>
+    </record>
+
+</odoo>

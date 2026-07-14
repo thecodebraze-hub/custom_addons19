@@ -1,0 +1,70 @@
+.kot-wizard-popup {
+  background-color: #3a3f4b !important;
+  border: none !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  color: #fff;
+
+  .modal-header {
+    background-color: #3a3f4b;
+    border-bottom: none;
+    padding: 1rem 1.25rem 0.5rem;
+  }
+
+  .kot-wizard-body {
+    background-color: #3a3f4b;
+    min-height: 420px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0.5rem 1.5rem 1.5rem !important;
+  }
+
+  .kot-wizard-preview {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 65vh;
+  }
+
+  .kot-wizard-loading {
+    padding: 4rem 0;
+  }
+
+  .modal-footer {
+    background-color: #3a3f4b;
+    border-top: none;
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .kot-wizard-back {
+    background-color: #4a5060;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+
+    &:hover,
+    &:focus {
+      background-color: #565d6e;
+      color: #fff;
+    }
+  }
+
+  .kot-wizard-print {
+    background-color: #1e88e5;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+
+    &:hover,
+    &:focus {
+      background-color: #1976d2;
+      color: #fff;
+    }
+
+    &:disabled {
+      opacity: 0.55;
+    }
+  }
+}

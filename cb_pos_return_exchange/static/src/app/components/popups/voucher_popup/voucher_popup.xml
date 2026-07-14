@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.VoucherPopup">
+        <Dialog size="'md'" contentClass="'cb-voucher-popup'" footer="false">
+            <t t-set-slot="header">
+                <div class="w-100 text-center">
+                    <h4 class="modal-title mb-0 fw-bold">Return Voucher Issued</h4>
+                </div>
+            </t>
+
+            <div class="cb-voucher-card text-center p-3">
+                <div class="display-6 fw-bold text-primary" t-esc="props.voucher.name"/>
+                <div class="fs-5 text-muted mb-2" t-if="props.voucher.barcode" t-esc="props.voucher.barcode"/>
+                <div class="fs-2 fw-semibold my-3" t-esc="formatMoney(props.voucher.amount)"/>
+                <div class="row g-2 text-start small">
+                    <div class="col-6">
+                        <span class="text-muted">Remaining</span>
+                        <div class="fw-semibold" t-esc="formatMoney(props.voucher.amount_remaining)"/>
+                    </div>
+                    <div class="col-6">
+                        <span class="text-muted">Expires</span>
+                        <div class="fw-semibold" t-esc="formatDate(props.voucher.expiry_date)"/>
+                    </div>
+                    <div class="col-12" t-if="props.voucher.partner_name">
+                        <span class="text-muted">Customer</span>
+                        <div class="fw-semibold" t-esc="props.voucher.partner_name"/>
+                    </div>
+                    <div class="col-12" t-if="props.returnDoc">
+                        <span class="text-muted">Return</span>
+                        <div class="fw-semibold" t-esc="props.returnDoc.return_name or props.returnDoc.name"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 pt-3">
+                <button type="button" class="btn btn-outline-secondary btn-lg" t-on-click="printVoucher">
+                    <i class="fa fa-print me-1"/> Print
+                </button>
+                <button type="button" class="btn btn-primary btn-lg" t-on-click="confirm">Done</button>
+            </div>
+        </Dialog>
+    </t>
+
+</templates>

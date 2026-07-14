@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_kot_print.KotReceipt">
+        <div class="pos-receipt kot-receipt kot-receipt-paper">
+            <div class="kot-receipt-tear kot-receipt-tear-top"/>
+            <div class="kot-receipt-body">
+                <div class="kot-receipt-main-title">KITCHEN ORDER</div>
+                <hr class="kot-receipt-dash"/>
+                <t t-set="company" t-value="data.company"/>
+                <div class="kot-receipt-company text-center" t-if="company">
+                    <div class="kot-receipt-company-name" t-if="company.name">
+                        <t t-esc="company.name"/>
+                    </div>
+                    <div t-if="company.street or company.street2 or company.city or company.zip">
+                        <t t-if="company.street" t-esc="company.street"/>
+                        <t t-if="company.street2">
+                            <t t-if="company.street">, </t>
+                            <t t-esc="company.street2"/>
+                        </t>
+                        <t t-if="company.city">
+                            <t t-if="company.street or company.street2">, </t>
+                            <t t-esc="company.city"/>
+                        </t>
+                        <t t-if="company.zip">
+                            <t t-if="company.street or company.street2 or company.city"> </t>
+                            <t t-esc="company.zip"/>
+                        </t>
+                    </div>
+                    <div t-if="company.phone">
+                        Phone: <t t-esc="company.phone"/>
+                    </div>
+                </div>
+                <hr class="kot-receipt-dash"/>
+                <div t-if="data.table_number" class="kot-receipt-table">
+                    Table: <t t-esc="data.table_number"/>
+                </div>
+                <div class="kot-receipt-meta">
+                    <span>Order No: <t t-esc="data.order_reference"/></span>
+                    <span>Date: <t t-esc="data.date_time"/></span>
+                </div>
+                <hr class="kot-receipt-dash"/>
+                <div class="kot-receipt-lines-header">
+                    <span class="kot-col-qty">Qty</span>
+                    <span class="kot-col-item">Item</span>
+                    <span class="kot-col-note">Note</span>
+                </div>
+                <hr class="kot-receipt-dash"/>
+                <t t-foreach="data.lines" t-as="line" t-key="line_index">
+                    <div class="kot-receipt-line">
+                        <span class="kot-col-qty" t-esc="line.qty"/>
+                        <span class="kot-col-item" t-esc="line.name"/>
+                        <span class="kot-col-note" t-esc="line.note"/>
+                    </div>
+                </t>
+                <hr class="kot-receipt-dash"/>
+                <div class="kot-receipt-end text-center">
+                    <div>*** END OF ORDER ***</div>
+                    <div class="kot-receipt-thanks">Thank You!</div>
+                </div>
+                <hr class="kot-receipt-dash"/>
+                <div class="kot-receipt-partner text-center">
+                    <div>Software Partner</div>
+                    <div class="kot-receipt-partner-name">Codebraze PVT LTD</div>
+                    <div>070 2 78 78 73</div>
+                </div>
+            </div>
+            <div class="kot-receipt-tear kot-receipt-tear-bottom"/>
+        </div>
+    </t>
+
+</templates>

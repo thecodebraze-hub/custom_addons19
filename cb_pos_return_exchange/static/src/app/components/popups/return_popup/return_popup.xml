@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.ReturnPopup">
+        <Dialog size="'md'" contentClass="'cb-return-popup'" footer="false">
+            <t t-set-slot="header">
+                <div class="cb-return-popup__header w-100 d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="cb-return-popup__badge">
+                            <i class="fa fa-exchange"/>
+                        </span>
+                        <h4 class="modal-title mb-0 fw-bold" t-esc="popupTitle"/>
+                    </div>
+                    <button type="button" class="btn-close" t-on-click="cancel"/>
+                </div>
+            </t>
+
+            <div class="cb-return-popup__body d-flex flex-column gap-3">
+                <div t-if="state.loading" class="cb-return-popup__alert cb-return-popup__alert--info">
+                    <i class="fa fa-spinner fa-spin me-2"/> Searching...
+                </div>
+                <div t-if="state.error" class="cb-return-popup__alert cb-return-popup__alert--error">
+                    <i class="fa fa-exclamation-circle me-2"/><span t-esc="state.error"/>
+                </div>
+
+                <div class="cb-return-popup__field">
+                    <label class="cb-return-popup__label">Scan or type</label>
+                    <div class="cb-return-popup__input-wrap">
+                        <i class="fa" t-att-class="searchIcon"/>
+                        <input type="text" class="cb-return-popup__input" t-ref="searchInput"
+                            t-model="state.search" t-on-keydown="onKeydown"
+                            t-att-placeholder="searchPlaceholder" autocomplete="off"/>
+                    </div>
+                    <small class="cb-return-popup__hint">
+                        <i class="fa fa-info-circle me-1"/><span t-esc="modeHint"/>
+                    </small>
+                </div>
+
+                <div t-if="state.giftCart.length" class="cb-return-popup__gift">
+                    <div class="cb-return-popup__results-head">
+                        <i class="fa fa-gift me-1"/> Exchange product(s) — confirm to generate a voucher
+                    </div>
+                    <div class="cb-return-popup__gift-list">
+                        <div class="cb-return-popup__gift-row" t-foreach="state.giftCart" t-as="item"
+                            t-key="item.product_id">
+                            <div class="cb-return-popup__gift-name" t-esc="item.product_name"/>
+                            <input type="number" min="0" step="1" class="cb-return-popup__gift-qty"
+                                t-att-value="item.qty" t-on-change="(ev) => this.changeGiftQty(item, ev)"/>
+                            <span class="cb-return-popup__gift-unit" t-esc="orderMoney(item.unit_value)"/>
+                            <span class="cb-return-popup__gift-amount" t-esc="orderMoney(item.amount)"/>
+                            <button type="button" class="cb-return-popup__gift-remove"
+                                t-on-click="() => this.removeGiftItem(item)">
+                                <i class="fa fa-times"/>
+                            </button>
+                        </div>
+                        <div class="cb-return-popup__gift-total">
+                            <span>Voucher value</span>
+                            <span class="fw-bold" t-esc="orderMoney(giftTotal)"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div t-if="state.results.length" class="cb-return-popup__results">
+                    <div class="cb-return-popup__results-head">
+                        <i class="fa fa-list-ul me-1"/>
+                        <t t-esc="state.results.length"/> matching order(s) — pick one
+                    </div>
+                    <div class="cb-return-popup__result" t-foreach="state.results" t-as="order"
+                        t-key="order.id" t-on-click="() => this.selectOrder(order)">
+                        <div class="cb-return-popup__result-header">
+                            <div class="cb-return-popup__result-main">
+                                <span class="cb-return-popup__result-ref" t-esc="orderDisplayRef(order)"/>
+                                <span t-if="order.partner_name" class="cb-return-popup__result-partner"
+                                    t-esc="order.partner_name"/>
+                            </div>
+                            <div class="cb-return-popup__result-meta">
+                                <span class="cb-return-popup__result-date" t-esc="orderDisplayDate(order)"/>
+                                <span class="cb-return-popup__result-amount" t-esc="orderMoney(order.amount_total)"/>
+                            </div>
+                            <i class="fa fa-chevron-right cb-return-popup__result-arrow"/>
+                        </div>
+                        <div t-if="order.lines and order.lines.length" class="cb-return-popup__sublines">
+                            <div class="cb-return-popup__subline" t-foreach="order.lines" t-as="oline"
+                                t-key="oline.id">
+                                <span class="cb-return-popup__subline-name" t-esc="oline.product_name"/>
+                                <span class="cb-return-popup__subline-qty">
+                                    <t t-esc="oline.qty_returnable"/> / <t t-esc="oline.qty"/>
+                                </span>
+                                <span class="cb-return-popup__subline-price"
+                                    t-esc="orderMoney(oline.price_unit)"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cb-return-popup__footer d-flex justify-content-end align-items-center gap-2 pt-3">
+                <button type="button" class="btn btn-light btn-lg" t-on-click="cancel">Cancel</button>
+                <button type="button"
+                    class="btn btn-primary btn-lg cb-return-popup__search"
+                    t-on-click="search" t-att-disabled="state.loading">
+                    <i class="fa fa-search me-1"/>Search
+                </button>
+                <button t-if="state.giftCart.length" type="button"
+                    class="btn btn-success btn-lg"
+                    t-on-click="issueGiftVoucher"
+                    t-att-disabled="state.giftBusy">
+                    <i class="fa fa-ticket me-1"/>Confirm
+                </button>
+            </div>
+        </Dialog>
+    </t>
+
+</templates>

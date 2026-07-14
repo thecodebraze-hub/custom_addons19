@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_cb_pos_return_reporting_root"
+        name="Returns &amp; Exchanges"
+        parent="point_of_sale.menu_point_rep"
+        sequence="25"
+        groups="group_cb_pos_view_reports"/>
+
+    <menuitem id="menu_cb_pos_return_dashboard"
+        name="Dashboard"
+        parent="menu_cb_pos_return_reporting_root"
+        action="action_cb_pos_return_dashboard_server"
+        sequence="5"
+        groups="group_cb_pos_view_reports"/>
+
+    <menuitem id="menu_cb_pos_return_reports"
+        name="Return Reports"
+        parent="menu_cb_pos_return_reporting_root"
+        sequence="10"
+        groups="group_cb_pos_view_reports"/>
+
+    <menuitem id="menu_cb_pos_return_report"
+        name="Return Report"
+        parent="menu_cb_pos_return_reports"
+        action="action_cb_pos_return_report"
+        sequence="10"/>
+
+    <menuitem id="menu_cb_pos_customer_return_report"
+        name="Customer Return Report"
+        parent="menu_cb_pos_return_reports"
+        action="action_cb_pos_customer_return_report"
+        sequence="20"/>
+
+    <menuitem id="menu_cb_pos_employee_return_report"
+        name="Employee Return Report"
+        parent="menu_cb_pos_return_reports"
+        action="action_cb_pos_employee_return_report"
+        sequence="30"/>
+
+    <menuitem id="menu_cb_pos_daily_return_report"
+        name="Daily Return Report"
+        parent="menu_cb_pos_return_reports"
+        action="action_cb_pos_daily_return_report"
+        sequence="40"/>
+
+    <menuitem id="menu_cb_pos_monthly_return_report"
+        name="Monthly Return Report"
+        parent="menu_cb_pos_return_reports"
+        action="action_cb_pos_monthly_return_report"
+        sequence="50"/>
+
+    <menuitem id="menu_cb_pos_voucher_report"
+        name="Voucher Report"
+        parent="menu_cb_pos_return_reporting_root"
+        action="action_cb_pos_voucher_report"
+        sequence="20"
+        groups="group_cb_pos_view_reports"/>
+
+    <menuitem id="menu_cb_pos_exchange_report"
+        name="Exchange Report"
+        parent="menu_cb_pos_return_reporting_root"
+        action="action_cb_pos_exchange_report"
+        sequence="30"
+        groups="group_cb_pos_view_reports"/>
+
+    <menuitem id="menu_cb_pos_sales_return_analysis"
+        name="Sales vs Return Analysis"
+        parent="menu_cb_pos_return_reporting_root"
+        action="action_cb_pos_sales_return_analysis"
+        sequence="40"
+        groups="group_cb_pos_view_reports"/>
+
+    <menuitem id="menu_cb_pos_return_config"
+        name="Return &amp; Exchange Settings"
+        parent="point_of_sale.menu_point_config_product"
+        action="action_cb_pos_return_config_company"
+        sequence="50"
+        groups="group_cb_pos_modify_settings"/>
+
+</odoo>

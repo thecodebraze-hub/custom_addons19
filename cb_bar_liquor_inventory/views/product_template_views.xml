@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_liquor_inventory" model="ir.ui.view">
+        <field name="name">product.template.form.liquor.inventory</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='purchase_ok']/parent::span" position="after">
+                <span class="d-inline-flex">
+                    <field name="liquor_is_liquor"/>
+                    <label for="liquor_is_liquor" string="Is Liquor"/>
+                </span>
+            </xpath>
+            <xpath expr="//page[@name='general_information']/group" position="inside">
+                <group string="Liquor Inventory" invisible="not liquor_is_liquor">
+                    <field name="liquor_is_shot_product"/>
+                    <field name="liquor_bottle_size_ml" invisible="liquor_is_shot_product"/>
+                    <field name="liquor_remaining_ml" readonly="1" invisible="liquor_is_shot_product"/>
+                    <field name="liquor_available_stock_display" readonly="1"/>
+                    <field name="liquor_parent_bottle_product_id" invisible="not liquor_is_shot_product" required="liquor_is_shot_product"/>
+                    <field name="liquor_consumption_ml" invisible="not liquor_is_shot_product" required="liquor_is_shot_product"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_tree_view_liquor_inventory" model="ir.ui.view">
+        <field name="name">product.template.list.liquor.inventory</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field name="liquor_is_liquor" optional="hide"/>
+                <field name="liquor_available_stock_display" optional="hide"/>
+            </field>
+        </field>
+    </record>
+</odoo>

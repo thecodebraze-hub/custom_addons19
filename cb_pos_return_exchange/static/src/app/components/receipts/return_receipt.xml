@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cb_pos_return_exchange.ReturnReceipt">
+        <div class="pos-receipt">
+            <div class="pos-receipt-center-align fw-bold fs-3" t-esc="props.receipt.title"/>
+
+            <div class="text-center pt-2" style="font-size: 75%;">
+                <div t-if="props.receipt.company_name" t-esc="props.receipt.company_name"/>
+                <div t-if="props.receipt.header_message" t-esc="props.receipt.header_message"/>
+                <div t-if="props.receipt.company_phone">
+                    Tel: <t t-esc="props.receipt.company_phone"/>
+                </div>
+                <div t-if="props.receipt.company_vat">
+                    VAT: <t t-esc="props.receipt.company_vat"/>
+                </div>
+            </div>
+
+            <div class="pos-receipt-order-data pt-3">
+                <div><strong>Return:</strong> <t t-esc="props.receipt.name"/></div>
+                <div t-if="props.receipt.partner_name">
+                    <strong>Customer:</strong> <t t-esc="props.receipt.partner_name"/>
+                </div>
+                <div t-if="props.receipt.original_order_name">
+                    <strong>Original Order:</strong> <t t-esc="props.receipt.original_order_name"/>
+                </div>
+                <div t-if="props.receipt.refund_method">
+                    <strong>Refund Method:</strong> <t t-esc="props.receipt.refund_method"/>
+                </div>
+                <div t-if="props.receipt.reason">
+                    <strong>Reason:</strong> <t t-esc="props.receipt.reason"/>
+                </div>
+            </div>
+
+            <div class="pt-3">
+                <table style="width: 100%; font-size: 85%;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left;">Product</th>
+                            <th style="text-align: right;">Qty</th>
+                            <th style="text-align: right;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="props.receipt.lines" t-as="line" t-key="line_index">
+                            <td t-esc="line.product_name"/>
+                            <td style="text-align: right;" t-esc="line.qty"/>
+                            <td style="text-align: right;" t-esc="line.price_total"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pt-2">
+                <div class="d-flex justify-content-between">
+                    <span>Subtotal</span>
+                    <span t-esc="props.receipt.amount_untaxed"/>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Tax</span>
+                    <span t-esc="props.receipt.amount_tax"/>
+                </div>
+                <div class="d-flex justify-content-between fw-bold pt-1">
+                    <span>Total Refund</span>
+                    <span t-esc="props.receipt.amount_total"/>
+                </div>
+            </div>
+
+            <div t-if="props.receipt.voucher_name" class="pt-2">
+                <div><strong>Voucher Issued:</strong> <t t-esc="props.receipt.voucher_name"/></div>
+                <div t-if="props.receipt.voucher_remaining">
+                    <strong>Voucher Balance:</strong> <t t-esc="props.receipt.voucher_remaining"/>
+                </div>
+            </div>
+
+            <div t-if="props.receipt.barcode_value" class="pos-receipt-center-align pt-3">
+                <img t-if="props.receipt.qr_url"
+                    t-att-src="props.receipt.qr_url"
+                    style="max-width: 40mm; margin-bottom: 6px;"
+                    alt="QR Code"/>
+                <img t-att-src="props.receipt.barcode_url"
+                    style="max-width: 100%; height: 70px;"
+                    alt="Barcode"/>
+                <div class="fw-bold pt-1" t-esc="props.receipt.barcode_value"/>
+            </div>
+
+            <div class="pos-receipt-order-data pt-2" style="font-size: 75%;">
+                <div t-if="props.receipt.cashier_name">
+                    Cashier: <t t-esc="props.receipt.cashier_name"/>
+                </div>
+                <div t-if="props.receipt.date">
+                    Date: <t t-esc="props.receipt.date"/>
+                </div>
+            </div>
+
+            <div t-if="props.receipt.thank_you_message"
+                class="pos-receipt-center-align fw-bold pt-3"
+                t-esc="props.receipt.thank_you_message"/>
+
+            <div class="pos-receipt-center-align pt-3" style="font-size: 70%;">
+                <div>Software Partner</div>
+                <div class="fw-bold">Codebraze PVT LTD</div>
+                <div>0702 78 78 73</div>
+            </div>
+        </div>
+    </t>
+
+</templates>

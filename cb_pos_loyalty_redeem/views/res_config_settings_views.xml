@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_cb_loyalty_redeem" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.cb_loyalty_redeem</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <setting id="pos-loyalty" position="after">
+                <setting id="cb_loyalty_redeem_enabled"
+                    string="Custom Loyalty Redemption"
+                    help="Allow cashiers to redeem a custom amount of the customer's loyalty points">
+                    <field name="pos_cb_loyalty_redeem_enabled"/>
+                    <div class="content-group mt16" invisible="not pos_cb_loyalty_redeem_enabled">
+                        <div class="row mt8">
+                            <label for="pos_cb_loyalty_program_id" class="col-lg-4 o_light_label"/>
+                            <field name="pos_cb_loyalty_program_id" options="{'no_create': True}"/>
+                        </div>
+                        <div class="row mt8">
+                            <label for="pos_cb_loyalty_point_rate" class="col-lg-4 o_light_label"/>
+                            <field name="pos_cb_loyalty_point_rate"/>
+                        </div>
+                        <div class="row mt8">
+                            <label for="pos_cb_loyalty_min_points" class="col-lg-4 o_light_label"/>
+                            <field name="pos_cb_loyalty_min_points"/>
+                        </div>
+                        <div class="row mt8">
+                            <label for="pos_cb_loyalty_redeem_product_id" class="col-lg-4 o_light_label"/>
+                            <field name="pos_cb_loyalty_redeem_product_id" options="{'no_create': True}"/>
+                        </div>
+                    </div>
+                </setting>
+            </setting>
+        </field>
+    </record>
+</odoo>

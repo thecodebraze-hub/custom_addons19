@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Return report exports -->
+    <record id="action_export_excel_cb_pos_return" model="ir.actions.server">
+        <field name="name">Export Excel</field>
+        <field name="model_id" ref="model_cb_pos_return"/>
+        <field name="binding_model_id" ref="model_cb_pos_return"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env['cb.pos.report.export'].with_context(env.context).action_export_from_context('xlsx')
+        </field>
+    </record>
+
+    <record id="action_export_pdf_cb_pos_return" model="ir.actions.server">
+        <field name="name">Export PDF</field>
+        <field name="model_id" ref="model_cb_pos_return"/>
+        <field name="binding_model_id" ref="model_cb_pos_return"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env.ref('cb_pos_return_exchange.action_report_cb_pos_return_list_pdf').report_action(records)
+        </field>
+    </record>
+
+    <!-- Voucher report exports -->
+    <record id="action_export_excel_cb_pos_voucher" model="ir.actions.server">
+        <field name="name">Export Excel</field>
+        <field name="model_id" ref="model_cb_pos_return_voucher"/>
+        <field name="binding_model_id" ref="model_cb_pos_return_voucher"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env['cb.pos.report.export'].with_context(env.context).action_export_from_context('xlsx')
+        </field>
+    </record>
+
+    <record id="action_export_pdf_cb_pos_voucher" model="ir.actions.server">
+        <field name="name">Export PDF</field>
+        <field name="model_id" ref="model_cb_pos_return_voucher"/>
+        <field name="binding_model_id" ref="model_cb_pos_return_voucher"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env.ref('cb_pos_return_exchange.action_report_cb_pos_voucher_list_pdf').report_action(records)
+        </field>
+    </record>
+
+    <!-- Exchange report exports -->
+    <record id="action_export_excel_cb_pos_exchange" model="ir.actions.server">
+        <field name="name">Export Excel</field>
+        <field name="model_id" ref="model_cb_pos_exchange"/>
+        <field name="binding_model_id" ref="model_cb_pos_exchange"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env['cb.pos.report.export'].with_context(env.context).action_export_from_context('xlsx')
+        </field>
+    </record>
+
+    <record id="action_export_pdf_cb_pos_exchange" model="ir.actions.server">
+        <field name="name">Export PDF</field>
+        <field name="model_id" ref="model_cb_pos_exchange"/>
+        <field name="binding_model_id" ref="model_cb_pos_exchange"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env.ref('cb_pos_return_exchange.action_report_cb_pos_exchange_list_pdf').report_action(records)
+        </field>
+    </record>
+
+    <!-- Sales vs return analysis exports -->
+    <record id="action_export_excel_cb_pos_sales_return_analysis" model="ir.actions.server">
+        <field name="name">Export Excel</field>
+        <field name="model_id" ref="model_cb_pos_sales_return_analysis"/>
+        <field name="binding_model_id" ref="model_cb_pos_sales_return_analysis"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env['cb.pos.report.export'].with_context(env.context).action_export_from_context('xlsx')
+        </field>
+    </record>
+
+    <record id="action_export_pdf_cb_pos_sales_return_analysis" model="ir.actions.server">
+        <field name="name">Export PDF</field>
+        <field name="model_id" ref="model_cb_pos_sales_return_analysis"/>
+        <field name="binding_model_id" ref="model_cb_pos_sales_return_analysis"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('group_cb_pos_view_reports'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env.ref('cb_pos_return_exchange.action_report_cb_pos_sales_return_analysis_pdf').report_action(records)
+        </field>
+    </record>
+
+</odoo>
