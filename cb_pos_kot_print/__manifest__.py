@@ -6,6 +6,8 @@
     "author": "CodeBraze",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
+    "price": 20.0,
+    "currency": "USD",
     "depends": ["point_of_sale", "pos_restaurant", "pos_settle_due"],
     "data": [
         "views/res_config_settings_views.xml",
