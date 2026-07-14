@@ -1,6 +1,6 @@
 {
     "name": "POS KOT Print",
-    "version": "19.0.1.0.6",
+    "version": "19.0.1.0.7",
     "category": "Sales/Point of Sale",
     "summary": "Print Kitchen Order Tickets from POS using the receipt printer",
     "author": "CodeBraze",
@@ -14,7 +14,7 @@
         "static/description/kot_button_screenshot.png",
         "static/description/kot_wizard_screenshot.png",
     ],
-    "depends": ["point_of_sale", "pos_restaurant", "pos_settle_due"],
+    "depends": ["point_of_sale", "pos_restaurant"],
     "data": [
         "views/res_config_settings_views.xml",
         "views/product_template_views.xml",
@@ -41,14 +41,14 @@
                 "pos_restaurant/static/src/app/screens/product_screen/actionpad_widget/actionpad_widget.xml",
                 "cb_pos_kot_print/static/src/app/screens/product_screen/actionpad_widget/actionpad_widget.xml",
             ),
+            (
+                "after",
+                "pos_restaurant/static/src/app/services/pos_store.js",
+                "cb_pos_kot_print/static/src/app/screens/partner_list/partner_line_fix.js",
+            ),
             "cb_pos_kot_print/static/src/**/*",
             (
                 "remove",
-                "cb_pos_kot_print/static/src/app/screens/partner_list/partner_line_fix.js",
-            ),
-            (
-                "after",
-                "pos_settle_due/static/src/app/services/pos_store.js",
                 "cb_pos_kot_print/static/src/app/screens/partner_list/partner_line_fix.js",
             ),
             (
