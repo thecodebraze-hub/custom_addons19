@@ -1,22 +1,40 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
-        <div class="oe_span12" style="text-align:center;">
-            <img src="cover.png" class="oe_picture oe_screenshot" alt="POS Cancel Approval cover"
-                 style="max-width: 100%; height: auto; margin-bottom: 16px;"/>
-            <h2 class="oe_slogan" style="color:#714b67;">POS Cancel Approval</h2>
-            <h3 class="oe_slogan" style="color:#5a3b52;">Manager PIN and reason before cancelling orders or removing lines</h3>
+        <div class="oe_span12 text-center">
+            <img src="cover_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="POS Cancel Approval cover"
+                 style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.18);"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12 text-center">
+            <img src="icon.png" alt="POS Cancel Approval icon"
+                 style="width:96px;height:96px;border-radius:22px;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,.2);"/>
+            <h2 class="oe_slogan" style="color:#714b67;margin-top:8px;">POS Cancel Approval</h2>
+            <h3 class="oe_slogan" style="color:#5a3b52;">Cancel order or remove product line</h3>
+            <p class="oe_mt16" style="font-size:16px;line-height:1.7;max-width:820px;margin:0 auto;">
+                When a cashier tries to <strong>cancel a Point of Sale order</strong> that has items,
+                or <strong>remove a product line</strong> (including via backspace), a manager must
+                enter an approval <strong>PIN</strong> and a <strong>reason</strong>.
+                Empty orders can still be discarded freely.
+            </p>
         </div>
     </div>
 </section>
 
 <section class="oe_container oe_dark">
     <div class="oe_row oe_spaced">
-        <div class="oe_span12">
-            <p class="oe_mt32" style="font-size:16px; line-height:1.6;">
-                When a cashier tries to <b>cancel (delete) a Point of Sale order</b> that has
-                items, or <b>remove order lines</b> (including via backspace), a manager must
-                enter an approval <b>PIN</b> and a <b>reason</b>. Empty orders can still be
-                discarded freely.
+        <h2 class="oe_slogan" style="color:#714b67;">1. Enable in POS Settings</h2>
+        <div class="oe_span12 text-center">
+            <img src="pos_settings_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Manager Approval to Cancel Order in POS settings"
+                 style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.16);margin-top:12px;"/>
+            <p class="oe_mt16 text-muted" style="font-size:14px;">
+                Enable <strong>Manager Approval to Cancel Order</strong> in Point of Sale settings
+                (PIN + reason before cancel or Backspace remove).
             </p>
         </div>
     </div>
@@ -24,34 +42,13 @@
 
 <section class="oe_container">
     <div class="oe_row oe_spaced">
-        <div class="oe_span6">
-            <h3 class="oe_slogan" style="color:#714b67;">Per Point of Sale</h3>
-            <p class="oe_mt16">
-                Enable or disable the requirement independently for each point of sale
-                from the POS settings.
-            </p>
-        </div>
-        <div class="oe_span6">
-            <h3 class="oe_slogan" style="color:#714b67;">PIN + Reason</h3>
-            <p class="oe_mt16">
-                Approvers set their own PIN on the user record. Every approval requires
-                a written reason before the cancel or line removal proceeds.
-            </p>
-        </div>
-    </div>
-    <div class="oe_row oe_spaced">
-        <div class="oe_span6">
-            <h3 class="oe_slogan" style="color:#714b67;">Line Removal Covered</h3>
-            <p class="oe_mt16">
-                Removing products with the backspace / delete key also triggers the same
-                manager approval flow — not only full order cancel.
-            </p>
-        </div>
-        <div class="oe_span6">
-            <h3 class="oe_slogan" style="color:#714b67;">Audit Log</h3>
-            <p class="oe_mt16">
-                Approved cancellations and line removals are stored under Point of Sale
-                → Orders with cashier, manager, reason, and order details.
+        <h2 class="oe_slogan" style="color:#714b67;">2. Cancel Order from Actions</h2>
+        <div class="oe_span12 text-center">
+            <img src="cancel_order_actions_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Cancel Order in POS Actions menu"
+                 style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.16);margin-top:12px;"/>
+            <p class="oe_mt16 text-muted" style="font-size:14px;">
+                Open <strong>Actions</strong> and tap <strong>Cancel Order</strong> — manager approval is required when the order has items.
             </p>
         </div>
     </div>
@@ -59,13 +56,81 @@
 
 <section class="oe_container oe_dark">
     <div class="oe_row oe_spaced">
-        <div class="oe_span12" style="text-align:center;">
-            <h3 class="oe_slogan" style="color:#714b67;">Support</h3>
-            <p>
-                <a href="mailto:sales@codebraze.com" style="color:#714b67;">sales@codebraze.com</a>
+        <h2 class="oe_slogan" style="color:#714b67;">3. Approve Remove Product Line</h2>
+        <div class="oe_span12 text-center">
+            <img src="remove_item_approval_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Manager Approval to Remove Item popup"
+                 style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.16);margin-top:12px;"/>
+            <p class="oe_mt16 text-muted" style="font-size:14px;">
+                Enter a <strong>reason</strong> and the manager <strong>PIN</strong>, then confirm with
+                <strong>Approve &amp; Remove Item</strong>.
             </p>
-            <p class="oe_mt16 text-muted">
-                Built for Odoo 19 · Depends on Point of Sale · License LGPL-3
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#714b67;">Key Features</h2>
+        <div class="oe_span6">
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:140px;">
+                <h4 style="color:#714b67;"><i class="fa fa-cog"/> Per Point of Sale</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Enable or disable the requirement independently for each point of sale
+                    from the POS settings.
+                </p>
+            </div>
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:140px;">
+                <h4 style="color:#714b67;"><i class="fa fa-lock"/> PIN + Reason</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Approvers set their own PIN on the user record. Every approval requires
+                    a written reason before the cancel or line removal proceeds.
+                </p>
+            </div>
+        </div>
+        <div class="oe_span6">
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:140px;">
+                <h4 style="color:#714b67;"><i class="fa fa-trash"/> Line Removal Covered</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Removing products with the backspace / delete key also triggers the same
+                    manager approval flow — not only full order cancel.
+                </p>
+            </div>
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:140px;">
+                <h4 style="color:#714b67;"><i class="fa fa-list-alt"/> Audit Log</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Approved cancellations and line removals are stored under Point of Sale
+                    → Orders with cashier, manager, reason, and order details.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#714b67;">Requirements</h2>
+        <div class="oe_span12 text-center">
+            <p class="oe_mt16" style="font-size:15px;line-height:1.7;">
+                Requires <strong>Point of Sale</strong>.
+                Compatible with <strong>Odoo Community</strong> and <strong>Odoo Enterprise</strong>.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12 text-center">
+            <img src="icon.png" alt="POS Cancel Approval"
+                 style="width:56px;height:56px;border-radius:14px;margin-bottom:10px;"/>
+            <h3 class="oe_slogan" style="color:#714b67;">Support</h3>
+            <p class="oe_mt16">
+                For support requests:
+                <a href="mailto:sales@codebraze.com">sales@codebraze.com</a>
+            </p>
+            <p class="oe_mt16 text-muted" style="font-size:13px;">
+                Built for Odoo 19 · License LGPL-3 · Author CodeBraze
             </p>
         </div>
     </div>

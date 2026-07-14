@@ -80,22 +80,49 @@ export class ServiceChargePopup extends Component {
         return this.numericRate >= 0 && this.numericRate <= 100;
     }
 
+    _setRateNumber(value) {
+        const clamped = Math.min(100, Math.max(0, value));
+        const rounded = Math.round(clamped * 10) / 10;
+        this.state.rate = Number.isInteger(rounded) || rounded % 1 === 0
+            ? String(Math.round(rounded))
+            : String(rounded);
+    }
+
     onNumpadClick(buttonValue) {
         if (buttonValue === "Backspace") {
             this.state.rate = this.state.rate.slice(0, -1);
             return;
         }
-        if (buttonValue === "+" || buttonValue === "-" || buttonValue === "%") {
+        if (buttonValue === "+") {
+            this._setRateNumber(this.numericRate + 1);
             return;
         }
-        if (buttonValue === "+/-") {
+        if (buttonValue === "-") {
+            this._setRateNumber(this.numericRate - 1);
             return;
         }
-        if (this.state.rate === "0" && buttonValue !== ".") {
-            this.state.rate = buttonValue;
+        if (buttonValue === "%" || buttonValue === "+/-") {
             return;
         }
-        this.state.rate += buttonValue;
+        if (buttonValue === ".") {
+            if (this.state.rate.includes(".")) {
+                return;
+            }
+            this.state.rate = (this.state.rate || "0") + ".";
+            return;
+        }
+        // Cap typed value at 100 and max one decimal place
+        let next = this.state.rate === "0" ? buttonValue : this.state.rate + buttonValue;
+        if (next.includes(".")) {
+            const [whole, frac = ""] = next.split(".");
+            next = `${whole}.${frac.slice(0, 1)}`;
+        }
+        const parsed = parseFloat(next);
+        if (Number.isFinite(parsed) && parsed > 100) {
+            this.state.rate = "100";
+            return;
+        }
+        this.state.rate = next;
     }
 
     clearServiceCharge() {

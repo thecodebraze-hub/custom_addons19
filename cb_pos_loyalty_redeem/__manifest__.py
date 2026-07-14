@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "POS Loyalty Redemption",
-    "version": "19.0.1.0.1",
+    "version": "19.0.1.0.5",
     "category": "Sales/Point of Sale",
     "summary": "Redeem a custom amount of a customer's loyalty points at the POS",
     "description": """
@@ -22,6 +22,17 @@ customer's available loyalty points as a discount on the current order.
     "author": "CodeBraze",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
+    "price": 43.00,
+    "currency": "USD",
+    "images": [
+        "images/main_screenshot.png",
+        "static/description/cover_screenshot.png",
+        "static/description/loyalty_settings_screenshot.png",
+        "static/description/redeem_points_actions_screenshot.png",
+        "static/description/redeem_wizard_screenshot.png",
+        "static/description/redeem_applied_order_screenshot.png",
+        "static/description/loyalty_card_screenshot.png",
+    ],
     "license": "LGPL-3",
     "depends": [
         "point_of_sale",
@@ -36,6 +47,7 @@ customer's available loyalty points as a discount on the current order.
             "cb_pos_loyalty_redeem/static/src/**/*",
         ],
     },
+    "post_init_hook": "_post_init_hook",
     "application": True,
     "installable": True,
     "auto_install": False,

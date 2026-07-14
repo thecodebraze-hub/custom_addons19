@@ -8,7 +8,7 @@
             <setting id="iface_printbill" position="after">
                 <setting
                     string="Service Charge"
-                    help="Add a percentage-based service charge to POS orders using the Service Charge button."
+                    help="Add a percentage-based service charge to POS orders from Actions → % Service Charge."
                     id="iface_service_charge"
                     invisible="not pos_module_pos_restaurant or is_kiosk_mode">
                     <field name="pos_iface_service_charge"/>

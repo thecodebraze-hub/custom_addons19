@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "POS Cancel Approval",
-    "version": "19.0.1.0.1",
+    "name": "POS Manager Cancel Order Approval",
+    "version": "19.0.1.0.5",
     "category": "Sales/Point of Sale",
     "summary": "Require manager PIN and reason before cancelling a POS order or removing lines",
     "description": """
-POS Cancel Approval
+POS Manager Cancel Order Approval
 -------------------
 
 When a cashier tries to cancel (delete) a POS order that has items, or remove
@@ -20,6 +20,15 @@ entered to approve the action.
     "author": "CodeBraze",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
+    "price": 24.99,
+    "currency": "USD",
+    "images": [
+        "images/main_screenshot.png",
+        "static/description/cover_screenshot.png",
+        "static/description/pos_settings_screenshot.png",
+        "static/description/cancel_order_actions_screenshot.png",
+        "static/description/remove_item_approval_screenshot.png",
+    ],
     "license": "LGPL-3",
     "depends": [
         "point_of_sale",

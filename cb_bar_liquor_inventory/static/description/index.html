@@ -1,60 +1,39 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
         <div class="oe_span12 text-center">
-            <img src="cover.png" class="oe_picture oe_screenshot" alt="Bar Liquor Inventory cover"
-                 style="max-width: 100%; height: auto;"/>
+            <img src="cover_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Bar Liquor Inventory cover"
+                 style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.18);"/>
         </div>
-        <h2 class="oe_slogan">Bar Liquor Inventory</h2>
-        <h3 class="oe_slogan">Track opened bottles and shot consumption in your bar POS</h3>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
         <div class="oe_span12 text-center">
-            <p class="oe_mt32">
+            <img src="icon.png" alt="Bar Liquor Inventory icon"
+                 style="width:96px;height:96px;border-radius:22px;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,.2);"/>
+            <h2 class="oe_slogan" style="color:#714b67;margin-top:8px;">Bar Liquor Inventory</h2>
+            <h3 class="oe_slogan" style="color:#5a3b52;">Track opened bottles and shot consumption in your bar POS</h3>
+            <p class="oe_mt16" style="font-size:16px;line-height:1.7;max-width:820px;margin:0 auto;">
                 Built for bars and restaurants that sell liquor by the <strong>bottle</strong> and by the
                 <strong>shot</strong>. Mark liquor products once, track sealed stock plus the active opened bottle
-                balance in <strong>millilitres (ml)</strong>, and let the POS automatically open bottles and deduct
+                balance in <strong>millilitres (ml)</strong>, and let POS automatically open bottles and deduct
                 consumption when shot products are sold.
             </p>
-        </div>
-        <div class="oe_span12 text-center oe_mt32">
-            <img src="bar_liquor_inventory_screenshot.png" class="oe_picture oe_screenshot" alt="Liquor product configuration on Odoo product form"/>
         </div>
     </div>
 </section>
 
 <section class="oe_container oe_dark">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan">Key Features</h2>
-        <div class="oe_span6">
-            <p class="oe_mt32">
-                <strong>Is Liquor flag on products</strong><br/>
-                Tick <em>Is Liquor</em> on the product form (next to Sales / Point of Sale / Purchase).
-                Liquor settings appear only for liquor products — other items stay clean.
-            </p>
-            <p class="oe_mt16">
-                <strong>Full bottle tracking</strong><br/>
-                Set bottle size (e.g. 750 ml), view sealed stock quantity, remaining ml on the active
-                opened bottle, and a combined display such as <em>2 Bottles + 350ml</em>.
-            </p>
-            <p class="oe_mt16">
-                <strong>Opened bottle register</strong><br/>
-                Every opened bottle is recorded under <em>Inventory → Opened Liquor Bottles</em>
-                with size, remaining ml, state, and linked POS order.
-            </p>
-        </div>
-        <div class="oe_span6">
-            <p class="oe_mt32">
-                <strong>Shot products</strong><br/>
-                Create shot/service products (e.g. 100 ml, 200 ml) linked to a parent full bottle.
-                Define consumption ml per unit sold — ideal for arrack, whisky, vodka, and spirits.
-            </p>
-            <p class="oe_mt16">
-                <strong>Automatic POS consumption</strong><br/>
-                When a shot line is paid in POS, the module opens a sealed bottle if needed and
-                deducts the correct ml from the active opened bottle. Stock moves are created automatically.
-            </p>
-            <p class="oe_mt16">
-                <strong>Variant support</strong><br/>
-                Liquor settings on the product template apply to all variants, so every size or
-                attribute variant is handled consistently in POS.
+        <h2 class="oe_slogan" style="color:#714b67;">Product Configuration</h2>
+        <div class="oe_span12 text-center">
+            <img src="bar_liquor_inventory_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Liquor product configuration on Odoo product form"
+                 style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.16);margin-top:12px;"/>
+            <p class="oe_mt16 text-muted" style="font-size:14px;">
+                Enable <strong>Is Liquor</strong>, set bottle size, and configure shot products with consumption in ml.
             </p>
         </div>
     </div>
@@ -62,81 +41,130 @@
 
 <section class="oe_container">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan">How It Works</h2>
+        <h2 class="oe_slogan" style="color:#714b67;">Key Features</h2>
+        <div class="oe_span6">
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:150px;">
+                <h4 style="color:#714b67;"><i class="fa fa-check-square-o"/> Is Liquor Flag</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Tick <em>Is Liquor</em> on the product form. Liquor settings appear only for
+                    liquor products — other items stay clean.
+                </p>
+            </div>
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:150px;">
+                <h4 style="color:#714b67;"><i class="fa fa-flask"/> Full Bottle Tracking</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Set bottle size (e.g. 750 ml), view sealed stock, remaining ml on the active
+                    opened bottle, and a combined display such as <em>2 Bottles + 350ml</em>.
+                </p>
+            </div>
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:150px;">
+                <h4 style="color:#714b67;"><i class="fa fa-list-alt"/> Opened Bottle Register</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Every opened bottle is recorded under <em>Inventory → Opened Liquor Bottles</em>
+                    with size, remaining ml, state, and linked POS order.
+                </p>
+            </div>
+        </div>
+        <div class="oe_span6">
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:150px;">
+                <h4 style="color:#714b67;"><i class="fa fa-glass"/> Shot Products</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Create shot products (e.g. 100 ml, 200 ml) linked to a parent full bottle.
+                    Define consumption ml per unit — ideal for arrack, whisky, vodka, and spirits.
+                </p>
+            </div>
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:150px;">
+                <h4 style="color:#714b67;"><i class="fa fa-shopping-cart"/> Automatic POS Consumption</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    When a shot line is paid in POS, the module opens a sealed bottle if needed and
+                    deducts the correct ml. Stock moves are created automatically.
+                </p>
+            </div>
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:150px;">
+                <h4 style="color:#714b67;"><i class="fa fa-sitemap"/> Variant Support</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Liquor settings on the product template apply to all variants, so every size or
+                    attribute variant is handled consistently in POS.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#714b67;">How It Works</h2>
         <div class="oe_span12">
-            <ol class="oe_mt16" style="font-size: 16px; line-height: 1.8;">
+            <ol style="font-size:16px;line-height:1.9;max-width:780px;margin:16px auto;">
                 <li>Install the module and open a <strong>full bottle</strong> product (e.g. Gal Arrack 750 ml).</li>
                 <li>Tick <strong>Is Liquor</strong> and set <strong>Bottle Size (ml)</strong>.</li>
-                <li>Create <strong>shot products</strong> — tick <em>Is Shot Product</em>, select the parent bottle, and set <em>Consumption ML</em> per sale.</li>
+                <li>Create <strong>shot products</strong> — tick <em>Is Shot Product</em>, select the parent bottle, and set <em>Consumption ML</em>.</li>
                 <li>Receive sealed bottles into stock as usual via purchase or inventory adjustments.</li>
                 <li>In POS, sell shot products — on payment the system opens a bottle when needed and reduces remaining ml.</li>
-                <li>Monitor open bottles and balances from the product form or <em>Opened Liquor Bottles</em> menu.</li>
+                <li>Monitor open bottles from the product form or <em>Opened Liquor Bottles</em> menu.</li>
             </ol>
         </div>
     </div>
 </section>
 
-<section class="oe_container oe_dark">
+<section class="oe_container">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan">Product Setup</h2>
-        <div class="oe_span12">
-            <table class="table table-bordered oe_mt16" style="max-width: 800px; margin: 0 auto; font-size: 15px;">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Where</th>
-                        <th>Purpose</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Is Liquor</td>
-                        <td>Product form</td>
-                        <td>Enables liquor tracking fields</td>
-                    </tr>
-                    <tr>
-                        <td>Bottle Size (ml)</td>
-                        <td>Product form</td>
-                        <td>Full bottle capacity in millilitres</td>
-                    </tr>
-                    <tr>
-                        <td>Is Shot Product</td>
-                        <td>Product form</td>
-                        <td>Marks a saleable shot / pour product</td>
-                    </tr>
-                    <tr>
-                        <td>Parent Bottle / Consumption ML</td>
-                        <td>Shot product</td>
-                        <td>Links shot to bottle and sets ml deducted per unit</td>
-                    </tr>
-                </tbody>
-            </table>
+        <h2 class="oe_slogan" style="color:#714b67;">Product Setup Fields</h2>
+        <div class="oe_span3 text-center" style="padding:16px;">
+            <h4 style="color:#714b67;">Is Liquor</h4>
+            <p style="font-size:14px;line-height:1.5;">Enables liquor tracking fields on the product.</p>
+        </div>
+        <div class="oe_span3 text-center" style="padding:16px;">
+            <h4 style="color:#714b67;">Bottle Size (ml)</h4>
+            <p style="font-size:14px;line-height:1.5;">Full bottle capacity in millilitres.</p>
+        </div>
+        <div class="oe_span3 text-center" style="padding:16px;">
+            <h4 style="color:#714b67;">Is Shot Product</h4>
+            <p style="font-size:14px;line-height:1.5;">Marks a saleable shot / pour product.</p>
+        </div>
+        <div class="oe_span3 text-center" style="padding:16px;">
+            <h4 style="color:#714b67;">Parent + Consumption</h4>
+            <p style="font-size:14px;line-height:1.5;">Links shot to bottle and sets ml per unit.</p>
         </div>
     </div>
 </section>
 
-<section class="oe_container">
+<section class="oe_container oe_dark">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan">Sample Data</h2>
+        <h2 class="oe_slogan" style="color:#714b67;">Sample Data</h2>
         <div class="oe_span12 text-center">
-            <p class="oe_mt16">
-                The module includes demo products for a typical bar setup: full, half, and quarter bottles
+            <p class="oe_mt16" style="font-size:16px;line-height:1.7;max-width:780px;margin:0 auto;">
+                Includes demo products for a typical bar setup: full, half, and quarter bottles
                 plus 100 ml and 200 ml shot products linked to the parent bottle — ready for testing in POS.
             </p>
         </div>
     </div>
 </section>
 
-<section class="oe_container oe_dark">
+<section class="oe_container">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan">Support</h2>
+        <h2 class="oe_slogan" style="color:#714b67;">Requirements</h2>
         <div class="oe_span12 text-center">
+            <p class="oe_mt16" style="font-size:15px;line-height:1.7;">
+                Requires <strong>Point of Sale</strong> and <strong>Stock Accounting</strong>.
+                Compatible with <strong>Odoo Community</strong> and <strong>Odoo Enterprise</strong>.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12 text-center">
+            <img src="icon.png" alt="Bar Liquor Inventory"
+                 style="width:56px;height:56px;border-radius:14px;margin-bottom:10px;"/>
+            <h3 class="oe_slogan" style="color:#714b67;">Support</h3>
             <p class="oe_mt16">
                 For support requests:
                 <a href="mailto:sales@codebraze.com">sales@codebraze.com</a>
             </p>
-            <p class="oe_mt16 text-muted">
-                Built for Odoo 19 · Depends on Point of Sale and Stock Accounting · License LGPL-3
+            <p class="oe_mt16 text-muted" style="font-size:13px;">
+                Built for Odoo 19 · License LGPL-3 · Author CodeBraze
             </p>
         </div>
     </div>

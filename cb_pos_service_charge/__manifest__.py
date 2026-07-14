@@ -1,11 +1,34 @@
 {
     "name": "POS Service Charge",
-    "version": "19.0.1.0.4",
+    "version": "19.0.1.0.7",
     "category": "Sales/Point of Sale",
     "summary": "Apply percentage-based service charge to POS orders via button and wizard",
+    "description": """
+POS Service Charge
+------------------
+
+Add a percentage-based service charge to Point of Sale orders from the Actions menu.
+
+* Enable per POS from settings and choose the default rate configuration
+* Open Actions → % Service Charge to set or edit the rate with a numpad
+* Live preview of order total, service charge amount, and final total
+* Service charge appears as an order line and on printed receipts
+* Auto-recalculates when products, quantities, prices, or discounts change
+* Remove service charge from the same wizard when needed
+
+Compatible with Odoo Community and Enterprise (Point of Sale + Restaurant).
+    """,
     "author": "CodeBraze",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
+    "images": [
+        "images/main_screenshot.png",
+        "static/description/cover_screenshot.png",
+        "static/description/service_charge_actions_screenshot.png",
+        "static/description/service_charge_wizard_screenshot.png",
+        "static/description/service_charge_order_screenshot.png",
+        "static/description/service_charge_receipt_screenshot.png",
+    ],
     "depends": ["point_of_sale", "pos_restaurant"],
     "post_init_hook": "post_init_hook",
     "data": [

@@ -1,21 +1,38 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
-        <div class="oe_span12" style="text-align:center;">
-            <img src="cover.png" class="oe_picture oe_screenshot" alt="POS Loyalty Redemption cover"
-                 style="max-width: 100%; height: auto; margin-bottom: 16px;"/>
-            <h2 class="oe_slogan" style="color:#714b67;">POS Loyalty Redemption</h2>
+        <div class="oe_span12 text-center">
+            <img src="cover_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="POS Loyalty Redemption cover"
+                 style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.18);"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12 text-center">
+            <img src="icon.png" alt="POS Loyalty Redemption icon"
+                 style="width:96px;height:96px;border-radius:22px;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,.2);"/>
+            <h2 class="oe_slogan" style="color:#714b67;margin-top:8px;">POS Loyalty Redemption</h2>
             <h3 class="oe_slogan" style="color:#5a3b52;">Redeem any amount of loyalty points at the POS</h3>
+            <p class="oe_mt16" style="font-size:16px;line-height:1.7;max-width:820px;margin:0 auto;">
+                Standard Odoo POS loyalty only supports fixed rewards. This module lets a
+                cashier redeem <strong>any custom amount</strong> of a customer's loyalty points as a
+                discount on the current order.
+            </p>
         </div>
     </div>
 </section>
 
 <section class="oe_container oe_dark">
     <div class="oe_row oe_spaced">
-        <div class="oe_span12">
-            <p class="oe_mt32" style="font-size:16px; line-height:1.6;">
-                Standard Odoo POS loyalty only supports fixed rewards. This module lets a
-                cashier redeem <b>any custom amount</b> of a customer's loyalty points as a
-                discount on the current order.
+        <h2 class="oe_slogan" style="color:#714b67;">1. Enable in POS Settings</h2>
+        <div class="oe_span12 text-center">
+            <img src="loyalty_settings_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Custom Loyalty Redemption in POS settings"
+                 style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.16);margin-top:12px;"/>
+            <p class="oe_mt16 text-muted" style="font-size:14px;">
+                Enable <strong>Custom Loyalty Redemption</strong>, select the program, point value, and redemption product.
             </p>
         </div>
     </div>
@@ -23,34 +40,13 @@
 
 <section class="oe_container">
     <div class="oe_row oe_spaced">
-        <div class="oe_span6">
-            <h3 class="oe_slogan" style="color:#714b67;">Flexible Redemption</h3>
-            <p class="oe_mt16">
-                Enter the points to redeem, see the discount amount instantly (based on
-                your configured point rate), and apply it as a negative order line.
-            </p>
-        </div>
-        <div class="oe_span6">
-            <h3 class="oe_slogan" style="color:#714b67;">Live Balance Check</h3>
-            <p class="oe_mt16">
-                Available points are fetched from the server when opening Redeem Points,
-                so the cashier always sees the real card balance.
-            </p>
-        </div>
-    </div>
-    <div class="oe_row oe_spaced">
-        <div class="oe_span6">
-            <h3 class="oe_slogan" style="color:#714b67;">Safe Point Deduction</h3>
-            <p class="oe_mt16">
-                Points are deducted from the loyalty card only after the order is paid,
-                with full loyalty history. Cancelled paid orders restore the points.
-            </p>
-        </div>
-        <div class="oe_span6">
-            <h3 class="oe_slogan" style="color:#714b67;">Per POS Settings</h3>
-            <p class="oe_mt16">
-                Enable per point of sale, choose the loyalty program, redemption product,
-                point-to-currency rate, and minimum redeemable points.
+        <h2 class="oe_slogan" style="color:#714b67;">2. Open Redeem Points</h2>
+        <div class="oe_span12 text-center">
+            <img src="redeem_points_actions_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Redeem Points in POS Actions menu"
+                 style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.16);margin-top:12px;"/>
+            <p class="oe_mt16 text-muted" style="font-size:14px;">
+                On the order screen open <strong>Actions</strong> → tap <strong>Redeem Points</strong>.
             </p>
         </div>
     </div>
@@ -58,19 +54,107 @@
 
 <section class="oe_container oe_dark">
     <div class="oe_row oe_spaced">
-        <div class="oe_span12" style="text-align:center;">
-            <h3 class="oe_slogan" style="color:#714b67;">Requirements</h3>
-            <p class="oe_mt16">
-                Requires the standard Odoo <b>Loyalty</b> / <b>POS Loyalty</b> apps.
-                Points must already be earned on the customer's loyalty card (from
-                previous paid orders) before they can be redeemed.
+        <h2 class="oe_slogan" style="color:#714b67;">3. Choose Points to Redeem</h2>
+        <div class="oe_span12 text-center">
+            <img src="redeem_wizard_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Redeem Loyalty Points wizard"
+                 style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.16);margin-top:12px;"/>
+            <p class="oe_mt16 text-muted" style="font-size:14px;">
+                See available points, enter the amount (or <strong>Max</strong>), preview the discount, then <strong>Redeem</strong>.
             </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#714b67;">4. Applied on the Order</h2>
+        <div class="oe_span12 text-center">
+            <img src="redeem_applied_order_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Loyalty Redemption line on POS order"
+                 style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.16);margin-top:12px;"/>
+            <p class="oe_mt16 text-muted" style="font-size:14px;">
+                A negative <strong>Loyalty Redemption</strong> line is added and the order total updates instantly.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#714b67;">5. Loyalty Card Balance</h2>
+        <div class="oe_span12 text-center">
+            <img src="loyalty_card_screenshot.png" class="img img-fluid oe_screenshot"
+                 alt="Loyalty card balance and history"
+                 style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.16);margin-top:12px;"/>
+            <p class="oe_mt16 text-muted" style="font-size:14px;">
+                Customer loyalty card shows the live balance and history lines for issued / used points.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#714b67;">Key Features</h2>
+        <div class="oe_span6">
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:140px;">
+                <h4 style="color:#714b67;"><i class="fa fa-star"/> Flexible Redemption</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Enter the points to redeem, see the discount amount instantly (based on
+                    your configured point rate), and apply it as a negative order line.
+                </p>
+            </div>
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:140px;">
+                <h4 style="color:#714b67;"><i class="fa fa-refresh"/> Live Balance Check</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Available points are fetched from the server when opening Redeem Points,
+                    so the cashier always sees the real card balance.
+                </p>
+            </div>
+        </div>
+        <div class="oe_span6">
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:140px;">
+                <h4 style="color:#714b67;"><i class="fa fa-shield"/> Safe Point Deduction</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Points are deducted from the loyalty card only after the order is paid,
+                    with full loyalty history. Cancelled paid orders restore the points.
+                </p>
+            </div>
+            <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:22px;margin:12px 8px;min-height:140px;">
+                <h4 style="color:#714b67;"><i class="fa fa-cog"/> Per POS Settings</h4>
+                <p style="font-size:15px;line-height:1.6;">
+                    Enable per point of sale, choose the loyalty program and the point value rate.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#714b67;">Requirements</h2>
+        <div class="oe_span12 text-center">
+            <p class="oe_mt16" style="font-size:15px;line-height:1.7;">
+                Requires <strong>Point of Sale</strong> and <strong>POS Loyalty</strong>
+                (Odoo Enterprise loyalty).
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12 text-center">
+            <img src="icon.png" alt="POS Loyalty Redemption"
+                 style="width:56px;height:56px;border-radius:14px;margin-bottom:10px;"/>
             <h3 class="oe_slogan" style="color:#714b67;">Support</h3>
-            <p>
-                <a href="mailto:sales@codebraze.com" style="color:#714b67;">sales@codebraze.com</a>
+            <p class="oe_mt16">
+                For support requests:
+                <a href="mailto:sales@codebraze.com">sales@codebraze.com</a>
             </p>
-            <p class="oe_mt16 text-muted">
-                Built for Odoo 19 · License LGPL-3
+            <p class="oe_mt16 text-muted" style="font-size:13px;">
+                Built for Odoo 19 · License LGPL-3 · Author CodeBraze
             </p>
         </div>
     </div>

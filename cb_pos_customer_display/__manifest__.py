@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "POS Customer Self-Select",
-    "version": "19.0.1.0.1",
+    "name": "POS Loyalty Customer Display",
+    "version": "19.0.1.0.5",
     "category": "Sales/Point of Sale",
-    "summary": "Let customers pick themselves on the POS Customer Display by mobile number",
+    "summary": "Let customers search by phone on the POS display and link their profile to the order",
     "description": """
-POS Customer Self-Select
-------------------------
+POS Customer Lookup Display
+---------------------------
+
 
 On the POS Customer Display, a customer can type their mobile/phone number,
 search matching customers (including loyalty customers), tap their name, and
@@ -21,6 +22,15 @@ Optional loyalty points display on the customer display (per POS setting).
     "author": "CodeBraze",
     "website": "https://www.codebraze.com",
     "support": "sales@codebraze.com",
+    "price": 35.00,
+    "currency": "USD",
+    "images": [
+        "images/main_screenshot.png",
+        "static/description/cover_screenshot.png",
+        "static/description/display_search_screenshot.png",
+        "static/description/display_selected_screenshot.png",
+        "static/description/display_thankyou_screenshot.png",
+    ],
     "license": "LGPL-3",
     "depends": [
         "point_of_sale",

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class PosConfig(models.Model):
@@ -41,15 +41,34 @@ class PosConfig(models.Model):
         "0 means no minimum.",
     )
 
-    def _get_special_products(self):
-        products = super()._get_special_products()
-        redeem_product = self.env.ref(
+    @api.model
+    def _cb_default_loyalty_redeem_product(self):
+        return self.env.ref(
             "cb_pos_loyalty_redeem.product_product_loyalty_redeem",
             raise_if_not_found=False,
         )
-        if redeem_product:
-            products |= redeem_product
-        return products
+
+    @api.onchange("cb_loyalty_redeem_enabled")
+    def _onchange_cb_loyalty_redeem_enabled(self):
+        if self.cb_loyalty_redeem_enabled and not self.cb_loyalty_redeem_product_id:
+            self.cb_loyalty_redeem_product_id = self._cb_default_loyalty_redeem_product()
+
+    def write(self, vals):
+        res = super().write(vals)
+        if vals.get("cb_loyalty_redeem_enabled"):
+            default_product = self._cb_default_loyalty_redeem_product()
+            for config in self:
+                if config.cb_loyalty_redeem_enabled and not config.cb_loyalty_redeem_product_id and default_product:
+                    super(PosConfig, config).write(
+                        {"cb_loyalty_redeem_product_id": default_product.id}
+                    )
+        return res
+
+    def _get_special_products(self):
+        products = super()._get_special_products()
+        default_product = self._cb_default_loyalty_redeem_product() or self.env["product.product"]
+        configured = self.env["pos.config"].search([]).mapped("cb_loyalty_redeem_product_id")
+        return products | configured | default_product
 
     def cb_get_partner_loyalty_balance(self, partner_id):
         """Return the partner's redeemable balance + card for this POS.

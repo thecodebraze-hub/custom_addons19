@@ -34,6 +34,9 @@
                                     <t t-esc="displayRate"/>%
                                 </div>
                                 <div class="svc-commission-hint">(Service Charge %)</div>
+                                <div t-if="!isValid" class="svc-commission-error">
+                                    Rate must be between 0 and 100
+                                </div>
                             </div>
                             <i class="fa fa-pencil svc-edit-icon" role="img" aria-label="Edit rate"/>
                         </div>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "POS Return Exchange",
-    "version": "19.0.1.30.1",
+    "version": "19.0.1.30.7",
     "category": "Sales/Point of Sale",
     "summary": "POS return and exchange workflows for retail operations",
     "description": """
@@ -19,6 +19,26 @@ See README.md and docs/ for full documentation.
     "author": "CodeBraze",
     "website": "https://www.codebraze.com",
     "support": "sales@codebraze.com",
+    "price": 74.99,
+    "currency": "USD",
+    "images": [
+        "images/main_screenshot.png",
+        "static/description/cover_screenshot.png",
+        "static/description/exchange_scan_screenshot.png",
+        "static/description/exchange_confirm_screenshot.png",
+        "static/description/exchange_voucher_issued_screenshot.png",
+        "static/description/exchange_voucher_print_screenshot.png",
+        "static/description/order_return_search_screenshot.png",
+        "static/description/order_return_lines_screenshot.png",
+        "static/description/order_return_receipt_screenshot.png",
+        "static/description/order_return_voucher_screenshot.png",
+        "static/description/voucher_scan_button_screenshot.png",
+        "static/description/voucher_scan_popup_screenshot.png",
+        "static/description/voucher_applied_payment_screenshot.png",
+        "static/description/voucher_sale_receipt_screenshot.png",
+        "static/description/return_settings_screenshot.png",
+        "static/description/voucher_report_screenshot.png",
+    ],
     "license": "LGPL-3",
     "depends": [
         "point_of_sale",

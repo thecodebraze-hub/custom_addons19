@@ -1,10 +1,10 @@
 {
-    "name": "Bar Liquor Inventory",
-    "version": "19.0.1.0.5",
+    "name": "Bar Liquor Bottle & Shot Inventory",
+    "version": "19.0.1.0.8",
     "category": "Inventory/Inventory",
     "summary": "Track opened liquor bottles, ml balances, and POS shot consumption for bars",
     "description": """
-Bar Liquor Inventory for Odoo 19
+Bar Liquor Bottle & Shot Inventory for Odoo 19
 ================================
 
 Track opened liquor bottles and automatic shot consumption in Point of Sale.
@@ -15,9 +15,16 @@ Track opened liquor bottles and automatic shot consumption in Point of Sale.
 * Automatic bottle opening and stock moves when POS orders are paid
 * Opened Liquor Bottles register for full audit trail
     """,
-    "author": "CodeBraze",
+    "author": "CodeBraze PVT LTD",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
+    "price": 49.99,
+    "currency": "USD",
+    "images": [
+        "images/main_screenshot.png",
+        "static/description/cover_screenshot.png",
+        "static/description/bar_liquor_inventory_screenshot.png",
+    ],
     "depends": ["point_of_sale", "stock_account"],
     "data": [
         "security/ir.model.access.csv",

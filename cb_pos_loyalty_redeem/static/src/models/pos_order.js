@@ -21,14 +21,29 @@ patch(PosOrder.prototype, {
     },
 
     _getLoyaltyRedeemProduct() {
-        const product = this.config.cb_loyalty_redeem_product_id;
-        if (!product) {
-            return null;
+        const raw = this.config.cb_loyalty_redeem_product_id;
+        const productId = typeof raw === "number" ? raw : raw?.id;
+        if (productId) {
+            const loaded = this.models["product.product"].get(productId);
+            if (loaded) {
+                return loaded;
+            }
+            // Relation may exist on config even if the product record is missing
+            // from IndexedDB (session opened before product was set).
+            if (raw && typeof raw === "object" && raw.product_tmpl_id) {
+                return raw;
+            }
         }
-        if (typeof product === "number") {
-            return this.models["product.product"].get(product);
+        // Fallback: find special "LOYALTY_REDEEM" product loaded for the session.
+        const specialIds = this.config._pos_special_products_ids || [];
+        for (const id of specialIds) {
+            const candidate = this.models["product.product"].get(id);
+            if (candidate?.default_code === "LOYALTY_REDEEM") {
+                return candidate;
+            }
         }
-        return product;
+        const all = this.models["product.product"].getAll?.() || [];
+        return all.find((p) => p.default_code === "LOYALTY_REDEEM") || null;
     },
 
     getLoyaltyRedeemBaseTotal() {
