@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "POS Manager Cancel Order Approval",
-    "version": "19.0.1.0.5",
+    "name": "POS Cancel PIN Approval",
+    "version": "19.0.1.0.6",
     "category": "Sales/Point of Sale",
     "summary": "Require manager PIN and reason before cancelling a POS order or removing lines",
     "description": """
-POS Manager Cancel Order Approval
--------------------
+POS Cancel PIN Approval
+-----------------------
 
 When a cashier tries to cancel (delete) a POS order that has items, or remove
 order lines (including via backspace), a manager PIN and a reason must be
@@ -17,7 +17,7 @@ entered to approve the action.
 * Empty orders (no items) can still be discarded without approval.
 * Approved cancellations and line removals are stored in an audit log.
     """,
-    "author": "CodeBraze",
+    "author": "CodeBraze PVT LTD",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
     "price": 24.99,

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "POS Product Card Info",
-    "version": "19.0.1.0.1",
+    "name": "POS Product Info Popup",
+    "version": "19.0.1.0.2",
     "category": "Sales/Point of Sale",
-    "summary": "Show product cost and on-hand quantity via an info icon on POS product cards",
+    "summary": "Show product cost and on-hand quantity in a POS product card popup",
     "description": """
-POS Product Card Info
----------------------
+POS Product Info Popup
+----------------------
 
 Adds a small information icon to the top-right corner of every POS product card.
 Tapping it reveals the product's cost and on-hand quantity in a compact popover.
@@ -19,10 +19,13 @@ settings:
 
 For multi-variant products, cost and on-hand quantity are listed per variant.
     """,
-    "author": "CodeBraze",
+    "author": "CodeBraze PVT LTD",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
     "license": "LGPL-3",
+    "images": [
+        "static/description/cover.png",
+    ],
     "depends": [
         "point_of_sale",
         "stock",

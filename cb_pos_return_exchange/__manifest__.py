@@ -16,7 +16,7 @@ Features: POS return/exchange screens, voucher payment, credit notes,
 stock pickings, audit trail, 58/80 mm receipts, dashboard and Excel/PDF export.
 See README.md and docs/ for full documentation.
     """,
-    "author": "CodeBraze",
+    "author": "CodeBraze PVT LTD",
     "website": "https://www.codebraze.com",
     "support": "sales@codebraze.com",
     "price": 74.99,

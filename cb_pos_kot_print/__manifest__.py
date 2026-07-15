@@ -3,7 +3,7 @@
     "version": "19.0.1.0.7",
     "category": "Sales/Point of Sale",
     "summary": "Print Kitchen Order Tickets from POS using the receipt printer",
-    "author": "CodeBraze",
+    "author": "CodeBraze PVT LTD",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
     "price": 20.0,

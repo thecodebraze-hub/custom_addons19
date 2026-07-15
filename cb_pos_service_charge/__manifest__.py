@@ -18,7 +18,7 @@ Add a percentage-based service charge to Point of Sale orders from the Actions m
 
 Compatible with Odoo Community and Enterprise (Point of Sale + Restaurant).
     """,
-    "author": "CodeBraze",
+    "author": "CodeBraze PVT LTD",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
     "images": [

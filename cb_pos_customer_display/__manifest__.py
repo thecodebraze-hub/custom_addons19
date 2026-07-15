@@ -19,7 +19,7 @@ selection is pushed to the POS via the bus.
 
 Optional loyalty points display on the customer display (per POS setting).
     """,
-    "author": "CodeBraze",
+    "author": "CodeBraze PVT LTD",
     "website": "https://www.codebraze.com",
     "support": "sales@codebraze.com",
     "price": 35.00,

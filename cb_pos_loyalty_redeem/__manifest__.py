@@ -19,7 +19,7 @@ customer's available loyalty points as a discount on the current order.
 * Deducts points from the loyalty card (with history) once the order is paid,
   and restores them if the order is cancelled.
     """,
-    "author": "CodeBraze",
+    "author": "CodeBraze PVT LTD",
     "website": "https://www.codebraze.lk",
     "support": "sales@codebraze.com",
     "price": 43.00,
