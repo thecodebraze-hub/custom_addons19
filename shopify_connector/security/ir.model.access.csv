@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shopify_instance_user,shopify.instance user,model_shopify_instance,group_shopify_user,1,0,0,0
+access_shopify_instance_manager,shopify.instance manager,model_shopify_instance,group_shopify_manager,1,1,1,1
+access_shopify_log_user,shopify.log user,model_shopify_log,group_shopify_user,1,0,0,0
+access_shopify_log_manager,shopify.log manager,model_shopify_log,group_shopify_manager,1,1,1,1
+access_shopify_queue_user,shopify.queue user,model_shopify_queue,group_shopify_user,1,0,0,0
+access_shopify_queue_manager,shopify.queue manager,model_shopify_queue,group_shopify_manager,1,1,1,1
+access_shopify_webhook_user,shopify.webhook user,model_shopify_webhook,group_shopify_user,1,0,0,0
+access_shopify_webhook_manager,shopify.webhook manager,model_shopify_webhook,group_shopify_manager,1,1,1,1

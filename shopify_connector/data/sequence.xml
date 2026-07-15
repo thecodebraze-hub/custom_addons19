@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+
+    <record id="seq_shopify_log" model="ir.sequence">
+        <field name="name">Shopify Log</field>
+        <field name="code">shopify.log</field>
+        <field name="prefix">SLOG/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_shopify_queue" model="ir.sequence">
+        <field name="name">Shopify Queue</field>
+        <field name="code">shopify.queue</field>
+        <field name="prefix">SJOB/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

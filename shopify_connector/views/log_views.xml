@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="shopify_log_view_list" model="ir.ui.view">
+        <field name="name">shopify.log.list</field>
+        <field name="model">shopify.log</field>
+        <field name="arch" type="xml">
+            <list string="Shopify Logs" create="false" edit="false">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="instance_id"/>
+                <field
+                    name="level"
+                    widget="badge"
+                    decoration-muted="level == 'debug'"
+                    decoration-info="level == 'info'"
+                    decoration-warning="level == 'warning'"
+                    decoration-danger="level == 'error'"
+                />
+                <field name="status_code" optional="show"/>
+                <field name="message"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="shopify_log_view_form" model="ir.ui.view">
+        <field name="name">shopify.log.form</field>
+        <field name="model">shopify.log</field>
+        <field name="arch" type="xml">
+            <form string="Log Entry" create="false" edit="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="instance_id" readonly="1"/>
+                            <field name="level" readonly="1"/>
+                            <field name="status_code" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="create_date" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Message">
+                        <field name="message" nolabel="1" colspan="2" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Request" name="request">
+                            <field name="request" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Response" name="response">
+                            <field name="response" nolabel="1" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="shopify_log_view_search" model="ir.ui.view">
+        <field name="name">shopify.log.search</field>
+        <field name="model">shopify.log</field>
+        <field name="arch" type="xml">
+            <search string="Shopify Logs">
+                <field name="name"/>
+                <field name="instance_id"/>
+                <field name="message"/>
+                <filter string="Debug" name="debug" domain="[('level', '=', 'debug')]"/>
+                <filter string="Info" name="info" domain="[('level', '=', 'info')]"/>
+                <filter string="Warning" name="warning" domain="[('level', '=', 'warning')]"/>
+                <filter string="Error" name="error" domain="[('level', '=', 'error')]"/>
+                <group>
+                    <filter string="Store" name="group_instance" context="{'group_by': 'instance_id'}"/>
+                    <filter string="Level" name="group_level" context="{'group_by': 'level'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="shopify_log_action" model="ir.actions.act_window">
+        <field name="name">Logs</field>
+        <field name="res_model">shopify.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="shopify_log_view_search"/>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No logs yet
+            </p>
+            <p>
+                API requests, responses, and synchronization events will be recorded here.
+            </p>
+        </field>
+    </record>
+
+</odoo>

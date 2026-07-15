@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="shopify_instance_view_list" model="ir.ui.view">
+        <field name="name">shopify.instance.list</field>
+        <field name="model">shopify.instance</field>
+        <field name="arch" type="xml">
+            <list string="Shopify Stores">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="store_url"/>
+                <field name="api_version" optional="hide"/>
+                <field
+                    name="connection_status"
+                    widget="badge"
+                    decoration-success="connection_status == 'connected'"
+                    decoration-danger="connection_status == 'error'"
+                    decoration-muted="connection_status == 'disconnected'"
+                />
+                <field name="last_sync" optional="show"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="shopify_instance_view_form" model="ir.ui.view">
+        <field name="name">shopify.instance.form</field>
+        <field name="model">shopify.instance</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Store">
+                <header>
+                    <button
+                        name="action_connect"
+                        string="Connect"
+                        type="object"
+                        class="btn-primary"
+                        groups="shopify_connector.group_shopify_manager"
+                        invisible="not active"
+                    />
+                    <button
+                        name="action_disconnect"
+                        string="Disconnect"
+                        type="object"
+                        class="btn-secondary"
+                        groups="shopify_connector.group_shopify_manager"
+                        invisible="not active"
+                    />
+                    <button
+                        name="action_test_connection"
+                        string="Test Connection"
+                        type="object"
+                        class="btn-secondary"
+                        groups="shopify_connector.group_shopify_manager"
+                        invisible="not active"
+                    />
+                    <field
+                        name="connection_status"
+                        widget="statusbar"
+                        statusbar_visible="disconnected,connected,error"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_queue"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-tasks"
+                        >
+                            <field name="queue_count" widget="statinfo" string="Queue"/>
+                        </button>
+                        <button
+                            name="action_view_logs"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-list-alt"
+                        >
+                            <field name="log_count" widget="statinfo" string="Logs"/>
+                        </button>
+                        <button
+                            name="action_view_webhooks"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-exchange"
+                        >
+                            <field name="webhook_count" widget="statinfo" string="Webhooks"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="My Shopify Store"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="General Information">
+                            <field name="name" invisible="1"/>
+                            <field name="store_url" placeholder="my-brand.myshopify.com"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group string="API Credentials">
+                            <field name="client_id"/>
+                            <field name="client_secret" password="True"/>
+                            <field name="webhook_secret" password="True"/>
+                            <field name="api_version"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Authentication">
+                            <field name="access_token" password="True"/>
+                            <field name="refresh_token" password="True"/>
+                            <field name="connection_status" readonly="1"/>
+                        </group>
+                        <group string="Synchronization">
+                            <field name="last_sync" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" colspan="2" placeholder="Internal notes about this store..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="shopify_instance_view_search" model="ir.ui.view">
+        <field name="name">shopify.instance.search</field>
+        <field name="model">shopify.instance</field>
+        <field name="arch" type="xml">
+            <search string="Shopify Stores">
+                <field name="name"/>
+                <field name="store_url"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter
+                    string="Connected"
+                    name="connected"
+                    domain="[('connection_status', '=', 'connected')]"
+                />
+                <filter
+                    string="Disconnected"
+                    name="disconnected"
+                    domain="[('connection_status', '=', 'disconnected')]"
+                />
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'connection_status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="shopify_instance_action" model="ir.actions.act_window">
+        <field name="name">Stores</field>
+        <field name="res_model">shopify.instance</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="shopify_instance_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure your first Shopify store
+            </p>
+            <p>
+                Create a store record with the Shopify URL, API credentials, and company mapping.
+            </p>
+        </field>
+    </record>
+
+    <record id="shopify_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">shopify.instance</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="shopify_instance_view_search"/>
+        <field name="context">{'search_default_connected': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage Shopify connector settings
+            </p>
+            <p>
+                Configure store credentials, API versions, and connection options from this screen.
+            </p>
+        </field>
+    </record>
+
+</odoo>

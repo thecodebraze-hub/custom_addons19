@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="shopify_instance_view_kanban_dashboard" model="ir.ui.view">
+        <field name="name">shopify.instance.kanban.dashboard</field>
+        <field name="model">shopify.instance</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard" create="true">
+                <field name="name"/>
+                <field name="store_url"/>
+                <field name="connection_status"/>
+                <field name="last_sync"/>
+                <field name="active"/>
+                <field name="company_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top mb-2">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="o_kanban_record_subtitle text-muted">
+                                        <field name="store_url"/>
+                                    </div>
+                                </div>
+                                <field
+                                    name="connection_status"
+                                    widget="badge"
+                                    decoration-success="connection_status == 'connected'"
+                                    decoration-danger="connection_status == 'error'"
+                                    decoration-muted="connection_status == 'disconnected'"
+                                />
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left text-muted">
+                                    <span>Last Sync: </span>
+                                    <field name="last_sync"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right" groups="base.group_multi_company">
+                                    <field name="company_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="shopify_dashboard_action" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">shopify.instance</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="shopify_instance_view_kanban_dashboard"/>
+        <field name="search_view_id" ref="shopify_instance_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Welcome to Shopify Connector
+            </p>
+            <p>
+                Connect your Shopify stores and monitor synchronization activity from this dashboard.
+            </p>
+        </field>
+    </record>
+
+</odoo>
