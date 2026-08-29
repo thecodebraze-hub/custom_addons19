@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cb_backup_history_list" model="ir.ui.view">
+        <field name="name">cb.backup.history.list</field>
+        <field name="model">cb.backup.history</field>
+        <field name="arch" type="xml">
+            <list string="Backup History" create="0">
+                <field name="backup_datetime"/>
+                <field name="plan_id"/>
+                <field name="database_name"/>
+                <field name="trigger_type" optional="hide"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'success'"
+                       decoration-warning="status == 'partial'"
+                       decoration-danger="status == 'failed'"
+                       decoration-info="status == 'running'"/>
+                <field name="encrypted" optional="show"/>
+                <field name="encryption_method" optional="hide"/>
+                <field name="file_name"/>
+                <field name="file_size_display"/>
+                <field name="duration_display"/>
+                <field name="file_storage_status" widget="badge"
+                       decoration-success="file_storage_status == 'available'"
+                       decoration-warning="file_storage_status == 'deleted'"
+                       decoration-danger="file_storage_status == 'missing'"
+                       decoration-muted="file_storage_status == 'none'"/>
+                <field name="verification_status" widget="badge" optional="show"
+                       decoration-success="verification_status == 'verified'"
+                       decoration-danger="verification_status == 'failed'"
+                       decoration-muted="verification_status == 'never'"/>
+                <field name="restore_test_status" widget="badge" optional="show"
+                       decoration-success="restore_test_status == 'success'"
+                       decoration-warning="restore_test_status == 'warning'"
+                       decoration-danger="restore_test_status == 'failed'"
+                       decoration-muted="restore_test_status == 'never'"/>
+                <field name="destination_summary" optional="show"/>
+                <field name="file_size" optional="hide"/>
+                <field name="duration_seconds" optional="hide"/>
+                <field name="file_deleted" optional="hide"/>
+                <field name="file_deleted_datetime" optional="hide"/>
+                <field name="error_message" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_history_form" model="ir.ui.view">
+        <field name="name">cb.backup.history.form</field>
+        <field name="model">cb.backup.history</field>
+        <field name="arch" type="xml">
+            <form string="Backup History" create="0" edit="0">
+                <header>
+                    <button name="action_verify_backup"
+                            string="Verify Backup"
+                            type="object"
+                            class="btn-primary"
+                            groups="cb_auto_backup_manager.group_cb_backup_operator,cb_auto_backup_manager.group_cb_backup_administrator"/>
+                    <button name="action_test_restore"
+                            string="Test Restore"
+                            type="object"
+                            class="btn-secondary"
+                            groups="cb_auto_backup_manager.group_cb_backup_administrator"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="File deleted by retention policy"
+                            bg_color="text-bg-warning" invisible="not file_deleted"/>
+                    <group>
+                        <group string="Backup">
+                            <field name="backup_datetime"/>
+                            <field name="plan_id"/>
+                            <field name="schedule_id"/>
+                            <field name="scheduled_occurrence" invisible="not scheduled_occurrence"/>
+                            <field name="trigger_type"/>
+                            <field name="database_name"/>
+                            <field name="status"
+                                   decoration-success="status == 'success'"
+                                   decoration-warning="status == 'partial'"
+                                   decoration-danger="status == 'failed'"/>
+                            <field name="file_storage_status"/>
+                            <field name="verification_status"/>
+                            <field name="last_verified_datetime" invisible="verification_status == 'never'"/>
+                            <field name="restore_test_status"/>
+                            <field name="last_restore_test_datetime" invisible="restore_test_status == 'never'"/>
+                        </group>
+                        <group string="File">
+                            <field name="file_name"/>
+                            <field name="file_path"/>
+                            <field name="file_size_display"/>
+                            <field name="file_size" invisible="1"/>
+                            <field name="checksum"/>
+                            <field name="encrypted"/>
+                            <field name="encryption_method" invisible="not encrypted"/>
+                            <field name="file_deleted"/>
+                            <field name="file_deleted_datetime" invisible="not file_deleted"/>
+                        </group>
+                    </group>
+                    <group string="Execution">
+                        <group>
+                            <field name="start_datetime"/>
+                            <field name="end_datetime"/>
+                            <field name="duration_display"/>
+                            <field name="duration_seconds" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="error_message" invisible="not error_message"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Restore Tests" name="restore_tests">
+                            <field name="restore_log_ids" nolabel="1">
+                                <list create="0" delete="0" edit="0" open_form_view="True">
+                                    <field name="restore_datetime"/>
+                                    <field name="restore_mode"/>
+                                    <field name="target_database"/>
+                                    <field name="status" widget="badge"
+                                           decoration-success="status == 'success'"
+                                           decoration-warning="status == 'warning'"
+                                           decoration-danger="status == 'failed'"
+                                           decoration-info="status == 'running'"/>
+                                    <field name="checksum_verified"/>
+                                    <field name="database_verified"/>
+                                    <field name="filestore_verified"/>
+                                    <field name="cleanup_status"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Destination Results" name="destinations">
+                            <field name="destination_result_ids" nolabel="1">
+                                <list>
+                                    <field name="storage_name"/>
+                                    <field name="storage_type"/>
+                                    <field name="status" widget="badge"
+                                           decoration-success="status == 'success'"
+                                           decoration-danger="status in ('failed', 'not_implemented')"/>
+                                    <field name="file_size_display"/>
+                                    <field name="file_path" optional="hide"/>
+                                    <field name="started" optional="hide"/>
+                                    <field name="completed" optional="hide"/>
+                                    <field name="file_deleted"/>
+                                    <field name="error_message"/>
+                                </list>
+                                <form string="Destination Result">
+                                    <group>
+                                        <group string="Destination">
+                                            <field name="storage_name"/>
+                                            <field name="storage_type"/>
+                                            <field name="storage_id"/>
+                                        </group>
+                                        <group string="Result">
+                                            <field name="status"/>
+                                            <field name="file_size_display"/>
+                                            <field name="file_path"/>
+                                            <field name="file_deleted"/>
+                                            <field name="file_deleted_datetime" invisible="not file_deleted"/>
+                                        </group>
+                                    </group>
+                                    <group string="Error" invisible="not error_message">
+                                        <field name="error_message" nolabel="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_history_search" model="ir.ui.view">
+        <field name="name">cb.backup.history.search</field>
+        <field name="model">cb.backup.history</field>
+        <field name="arch" type="xml">
+            <search string="Backup History">
+                <field name="plan_id"/>
+                <field name="database_name"/>
+                <field name="file_name"/>
+                <field name="status"/>
+                <field name="storage_ids"/>
+                <field name="backup_datetime"/>
+                <filter string="Successful" name="filter_success"
+                        domain="[('status', '=', 'success')]"/>
+                <filter string="Failed" name="filter_failed"
+                        domain="[('status', '=', 'failed')]"/>
+                <filter string="Partial" name="filter_partial"
+                        domain="[('status', '=', 'partial')]"/>
+                <filter string="Running" name="filter_running"
+                        domain="[('status', '=', 'running')]"/>
+                <separator/>
+                <filter string="Today" name="filter_today"
+                        domain="[('backup_datetime', '&gt;=', 'today'), ('backup_datetime', '&lt;', 'today +1d')]"/>
+                <filter string="Last 7 Days" name="filter_last_7_days"
+                        domain="[('backup_datetime', '&gt;=', 'today -7d')]"/>
+                <filter string="Last 30 Days" name="filter_last_30_days"
+                        domain="[('backup_datetime', '&gt;=', 'today -30d')]"/>
+                <separator/>
+                <filter string="Deleted by Retention" name="filter_file_deleted"
+                        domain="[('file_deleted', '=', True)]"/>
+                <filter string="Available" name="filter_available"
+                        domain="[('file_deleted', '=', False), ('status', 'in', ('success', 'partial'))]"/>
+                <filter string="Encrypted" name="filter_encrypted"
+                        domain="[('encrypted', '=', True)]"/>
+                <group>
+                    <filter string="Plan" name="group_plan" context="{'group_by': 'plan_id'}"/>
+                    <filter string="Database" name="group_database"
+                            context="{'group_by': 'database_name'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'backup_datetime:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_history_graph" model="ir.ui.view">
+        <field name="name">cb.backup.history.graph</field>
+        <field name="model">cb.backup.history</field>
+        <field name="arch" type="xml">
+            <graph string="Backup Activity" type="bar" stacked="1" sample="1">
+                <field name="backup_datetime" interval="day"/>
+                <field name="status"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_history_pivot" model="ir.ui.view">
+        <field name="name">cb.backup.history.pivot</field>
+        <field name="model">cb.backup.history</field>
+        <field name="arch" type="xml">
+            <pivot string="Backup Activity" sample="1">
+                <field name="backup_datetime" interval="day" type="row"/>
+                <field name="status" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_history_storage_graph" model="ir.ui.view">
+        <field name="name">cb.backup.history.storage.graph</field>
+        <field name="model">cb.backup.history</field>
+        <field name="arch" type="xml">
+            <graph string="Backup Storage Trend" type="line" sample="1">
+                <field name="backup_datetime" interval="day"/>
+                <field name="file_size" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_cb_backup_history" model="ir.actions.act_window">
+        <field name="name">Backup History</field>
+        <field name="res_model">cb.backup.history</field>
+        <field name="view_mode">list,graph,pivot,form</field>
+        <field name="search_view_id" ref="view_cb_backup_history_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No backup history yet
+            </p>
+            <p>
+                Completed and failed backup runs will appear here.
+                History remains after files are deleted by retention cleanup.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_cb_backup_history_activity_graph" model="ir.actions.act_window">
+        <field name="name">Backup Activity — Last 30 Days</field>
+        <field name="res_model">cb.backup.history</field>
+        <field name="view_mode">graph,pivot,list,form</field>
+        <field name="search_view_id" ref="view_cb_backup_history_search"/>
+        <field name="view_id" ref="view_cb_backup_history_graph"/>
+        <field name="domain">[('backup_datetime', '&gt;=', 'today -30d')]</field>
+        <field name="context">{'search_default_group_status': 1}</field>
+    </record>
+
+    <record id="action_cb_backup_history_storage_graph" model="ir.actions.act_window">
+        <field name="name">Backup Storage Trend</field>
+        <field name="res_model">cb.backup.history</field>
+        <field name="view_mode">graph,pivot,list,form</field>
+        <field name="search_view_id" ref="view_cb_backup_history_search"/>
+        <field name="view_id" ref="view_cb_backup_history_storage_graph"/>
+        <field name="domain">[('backup_datetime', '&gt;=', 'today -30d'), ('status', 'in', ('success', 'partial'))]</field>
+    </record>
+</odoo>

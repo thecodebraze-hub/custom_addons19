@@ -16,6 +16,12 @@
                     help="Show the on-hand quantity inside the info icon on POS product cards">
                     <field name="pos_cb_show_product_onhand"/>
                 </setting>
+                <setting id="cb_show_cross_branch_onhand"
+                    string="Product Card: Cross-branch On-hand"
+                    help="Also show warehouse-wise on-hand across all company branches in the product info popup"
+                    invisible="not pos_cb_show_product_onhand">
+                    <field name="pos_cb_show_cross_branch_onhand"/>
+                </setting>
             </setting>
         </field>
     </record>

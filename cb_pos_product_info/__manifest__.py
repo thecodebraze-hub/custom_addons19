@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "POS Product Info Popup",
-    "version": "19.0.1.0.2",
+    "version": "19.0.1.1.0",
     "category": "Sales/Point of Sale",
     "summary": "Show product cost and on-hand quantity in a POS product card popup",
     "description": """
@@ -16,6 +16,7 @@ settings:
 
 * Show product cost
 * Show on-hand quantity
+* Show cross-branch warehouse-wise on-hand (optional)
 
 For multi-variant products, cost and on-hand quantity are listed per variant.
     """,

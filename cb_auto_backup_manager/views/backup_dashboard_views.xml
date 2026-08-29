@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cb_backup_dashboard_form" model="ir.ui.view">
+        <field name="name">cb.backup.dashboard.form</field>
+        <field name="model">cb.backup.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="CB Auto Backup Manager Dashboard" create="0" edit="0" delete="0">
+                <header>
+                    <button name="action_open_plans" type="object" string="Backup Plans" class="btn-primary"/>
+                    <button name="action_open_history" type="object" string="Backup History"/>
+                    <button name="action_open_storage" type="object" string="Storage Destinations"/>
+                    <button name="action_open_cleanup_logs" type="object" string="Cleanup Logs"/>
+                    <button name="action_create_plan" type="object" string="Create Backup Plan"
+                            class="btn-secondary"
+                            invisible="not can_create_plan"
+                            groups="cb_auto_backup_manager.group_cb_backup_administrator"/>
+                    <button name="action_backup_now" type="object" string="Backup Now"
+                            class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_plans" type="object" class="oe_stat_button" icon="fa-list">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="kpi_total_plans"/></span>
+                                <span class="o_stat_text">Total Plans</span>
+                            </div>
+                        </button>
+                        <button name="action_open_plans" type="object" class="oe_stat_button" icon="fa-check-circle">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="kpi_active_plans"/></span>
+                                <span class="o_stat_text">Active Plans</span>
+                            </div>
+                        </button>
+                        <button name="action_open_history" type="object" class="oe_stat_button" icon="fa-calendar-check-o">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="kpi_backups_today"/></span>
+                                <span class="o_stat_text">Backups Today</span>
+                            </div>
+                        </button>
+                        <button name="action_open_history" type="object" class="oe_stat_button" icon="fa-check">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="kpi_successful"/></span>
+                                <span class="o_stat_text">Successful</span>
+                            </div>
+                        </button>
+                        <button name="action_open_history" type="object" class="oe_stat_button" icon="fa-times-circle">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="kpi_failed"/></span>
+                                <span class="o_stat_text">Failed</span>
+                            </div>
+                        </button>
+                        <button name="action_open_history" type="object" class="oe_stat_button" icon="fa-exclamation-triangle">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="kpi_partial"/></span>
+                                <span class="o_stat_text">Partial</span>
+                            </div>
+                        </button>
+                        <button name="action_open_history" type="object" class="oe_stat_button" icon="fa-database">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="kpi_total_storage_display"/></span>
+                                <span class="o_stat_text">Total Storage</span>
+                            </div>
+                        </button>
+                        <button name="action_open_history" type="object" class="oe_stat_button" icon="fa-lock">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="kpi_encrypted_coverage"/></span>
+                                <span class="o_stat_text">Encrypted</span>
+                            </div>
+                        </button>
+                        <button name="action_open_next_plan" type="object" class="oe_stat_button" icon="fa-clock-o">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="kpi_next_backup_display"/></span>
+                                <span class="o_stat_text">Next Backup</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>CB Auto Backup Manager Dashboard</h1>
+                    </div>
+                    <group>
+                        <group string="Next Backup">
+                            <div invisible="has_upcoming_backup" class="text-muted fst-italic">
+                                <field name="next_backup_empty_message" nolabel="1"/>
+                            </div>
+                            <field name="next_plan_id" invisible="not has_upcoming_backup"/>
+                            <field name="next_database_name" invisible="not has_upcoming_backup"/>
+                            <field name="next_backup_datetime" invisible="not has_upcoming_backup"/>
+                            <field name="has_upcoming_backup" invisible="1"/>
+                        </group>
+                        <group string="Backup Verification">
+                            <field name="last_verification_status" string="Last Backup Verification"/>
+                            <field name="last_restore_test_status" string="Last Test Restore"/>
+                            <field name="kpi_encrypted_coverage" string="Encryption Coverage"/>
+                        </group>
+                        <group string="Retention Cleanup">
+                            <div invisible="has_cleanup" class="text-muted fst-italic">
+                                <field name="cleanup_empty_message" nolabel="1"/>
+                            </div>
+                            <field name="cleanup_last_datetime" invisible="not has_cleanup"/>
+                            <field name="cleanup_files_deleted" invisible="not has_cleanup"/>
+                            <field name="cleanup_space_freed_display" invisible="not has_cleanup"/>
+                            <field name="cleanup_failed_count" invisible="not has_cleanup"/>
+                            <field name="has_cleanup" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Total Backup Storage">
+                            <field name="kpi_total_storage_display" string="Total"/>
+                            <field name="storage_local_display"/>
+                            <field name="storage_sftp_display"/>
+                            <field name="storage_gdrive_display"/>
+                            <field name="storage_usage_note" nolabel="1" class="text-muted"/>
+                        </group>
+                        <group string="Storage Destinations">
+                            <field name="storage_ids" nolabel="1" colspan="2">
+                                <list create="0" delete="0" edit="0" open_form_view="True">
+                                    <field name="name"/>
+                                    <field name="type"/>
+                                    <field name="connection_state" widget="badge"
+                                           decoration-success="connection_state == 'ready'"
+                                           decoration-danger="connection_state == 'failed'"
+                                           decoration-warning="connection_state in ('unsupported', 'not_tested')"
+                                           decoration-muted="connection_state == 'disconnected'"/>
+                                    <field name="active"/>
+                                    <field name="last_test_datetime"/>
+                                </list>
+                            </field>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Today's Backups" name="today">
+                            <div invisible="has_today_backups" class="text-muted fst-italic p-3">
+                                <field name="today_empty_message" nolabel="1"/>
+                            </div>
+                            <field name="today_history_ids" nolabel="1" invisible="not has_today_backups">
+                                <list create="0" delete="0" edit="0" open_form_view="True">
+                                    <field name="backup_datetime" string="Time"/>
+                                    <field name="plan_id"/>
+                                    <field name="database_name"/>
+                                    <field name="status" widget="badge"
+                                           decoration-success="status == 'success'"
+                                           decoration-warning="status == 'partial'"
+                                           decoration-danger="status == 'failed'"
+                                           decoration-info="status == 'running'"/>
+                                    <field name="duration_display"/>
+                                    <field name="file_size_display"/>
+                                    <field name="destination_summary"/>
+                                </list>
+                            </field>
+                            <field name="has_today_backups" invisible="1"/>
+                        </page>
+                        <page string="Recent Backups" name="recent">
+                            <field name="recent_history_ids" nolabel="1">
+                                <list create="0" delete="0" edit="0" open_form_view="True">
+                                    <field name="backup_datetime" string="Date"/>
+                                    <field name="plan_id"/>
+                                    <field name="database_name"/>
+                                    <field name="status" widget="badge"
+                                           decoration-success="status == 'success'"
+                                           decoration-warning="status == 'partial'"
+                                           decoration-danger="status == 'failed'"
+                                           decoration-info="status == 'running'"/>
+                                    <field name="file_size_display"/>
+                                    <field name="duration_display"/>
+                                    <field name="destination_summary"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Recent Failures" name="failures">
+                            <div invisible="has_recent_failures" class="text-muted fst-italic p-3">
+                                <field name="failure_empty_message" nolabel="1"/>
+                            </div>
+                            <field name="failure_history_ids" nolabel="1" invisible="not has_recent_failures">
+                                <list create="0" delete="0" edit="0" open_form_view="True">
+                                    <field name="backup_datetime" string="Date"/>
+                                    <field name="plan_id"/>
+                                    <field name="database_name"/>
+                                    <field name="error_summary"/>
+                                    <field name="destination_summary" string="Destination"/>
+                                    <field name="status" widget="badge"
+                                           decoration-warning="status == 'partial'"
+                                           decoration-danger="status == 'failed'"/>
+                                </list>
+                            </field>
+                            <field name="has_recent_failures" invisible="1"/>
+                        </page>
+                        <page string="Backup Activity — Last 30 Days" name="activity">
+                            <div class="mb-3" style="min-height: 180px;">
+                                <field name="activity_graph_data" widget="dashboard_graph" graph_type="bar" nolabel="1"/>
+                            </div>
+                            <button name="action_open_activity_graph" type="object"
+                                    string="Open status breakdown" class="btn-link"/>
+                        </page>
+                        <page string="Backup Storage Trend" name="storage_trend">
+                            <div class="mb-3" style="min-height: 180px;">
+                                <field name="storage_graph_data" widget="dashboard_graph" graph_type="line" nolabel="1"/>
+                            </div>
+                            <field name="storage_trend_note" nolabel="1" class="text-muted"/>
+                            <button name="action_open_storage_graph" type="object"
+                                    string="Open storage chart" class="btn-link"/>
+                        </page>
+                    </notebook>
+                    <field name="can_create_plan" invisible="1"/>
+                    <field name="kpi_total_storage_bytes" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cb_backup_dashboard" model="ir.actions.server">
+        <field name="name">Dashboard</field>
+        <field name="model_id" ref="model_cb_backup_dashboard"/>
+        <field name="state">code</field>
+        <field name="code">action = env['cb.backup.dashboard'].action_open_dashboard()</field>
+    </record>
+</odoo>

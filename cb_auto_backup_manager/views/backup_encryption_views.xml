@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cb_backup_encryption_profile_list" model="ir.ui.view">
+        <field name="name">cb.backup.encryption.profile.list</field>
+        <field name="model">cb.backup.encryption.profile</field>
+        <field name="arch" type="xml">
+            <list string="Encryption Profiles">
+                <field name="name"/>
+                <field name="method"/>
+                <field name="has_secret"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_encryption_profile_form" model="ir.ui.view">
+        <field name="name">cb.backup.encryption.profile.form</field>
+        <field name="model">cb.backup.encryption.profile</field>
+        <field name="arch" type="xml">
+            <form string="Encryption Profile">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Production Encryption"/>
+                        </h1>
+                    </div>
+                    <div class="alert alert-warning" role="alert">
+                        <field name="disaster_recovery_warning" nolabel="1"/>
+                    </div>
+                    <group>
+                        <group string="Encryption">
+                            <field name="method"/>
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="has_secret"/>
+                        </group>
+                        <group string="Password">
+                            <field name="secret" password="True"
+                                   groups="cb_auto_backup_manager.group_cb_backup_administrator"/>
+                            <field name="secret_confirm" password="True"
+                                   groups="cb_auto_backup_manager.group_cb_backup_administrator"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" placeholder="Optional notes. Do not store the password here."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_encryption_profile_search" model="ir.ui.view">
+        <field name="name">cb.backup.encryption.profile.search</field>
+        <field name="model">cb.backup.encryption.profile</field>
+        <field name="arch" type="xml">
+            <search string="Encryption Profiles">
+                <field name="name"/>
+                <filter string="Active" name="filter_active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cb_backup_encryption_profile" model="ir.actions.act_window">
+        <field name="name">Encryption Profiles</field>
+        <field name="res_model">cb.backup.encryption.profile</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_cb_backup_encryption_profile_search"/>
+        <field name="context">{'search_default_filter_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create an encryption profile
+            </p>
+            <p>
+                Store the encryption secret outside this Odoo server.
+                If the secret is lost, encrypted backups cannot be restored.
+            </p>
+        </field>
+    </record>
+</odoo>

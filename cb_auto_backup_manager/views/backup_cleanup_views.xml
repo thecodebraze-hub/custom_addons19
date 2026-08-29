@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cb_backup_cleanup_log_list" model="ir.ui.view">
+        <field name="name">cb.backup.cleanup.log.list</field>
+        <field name="model">cb.backup.cleanup.log</field>
+        <field name="arch" type="xml">
+            <list string="Cleanup Logs" create="0" delete="0">
+                <field name="cleanup_datetime" string="Date"/>
+                <field name="plan_id"/>
+                <field name="storage_id" string="Storage"/>
+                <field name="files_scanned"/>
+                <field name="files_deleted"/>
+                <field name="files_skipped"/>
+                <field name="bytes_deleted_display" string="Bytes Deleted"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'success'"
+                       decoration-warning="status == 'partial'"
+                       decoration-danger="status == 'failed'"/>
+                <field name="error_message" optional="show"/>
+                <field name="trigger_type" optional="hide"/>
+                <field name="bytes_deleted" optional="hide"/>
+                <field name="cutoff_datetime" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_cleanup_log_form" model="ir.ui.view">
+        <field name="name">cb.backup.cleanup.log.form</field>
+        <field name="model">cb.backup.cleanup.log</field>
+        <field name="arch" type="xml">
+            <form string="Cleanup Log" create="0" edit="0" delete="0">
+                <sheet>
+                    <group string="General">
+                        <group>
+                            <field name="plan_id"/>
+                            <field name="storage_id" string="Storage"/>
+                        </group>
+                        <group>
+                            <field name="cleanup_datetime" string="Cleanup Date"/>
+                            <field name="cutoff_datetime" string="Cutoff Date"/>
+                            <field name="trigger_type"/>
+                        </group>
+                    </group>
+                    <group string="Statistics">
+                        <group>
+                            <field name="files_scanned"/>
+                            <field name="files_deleted"/>
+                            <field name="files_skipped"/>
+                            <field name="bytes_deleted_display" string="Bytes Deleted"/>
+                            <field name="bytes_deleted" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                            <field name="error_message" string="Error Message" invisible="not error_message"/>
+                        </group>
+                    </group>
+                    <group string="Details" invisible="not details">
+                        <field name="details" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_cleanup_log_search" model="ir.ui.view">
+        <field name="name">cb.backup.cleanup.log.search</field>
+        <field name="model">cb.backup.cleanup.log</field>
+        <field name="arch" type="xml">
+            <search string="Cleanup Logs">
+                <field name="plan_id"/>
+                <field name="storage_id"/>
+                <filter string="Success" name="filter_success" domain="[('status', '=', 'success')]"/>
+                <filter string="Partial" name="filter_partial" domain="[('status', '=', 'partial')]"/>
+                <filter string="Failed" name="filter_failed" domain="[('status', '=', 'failed')]"/>
+                <group>
+                    <filter string="Plan" name="group_plan" context="{'group_by': 'plan_id'}"/>
+                    <filter string="Storage" name="group_storage" context="{'group_by': 'storage_id'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cb_backup_cleanup_log" model="ir.actions.act_window">
+        <field name="name">Cleanup Logs</field>
+        <field name="res_model">cb.backup.cleanup.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_cb_backup_cleanup_log_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No cleanup logs yet
+            </p>
+            <p>
+                Retention cleanup results will appear here. Backup history is never deleted.
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_cb_auto_backup_manager_root"
+              name="Auto Backup Manager"
+              web_icon="cb_auto_backup_manager,static/description/icon.png"
+              sequence="260"
+              groups="cb_auto_backup_manager.group_cb_backup_operator"/>
+
+    <menuitem id="menu_cb_backup_dashboard"
+              name="Dashboard"
+              parent="menu_cb_auto_backup_manager_root"
+              action="action_cb_backup_dashboard"
+              sequence="5"/>
+
+    <menuitem id="menu_cb_backup_plans"
+              name="Backup Plans"
+              parent="menu_cb_auto_backup_manager_root"
+              action="action_cb_backup_plan"
+              sequence="10"/>
+
+    <menuitem id="menu_cb_backup_history"
+              name="Backup History"
+              parent="menu_cb_auto_backup_manager_root"
+              action="action_cb_backup_history"
+              sequence="20"/>
+
+    <menuitem id="menu_cb_backup_storage"
+              name="Storage Destinations"
+              parent="menu_cb_auto_backup_manager_root"
+              action="action_cb_backup_storage"
+              sequence="30"/>
+
+    <menuitem id="menu_cb_backup_cleanup_log"
+              name="Cleanup Logs"
+              parent="menu_cb_auto_backup_manager_root"
+              action="action_cb_backup_cleanup_log"
+              sequence="40"/>
+
+    <menuitem id="menu_cb_backup_restore_log"
+              name="Restore Logs"
+              parent="menu_cb_auto_backup_manager_root"
+              action="action_cb_backup_restore_log"
+              sequence="50"/>
+
+    <menuitem id="menu_cb_backup_configuration"
+              name="Configuration"
+              parent="menu_cb_auto_backup_manager_root"
+              sequence="90"
+              groups="cb_auto_backup_manager.group_cb_backup_administrator"/>
+
+    <menuitem id="menu_cb_backup_encryption_profile"
+              name="Encryption Profiles"
+              parent="menu_cb_backup_configuration"
+              action="action_cb_backup_encryption_profile"
+              sequence="5"
+              groups="cb_auto_backup_manager.group_cb_backup_administrator"/>
+
+    <menuitem id="menu_cb_backup_settings"
+              name="Settings"
+              parent="menu_cb_backup_configuration"
+              action="action_cb_backup_settings"
+              sequence="10"
+              groups="cb_auto_backup_manager.group_cb_backup_administrator"/>
+</odoo>

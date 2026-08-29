@@ -12,3 +12,7 @@ class ResConfigSettings(models.TransientModel):
         related="pos_config_id.cb_show_product_onhand",
         readonly=False,
     )
+    pos_cb_show_cross_branch_onhand = fields.Boolean(
+        related="pos_config_id.cb_show_cross_branch_onhand",
+        readonly=False,
+    )

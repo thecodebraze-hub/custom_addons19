@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cb_backup_restore_wizard_form" model="ir.ui.view">
+        <field name="name">cb.backup.restore.wizard.form</field>
+        <field name="model">cb.backup.restore.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Verify / Test Restore">
+                <sheet>
+                    <group>
+                        <group string="Backup">
+                            <field name="history_id" invisible="1"/>
+                            <field name="backup_file"/>
+                            <field name="database_name"/>
+                            <field name="backup_datetime"/>
+                            <field name="checksum_status"/>
+                            <field name="odoo_version_backup"/>
+                            <field name="odoo_version_current" invisible="1"/>
+                            <field name="checksum" invisible="1"/>
+                            <field name="available_storage_ids" invisible="1"/>
+                            <field name="can_test_restore" invisible="1"/>
+                            <field name="encrypted" invisible="1"/>
+                            <field name="encryption_method" invisible="not encrypted"/>
+                        </group>
+                        <group string="Restore Options">
+                            <field name="restore_mode"/>
+                            <field name="target_database_name"/>
+                            <field name="storage_id"/>
+                            <field name="verify_database"/>
+                            <field name="verify_filestore"/>
+                            <field name="cleanup_after_test"/>
+                        </group>
+                    </group>
+                    <group invisible="not encrypted">
+                        <field name="encryption_secret" password="True"
+                               placeholder="Required for encrypted backups"/>
+                    </group>
+                    <div class="alert alert-warning" role="alert" invisible="not version_warning">
+                        <field name="version_warning" nolabel="1"/>
+                    </div>
+                    <group invisible="not version_warning">
+                        <field name="acknowledge_version_warning"/>
+                    </group>
+                    <group invisible="not result">
+                        <field name="result"/>
+                        <field name="error_message" invisible="not error_message"/>
+                    </group>
+                    <div class="text-muted fst-italic">
+                        Test Restore creates a temporary PostgreSQL database only.
+                        It never overwrites or drops the current Odoo database.
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_verify" type="object" string="Verify" class="btn-primary"/>
+                    <button name="action_test_restore" type="object" string="Test Restore"
+                            class="btn-secondary"
+                            invisible="not can_test_restore"
+                            groups="cb_auto_backup_manager.group_cb_backup_administrator"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_restore_log_list" model="ir.ui.view">
+        <field name="name">cb.backup.restore.log.list</field>
+        <field name="model">cb.backup.restore.log</field>
+        <field name="arch" type="xml">
+            <list string="Restore Logs" create="0" delete="0">
+                <field name="restore_datetime"/>
+                <field name="history_id"/>
+                <field name="restore_mode"/>
+                <field name="target_database"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'success'"
+                       decoration-warning="status == 'warning'"
+                       decoration-danger="status == 'failed'"
+                       decoration-info="status == 'running'"/>
+                <field name="checksum_verified"/>
+                <field name="database_verified"/>
+                <field name="filestore_verified"/>
+                <field name="cleanup_status"/>
+                <field name="duration_display"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_restore_log_form" model="ir.ui.view">
+        <field name="name">cb.backup.restore.log.form</field>
+        <field name="model">cb.backup.restore.log</field>
+        <field name="arch" type="xml">
+            <form string="Restore Log" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group string="General">
+                            <field name="restore_datetime"/>
+                            <field name="history_id"/>
+                            <field name="restore_mode"/>
+                            <field name="target_database"/>
+                            <field name="status"/>
+                            <field name="storage_id"/>
+                        </group>
+                        <group string="Verification">
+                            <field name="checksum_verified"/>
+                            <field name="database_verified"/>
+                            <field name="filestore_verified"/>
+                            <field name="odoo_version_compatible"/>
+                            <field name="backup_odoo_version"/>
+                            <field name="current_odoo_version"/>
+                            <field name="cleanup_status"/>
+                            <field name="duration_display"/>
+                            <field name="duration_seconds" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="result_message"/>
+                        <field name="error_message" invisible="not error_message"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_restore_log_search" model="ir.ui.view">
+        <field name="name">cb.backup.restore.log.search</field>
+        <field name="model">cb.backup.restore.log</field>
+        <field name="arch" type="xml">
+            <search string="Restore Logs">
+                <field name="history_id"/>
+                <field name="target_database"/>
+                <filter string="Verify Only" name="filter_verify" domain="[('restore_mode', '=', 'verify_only')]"/>
+                <filter string="Temporary Restore" name="filter_restore" domain="[('restore_mode', '=', 'temporary_restore')]"/>
+                <separator/>
+                <filter string="Success" name="filter_success" domain="[('status', '=', 'success')]"/>
+                <filter string="Failed" name="filter_failed" domain="[('status', '=', 'failed')]"/>
+                <group>
+                    <filter string="Mode" name="group_mode" context="{'group_by': 'restore_mode'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cb_backup_restore_log" model="ir.actions.act_window">
+        <field name="name">Restore Logs</field>
+        <field name="res_model">cb.backup.restore.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_cb_backup_restore_log_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No restore tests yet
+            </p>
+            <p>
+                Verification and temporary restore results will appear here.
+                Restore tests never overwrite the current Odoo database.
+            </p>
+        </field>
+    </record>
+</odoo>

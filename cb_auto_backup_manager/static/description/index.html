@@ -1,0 +1,179 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#1565C0;">CB Auto Backup Manager</h2>
+        <h3 class="oe_slogan">
+            Automated PostgreSQL and filestore backups for Odoo 19 — Local, SFTP, and Google Drive
+        </h3>
+        <div class="oe_span12" style="text-align:center;clear:both;">
+            <img src="cover.png" width="100%"
+                 style="max-width:100%;height:auto;display:block;margin:0 auto;"
+                 alt="CB Auto Backup Manager cover"/>
+            <p style="text-align:center;font-size:14px;color:#555;margin-top:10px;">
+                Schedule verified backups, deliver archives to multiple destinations, and test restores safely.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container" style="clear:both;">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#1565C0;">Why this module</h2>
+        <div class="oe_span12" style="clear:both;">
+            <p style="text-align:left;font-size:16px;line-height:1.7;max-width:900px;margin:16px auto;">
+                <b>CB Auto Backup Manager</b> backs up PostgreSQL databases and Odoo filestores on the
+                same server. Backup Administrators define plans, schedules, retention, destinations,
+                and optional AES-256 encryption — without overwriting the live database.
+            </p>
+            <ul style="text-align:left;font-size:15px;line-height:1.9;max-width:900px;margin:0 auto;padding-left:24px;">
+                <li><b>Backup Plans</b> with Backups Per Day and daily, weekly, or monthly times</li>
+                <li><b>Odoo-compatible ZIP</b> archives (<code>dump.sql</code> + filestore) for Database Manager restore</li>
+                <li><b>Local Server, SFTP, and Google Drive</b> — multiple destinations per plan</li>
+                <li><b>SHA-256 checksums</b>, ZIP integrity checks, and optional AES-256-GCM encryption</li>
+                <li><b>Retention cleanup</b> with audit logs and native Odoo notifications</li>
+                <li><b>Dashboard</b>, backup verification, and temporary restore testing</li>
+                <li><b>Backup Administrator</b> and <b>Backup Operator</b> security groups</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark" style="clear:both;">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#1565C0;">1. Monitoring dashboard</h2>
+        <p style="text-align:center;font-size:15px;max-width:900px;margin:0 auto 12px;">
+            KPIs for plans, backups today, failures, storage totals, encryption coverage,
+            next scheduled backup, and recent activity.
+        </p>
+        <div class="oe_span12" style="text-align:center;clear:both;">
+            <img src="screenshot_dashboard.png" width="100%"
+                 style="max-width:100%;height:auto;border:1px solid #ddd;"
+                 alt="Backup dashboard"/>
+            <p style="text-align:center;font-size:14px;color:#555;margin-top:10px;">
+                <b>Screenshot:</b> Dashboard with KPIs, today's backups, and storage destination status.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container" style="clear:both;">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#1565C0;">2. Backup plans and schedules</h2>
+        <p style="text-align:center;font-size:15px;max-width:900px;margin:0 auto 12px;">
+            Select the database, retention days, destinations, encryption profile, and backup times.
+            Activate only after destinations validate successfully.
+        </p>
+        <div class="oe_span12" style="text-align:center;clear:both;">
+            <img src="screenshot_plan.png" width="100%"
+                 style="max-width:100%;height:auto;border:1px solid #ddd;"
+                 alt="Backup plans list"/>
+            <p style="text-align:center;font-size:14px;color:#555;margin:10px 0 24px;">
+                <b>Screenshot:</b> Backup Plans list — status, retention, destinations, and next run.
+            </p>
+            <img src="screenshot_schedule.png" width="100%"
+                 style="max-width:100%;height:auto;border:1px solid #ddd;"
+                 alt="Backup plan form and schedule"/>
+            <p style="text-align:center;font-size:14px;color:#555;margin-top:10px;">
+                <b>Screenshot:</b> Active Backup Plan — destinations, retention, encryption, and Backup Times.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark" style="clear:both;">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#1565C0;">3. Storage destinations</h2>
+        <p style="text-align:center;font-size:15px;max-width:900px;margin:0 auto 12px;">
+            Local Server, SFTP (Paramiko with host-key verification), and Google Drive (OAuth + Drive API).
+        </p>
+        <div class="oe_span12" style="text-align:center;clear:both;">
+            <img src="screenshot_storage_list.png" width="100%"
+                 style="max-width:100%;height:auto;border:1px solid #ddd;"
+                 alt="Storage destinations list"/>
+            <p style="text-align:center;font-size:14px;color:#555;margin:10px 0 24px;">
+                <b>Screenshot:</b> Storage Destinations list with connection status.
+            </p>
+            <img src="screenshot_sftp.png" width="100%"
+                 style="max-width:100%;height:auto;border:1px solid #ddd;"
+                 alt="Local Server configuration"/>
+            <p style="text-align:center;font-size:14px;color:#555;margin-top:10px;">
+                <b>Screenshot:</b> Local Server destination — path validation and Connected status.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container" style="clear:both;">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#1565C0;">4. History, verification, and restore testing</h2>
+        <p style="text-align:center;font-size:15px;max-width:900px;margin:0 auto 12px;">
+            Every run records checksums, destination results, duration, and status.
+            Verify archives or restore into a temporary database — never the live production database.
+        </p>
+        <div class="oe_span12" style="text-align:center;clear:both;">
+            <img src="screenshot_history.png" width="100%"
+                 style="max-width:100%;height:auto;border:1px solid #ddd;"
+                 alt="Backup history"/>
+            <p style="text-align:center;font-size:14px;color:#555;margin-top:10px;">
+                <b>Screenshot:</b> Backup History — status, size, verification, test restore, and destinations.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark" style="clear:both;">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#1565C0;">5. Retention cleanup logs</h2>
+        <p style="text-align:center;font-size:15px;max-width:900px;margin:0 auto 12px;">
+            Automatic and manual cleanup runs are audited with files scanned, deleted, skipped, and space freed.
+        </p>
+        <div class="oe_span12" style="text-align:center;clear:both;">
+            <img src="screenshot_cleanup.png" width="100%"
+                 style="max-width:100%;height:auto;border:1px solid #ddd;"
+                 alt="Cleanup logs"/>
+            <p style="text-align:center;font-size:14px;color:#555;margin-top:10px;">
+                <b>Screenshot:</b> Cleanup Logs — retention audit per plan and storage destination.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container" style="clear:both;">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#1565C0;">Security and limitations</h2>
+        <div class="oe_span12" style="clear:both;max-width:900px;margin:0 auto;">
+            <ul style="text-align:left;font-size:15px;line-height:1.9;padding-left:24px;">
+                <li>Secrets (SFTP, Google OAuth, encryption) visible only to Backup Administrators</li>
+                <li>No <code>shell=True</code> — PostgreSQL dumps use <code>pg_dump</code> safely</li>
+                <li>ZIP path traversal rejected; current database drop protection on restore tests</li>
+                <li>Does <b>not</b> overwrite live production, restart services, or provide incremental backups</li>
+                <li>Does <b>not</b> include AWS S3, Azure Blob, or Dropbox</li>
+            </ul>
+            <p style="font-size:15px;line-height:1.7;margin-top:16px;">
+                <b>Requirements:</b> Odoo 19, PostgreSQL with <code>pg_dump</code>,
+                Python <code>paramiko</code> for SFTP, Google Cloud OAuth client for Google Drive.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark" style="clear:both;">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#1565C0;">Support</h2>
+        <p style="text-align:center;font-size:16px;max-width:900px;margin:0 auto;">
+            <b>CodeBraze (PVT) Ltd</b><br/>
+            Website: <a href="https://www.codebraze.com">https://www.codebraze.com</a><br/>
+            Email: <a href="mailto:info@codebraze.com">info@codebraze.com</a><br/>
+            Odoo 19 · License OPL-1 · USD 9.99
+        </p>
+    </div>
+</section>
+
+<section class="oe_container" style="clear:both;margin-top:24px;">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12" style="text-align:center;clear:both;">
+            <img src="developed_by.png" width="100%"
+                 style="max-width:100%;height:auto;display:block;margin:0 auto;border-radius:12px;"
+                 alt="Developed by CodeBraze"/>
+        </div>
+    </div>
+</section>

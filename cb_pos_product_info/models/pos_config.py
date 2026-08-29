@@ -12,3 +12,8 @@ class PosConfig(models.Model):
         string="Show On-hand Qty on Card",
         help="Display the on-hand quantity inside the info icon on POS product cards.",
     )
+    cb_show_cross_branch_onhand = fields.Boolean(
+        string="Show Cross-branch On-hand",
+        help="Also show warehouse-wise on-hand across all company branches "
+             "in the product info popup.",
+    )

@@ -16,6 +16,7 @@
 
                 <div t-if="cbInfo.open"
                     class="cb-pi-pop position-absolute end-0 m-1"
+                    t-att-class="{'cb-pi-pop-wide': cbShowCrossBranch}"
                     t-on-click.stop="() => {}">
                     <div class="cb-pi-head">
                         <span>Product info</span>
@@ -33,6 +34,18 @@
                             <span class="cb-pi-label">On hand</span>
                             <span class="cb-pi-value" t-esc="line.onhand"/>
                         </div>
+                        <t t-if="cbShowCrossBranch">
+                            <div class="cb-pi-wh-title">By warehouse</div>
+                            <div t-if="cbInfo.loading" class="cb-pi-wh-loading">Loading…</div>
+                            <t t-else="">
+                                <div t-foreach="line.warehouses" t-as="wh" t-key="wh.warehouse_id"
+                                    class="cb-pi-row cb-pi-wh-row"
+                                    t-att-class="{'cb-pi-wh-current': wh.is_current}">
+                                    <span class="cb-pi-label" t-esc="wh.label"/>
+                                    <span class="cb-pi-value" t-esc="wh.qtyDisplay"/>
+                                </div>
+                            </t>
+                        </t>
                     </t>
 
                     <!-- Multiple variants: one block per variant -->
@@ -48,6 +61,18 @@
                                     <span class="cb-pi-label">On hand</span>
                                     <span class="cb-pi-value" t-esc="line.onhand"/>
                                 </div>
+                                <t t-if="cbShowCrossBranch">
+                                    <div class="cb-pi-wh-title">By warehouse</div>
+                                    <div t-if="cbInfo.loading" class="cb-pi-wh-loading">Loading…</div>
+                                    <t t-else="">
+                                        <div t-foreach="line.warehouses" t-as="wh" t-key="wh.warehouse_id"
+                                            class="cb-pi-row cb-pi-wh-row"
+                                            t-att-class="{'cb-pi-wh-current': wh.is_current}">
+                                            <span class="cb-pi-label" t-esc="wh.label"/>
+                                            <span class="cb-pi-value" t-esc="wh.qtyDisplay"/>
+                                        </div>
+                                    </t>
+                                </t>
                             </div>
                         </div>
                     </t>

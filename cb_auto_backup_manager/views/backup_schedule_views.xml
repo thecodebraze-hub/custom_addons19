@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cb_backup_schedule_list" model="ir.ui.view">
+        <field name="name">cb.backup.schedule.list</field>
+        <field name="model">cb.backup.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Backup Schedules">
+                <field name="plan_id"/>
+                <field name="frequency"/>
+                <field name="weekday"/>
+                <field name="month_day"/>
+                <field name="time_display"/>
+                <field name="time_hour" optional="hide"/>
+                <field name="time_minute" optional="hide"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_schedule_form" model="ir.ui.view">
+        <field name="name">cb.backup.schedule.form</field>
+        <field name="model">cb.backup.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Backup Schedule">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="plan_id"/>
+                            <field name="frequency"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="weekday"
+                                   required="frequency == 'weekly'"
+                                   invisible="frequency != 'weekly'"/>
+                            <field name="month_day"
+                                   required="frequency == 'monthly'"
+                                   invisible="frequency != 'monthly'"/>
+                            <field name="time_display"/>
+                            <field name="time_hour" invisible="1"/>
+                            <field name="time_minute" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cb_backup_schedule_search" model="ir.ui.view">
+        <field name="name">cb.backup.schedule.search</field>
+        <field name="model">cb.backup.schedule</field>
+        <field name="arch" type="xml">
+            <search string="Backup Schedules">
+                <field name="plan_id"/>
+                <field name="frequency"/>
+                <filter string="Active" name="filter_active" domain="[('active', '=', True)]"/>
+                <group>
+                    <filter string="Plan" name="group_plan" context="{'group_by': 'plan_id'}"/>
+                    <filter string="Frequency" name="group_frequency"
+                            context="{'group_by': 'frequency'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
